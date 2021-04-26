@@ -1,31 +1,38 @@
 package com.epam.project.domain;
 
 public class Book extends AbstractBaseEntity {
-    String name;
-    String author;
-    Long id;
-    String genre;
-    String status;
+    private String author;
+    private Genre genre;
+    private Status status;
 
-    public String getGenre() {
+    Book(Long id, String name, String author,Genre genre, Status status ){
+        super(id,name);
+        this.author=author;
+        this.genre=genre;
+        this.status=status;
+    }
+
+
+
+    public Genre getGenre() {
         return genre;
     }
 
     @Override
     public Long getId() {
-        return id;
+        return super.getId();
     }
 
     @Override
     public String getName() {
-        return name;
+        return super.getName();
     }
 
     public String getAuthor() {
         return author;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 }

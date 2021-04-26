@@ -4,23 +4,23 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Subscription extends AbstractBaseEntity{
+public class ReaderRoom extends AbstractBaseEntity{
+    private Long id;
     private List<Book> books=new ArrayList<>();
     private LocalDate from;
     private LocalDate to;
     private User user;
-    private final Long id;
-    private final String name;
 
-    public Subscription(Long id, String name, List<Book> books, LocalDate from, LocalDate to, User user, Long id1, String name1) {
+    public ReaderRoom(Long id, String name, Long id1, List<Book> books, LocalDate from, LocalDate to, User user) {
         super(id, name);
+        this.id = id1;
         this.books = books;
         this.from = from;
         this.to = to;
         this.user = user;
-        this.id = id1;
-        this.name = name1;
     }
+
+
 
     public List<Book> getBooks() {
         return books;
@@ -28,7 +28,7 @@ public class Subscription extends AbstractBaseEntity{
 
     @Override
     public Long getId() {
-        return super.getId();
+        return id;
     }
 
     public User getUser() {
