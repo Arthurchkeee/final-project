@@ -5,15 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReaderRoom extends AbstractBaseEntity{
-    private Long id;
     private List<Book> books=new ArrayList<>();
     private LocalDate from;
     private LocalDate to;
     private User user;
 
-    public ReaderRoom(Long id, String name, Long id1, List<Book> books, LocalDate from, LocalDate to, User user) {
+    public ReaderRoom(Long id, String name,  List<Book> books, LocalDate from, LocalDate to, User user) {
         super(id, name);
-        this.id = id1;
         this.books = books;
         this.from = from;
         this.to = to;
@@ -28,7 +26,7 @@ public class ReaderRoom extends AbstractBaseEntity{
 
     @Override
     public Long getId() {
-        return id;
+        return this.getId();
     }
 
     public User getUser() {
