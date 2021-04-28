@@ -10,13 +10,4 @@ public class User extends AbstractBaseEntity{
         this.role = role;
     }
 
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
-
-    @Override
-    public String getName() {
-        return super.getName();
-    }
 }

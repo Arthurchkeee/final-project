@@ -26,10 +26,7 @@ public class Subscription extends AbstractBaseEntity{
         return books;
     }
 
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
+
 
     public User getUser() {
         return user;

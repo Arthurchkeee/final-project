@@ -24,11 +24,6 @@ public class ReaderRoom extends AbstractBaseEntity{
         return books;
     }
 
-    @Override
-    public Long getId() {
-        return this.getId();
-    }
-
     public User getUser() {
         return user;
     }

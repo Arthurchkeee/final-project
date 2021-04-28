@@ -5,7 +5,7 @@ public class Book extends AbstractBaseEntity {
     private Genre genre;
     private Status status;
 
-    Book(Long id, String name, String author,Genre genre, Status status ){
+    public Book(Long id, String name, String author, Genre genre, Status status){
         super(id,name);
         this.author=author;
         this.genre=genre;
@@ -16,16 +16,6 @@ public class Book extends AbstractBaseEntity {
 
     public Genre getGenre() {
         return genre;
-    }
-
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
-
-    @Override
-    public String getName() {
-        return super.getName();
     }
 
     public String getAuthor() {
