@@ -1,4 +1,4 @@
-package com.epam.project.domain;
+package com.epam.project.entityes;
 
 public interface BaseEntity {
     final Long id = null;

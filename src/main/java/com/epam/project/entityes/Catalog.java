@@ -1,4 +1,4 @@
-package com.epam.project.domain;
+package com.epam.project.entityes;
 
 import java.util.ArrayList;
 import java.util.List;

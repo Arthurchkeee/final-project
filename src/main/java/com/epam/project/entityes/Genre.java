@@ -1,4 +1,4 @@
-package com.epam.project.domain;
+package com.epam.project.entityes;
 
 public enum Genre implements BaseEntity{
     COMEDY(1L),

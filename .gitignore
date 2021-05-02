@@ -2,3 +2,4 @@
 /target/
 .idea
 final-project.iml
+src/com/epam/project/Main.java

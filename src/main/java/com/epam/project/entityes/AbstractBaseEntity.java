@@ -1,4 +1,4 @@
-package com.epam.project.domain;
+package com.epam.project.entityes;
 
 public abstract class AbstractBaseEntity implements BaseEntity{
     private Long id;
