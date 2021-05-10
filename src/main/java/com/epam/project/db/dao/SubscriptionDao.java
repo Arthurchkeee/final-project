@@ -1,4 +1,22 @@
 package com.epam.project.db.dao;
 
-public interface SubscriptionDao extends BaseDao{
+import com.epam.project.entityes.Subscription;
+
+import java.util.List;
+
+public interface SubscriptionDao extends BaseDao<Integer, Subscription>{
+    @Override
+    List<Subscription> findAllEntities();
+
+    @Override
+    Subscription findEntityById(Integer id);
+
+    @Override
+    boolean create(Subscription entity);
+
+    @Override
+    boolean delete(Integer id);
+
+    @Override
+    Subscription Update(Subscription entity);
 }

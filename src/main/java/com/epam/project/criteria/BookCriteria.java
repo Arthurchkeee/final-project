@@ -6,8 +6,8 @@ import com.epam.project.entityes.Status;
 
 public class BookCriteria extends Criteria<Book>{
     private String author;
-    private Genre genre=null;
-    private Status status=null;
+    private Genre genre;
+    private Status status;
 
     public BookCriteria(){}
 

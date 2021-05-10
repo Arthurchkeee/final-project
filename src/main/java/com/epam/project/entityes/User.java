@@ -10,4 +10,11 @@ public class User extends AbstractBaseEntity{
         this.role = role;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
 }
