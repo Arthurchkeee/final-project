@@ -25,4 +25,13 @@ public class Book extends AbstractBaseEntity {
     public Status getStatus() {
         return status;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "author='" + author + '\'' +
+                ", genre=" + genre +
+                ", status=" + status +
+                '}';
+    }
 }
