@@ -1,6 +1,6 @@
 package com.epam.project.entities;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Subscription extends AbstractBaseEntity{
     private Book books;
@@ -32,5 +32,15 @@ public class Subscription extends AbstractBaseEntity{
 
     public Date getTo() {
         return to;
+    }
+
+    @Override
+    public String toString() {
+        return "Subscription{" +
+                "books=" + books +
+                ", from=" + from +
+                ", to=" + to +
+                ", user=" + user +
+                '}';
     }
 }

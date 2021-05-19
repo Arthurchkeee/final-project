@@ -45,10 +45,12 @@ public class UserDaoImpl implements BaseDao<Long, User> {
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            String name = resultSet.getString("name");
-            String password = resultSet.getString("password");
-            String role = resultSet.getString("role");
-            user = new User(id, name, password, Role.valueOf(role));
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                String password = resultSet.getString("password");
+                String role = resultSet.getString("role");
+                user = new User(id, name, password, Role.valueOf(role));
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

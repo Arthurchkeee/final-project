@@ -47,12 +47,13 @@ public class BookDaoImpl implements BaseDao<Long, Book> {
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BOOK_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            String name = rs.getString("name");
-            String genre = rs.getString("genre");
-            String status = rs.getString("status");
-            String author = rs.getString("author");
-            book = new Book(id, name, author, Genre.valueOf(genre), Status.valueOf(status));
-
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String genre = rs.getString("genre");
+                String status = rs.getString("status");
+                String author = rs.getString("author");
+                book = new Book(id, name, author, Genre.valueOf(genre), Status.valueOf(status));
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
