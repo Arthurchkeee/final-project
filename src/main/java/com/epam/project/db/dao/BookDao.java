@@ -18,5 +18,5 @@ public interface BookDao extends BaseDao<Integer,Book> {
     boolean delete(Integer id);
 
     @Override
-    Book Update(Book entity);
+    Book update(Book entity);
 }

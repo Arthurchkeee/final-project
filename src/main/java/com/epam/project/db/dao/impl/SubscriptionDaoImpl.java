@@ -1,11 +1,12 @@
 package com.epam.project.db.dao.impl;
 
+import com.epam.project.db.dao.BaseDao;
 import com.epam.project.db.dao.SubscriptionDao;
 import com.epam.project.entityes.Subscription;
 
 import java.util.List;
 
-public class SubscriptionDaoImpl implements SubscriptionDao {
+public class SubscriptionDaoImpl implements BaseDao<Integer,Subscription> {
 
     @Override
     public List<Subscription> findAllEntities() {
@@ -28,7 +29,7 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
     }
 
     @Override
-    public Subscription Update(Subscription entity) {
+    public Subscription update(Subscription entity) {
         return null;
     }
 }

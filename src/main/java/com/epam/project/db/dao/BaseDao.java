@@ -9,5 +9,5 @@ public interface BaseDao <K,E extends BaseEntity>{
     E findEntityById(K id);
     boolean create(E entity);
     boolean delete(K id);
-    E Update(E entity);
+    E update(E entity);
 }

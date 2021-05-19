@@ -18,5 +18,5 @@ public interface SubscriptionDao extends BaseDao<Integer, Subscription>{
     boolean delete(Integer id);
 
     @Override
-    Subscription Update(Subscription entity);
+    Subscription update(Subscription entity);
 }

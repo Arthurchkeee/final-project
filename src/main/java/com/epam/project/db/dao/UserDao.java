@@ -18,5 +18,5 @@ public interface UserDao extends BaseDao<Integer,User>{
     boolean delete(Integer id);
 
     @Override
-    User Update(User entity);
+    User update(User entity);
 }

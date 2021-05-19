@@ -18,5 +18,5 @@ public interface ReaderRoomDao extends BaseDao<Integer, ReaderRoom> {
     boolean delete(Integer id);
 
     @Override
-    ReaderRoom Update(ReaderRoom entity);
+    ReaderRoom update(ReaderRoom entity);
 }

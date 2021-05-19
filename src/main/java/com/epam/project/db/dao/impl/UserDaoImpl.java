@@ -1,11 +1,12 @@
 package com.epam.project.db.dao.impl;
 
+import com.epam.project.db.dao.BaseDao;
 import com.epam.project.db.dao.UserDao;
 import com.epam.project.entityes.User;
 
 import java.util.List;
 
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl implements BaseDao<Integer,User> {
     @Override
     public List<User> findAllEntities() {
         return null;
@@ -27,7 +28,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User Update(User entity) {
+    public User update(User entity) {
         return null;
     }
 }
