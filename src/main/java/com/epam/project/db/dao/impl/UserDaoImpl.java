@@ -1,34 +1,101 @@
 package com.epam.project.db.dao.impl;
 
+import com.epam.project.db.ConnectionPool;
 import com.epam.project.db.dao.BaseDao;
-import com.epam.project.db.dao.UserDao;
-import com.epam.project.entityes.User;
+import com.epam.project.entities.Role;
+import com.epam.project.entities.User;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class UserDaoImpl implements BaseDao<Integer,User> {
+public class UserDaoImpl implements BaseDao<Long, User> {
+    private static final String SELECT_ALL_USER = "SELECT * FROM user";
+    private static final String SELECT_USER_BY_ID = "SELECT * FROM user WHERE id=?";
+    private static final String CREATE_BOOK = "INSERT INTO user(id,name,password,role) VALUES(?,?,?,?)";
+    private static final String DELETE_BOOK_BY_ID = "DELETE FROM user WHERE id=?";
+    private static final String UPDATE_USER_BY_ID = "UPDATE user SET name=?,password=?,role=? WHERE id=?;";
+
     @Override
     public List<User> findAllEntities() {
-        return null;
+        List<User> userList = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USER)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Long id = resultSet.getLong("id");
+                String name = resultSet.getString("name");
+                String password = resultSet.getString("password");
+                String role = resultSet.getString("role");
+                userList.add(new User(id, name, password, Role.valueOf(role)));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return userList;
     }
 
     @Override
-    public User findEntityById(Integer id) {
-        return null;
+    public User findEntityById(Long id) {
+        User user = null;
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID)) {
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            String name = resultSet.getString("name");
+            String password = resultSet.getString("password");
+            String role = resultSet.getString("role");
+            user = new User(id, name, password, Role.valueOf(role));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return user;
     }
 
     @Override
     public boolean create(User entity) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_BOOK)) {
+            preparedStatement.setLong(1, entity.getId());
+            preparedStatement.setString(2, entity.getName());
+            preparedStatement.setString(3, entity.getPassword());
+            preparedStatement.setString(4, entity.getRole().getName());
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         return false;
     }
 
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(Long id) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BOOK_BY_ID)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         return false;
     }
 
     @Override
     public User update(User entity) {
-        return null;
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_BY_ID)) {
+            preparedStatement.setLong(4, entity.getId());
+            preparedStatement.setString(1, entity.getName());
+            preparedStatement.setString(2, entity.getPassword());
+            preparedStatement.setString(3, entity.getRole().getName());
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return entity;
     }
 }

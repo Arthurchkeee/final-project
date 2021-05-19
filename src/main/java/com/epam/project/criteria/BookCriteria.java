@@ -1,8 +1,8 @@
 package com.epam.project.criteria;
 
-import com.epam.project.entityes.Book;
-import com.epam.project.entityes.Genre;
-import com.epam.project.entityes.Status;
+import com.epam.project.entities.Book;
+import com.epam.project.entities.Genre;
+import com.epam.project.entities.Status;
 
 public class BookCriteria extends Criteria<Book>{
     private String author;

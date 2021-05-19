@@ -1,4 +1,4 @@
-package com.epam.project.entityes;
+package com.epam.project.entities;
 
 public class Properties {
     private final static String URL="jdbc:mysql://localhost:3306/library";

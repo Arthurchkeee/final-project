@@ -1,5 +1,5 @@
 package com.epam.project.db;
-import com.epam.project.entityes.Properties;
+import com.epam.project.entities.Properties;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -41,7 +41,7 @@ public final class ConnectionPool {
 
     }
 
-    public static Connection getConnection(){
+    public Connection getConnection(){
         ConnectionProxy connection=null;
         try{
             connection=availableConnectionList.take();

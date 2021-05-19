@@ -1,4 +1,4 @@
-package com.epam.project.entityes;
+package com.epam.project.entities;
 
 public class User extends AbstractBaseEntity{
     private String password;

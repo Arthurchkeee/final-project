@@ -1,16 +1,16 @@
-package com.epam.project.entityes;
+package com.epam.project.entities;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Subscription extends AbstractBaseEntity{
+public class ReaderRoom extends AbstractBaseEntity{
     private List<Book> books=new ArrayList<>();
     private LocalDate from;
     private LocalDate to;
     private User user;
 
-    public Subscription(Long id, String name, List<Book> books, LocalDate from, LocalDate to, User user) {
+    public ReaderRoom(Long id, String name,  List<Book> books, LocalDate from, LocalDate to, User user) {
         super(id, name);
         this.books = books;
         this.from = from;
@@ -18,11 +18,11 @@ public class Subscription extends AbstractBaseEntity{
         this.user = user;
     }
 
+
+
     public List<Book> getBooks() {
         return books;
     }
-
-
 
     public User getUser() {
         return user;

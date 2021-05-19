@@ -1,21 +1,21 @@
 package com.epam.project.db.dao;
 
-import com.epam.project.entityes.Book;
+import com.epam.project.entities.Book;
 
 import java.util.List;
 
-public interface BookDao extends BaseDao<Integer,Book> {
+public interface BookDao extends BaseDao<Long,Book> {
     @Override
     List<Book> findAllEntities();
 
     @Override
-    Book findEntityById(Integer id);
+    Book findEntityById(Long id);
 
     @Override
     boolean create(Book entity);
 
     @Override
-    boolean delete(Integer id);
+    boolean delete(Long id);
 
     @Override
     Book update(Book entity);

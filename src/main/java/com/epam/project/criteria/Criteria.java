@@ -1,6 +1,6 @@
 package com.epam.project.criteria;
 
-import com.epam.project.entityes.BaseEntity;
+import com.epam.project.entities.BaseEntity;
 
 public abstract class Criteria <T extends BaseEntity> {
     private Long id;

@@ -1,8 +1,8 @@
 package com.epam.project.criteria;
 
-import com.epam.project.entityes.Book;
-import com.epam.project.entityes.ReaderRoom;
-import com.epam.project.entityes.User;
+import com.epam.project.entities.Book;
+import com.epam.project.entities.ReaderRoom;
+import com.epam.project.entities.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

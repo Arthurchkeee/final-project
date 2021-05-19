@@ -1,7 +1,7 @@
 package com.epam.project.criteria;
 
-import com.epam.project.entityes.Role;
-import com.epam.project.entityes.User;
+import com.epam.project.entities.Role;
+import com.epam.project.entities.User;
 
 public class UserCriteria extends Criteria<User>{
     private String password;

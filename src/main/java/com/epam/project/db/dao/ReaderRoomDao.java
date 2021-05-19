@@ -1,6 +1,6 @@
 package com.epam.project.db.dao;
 
-import com.epam.project.entityes.ReaderRoom;
+import com.epam.project.entities.ReaderRoom;
 
 import java.util.List;
 

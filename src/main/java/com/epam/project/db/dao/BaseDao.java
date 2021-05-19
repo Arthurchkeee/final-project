@@ -1,6 +1,6 @@
 package com.epam.project.db.dao;
 
-import com.epam.project.entityes.BaseEntity;
+import com.epam.project.entities.BaseEntity;
 
 import java.util.List;
 

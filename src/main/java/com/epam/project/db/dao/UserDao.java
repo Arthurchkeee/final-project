@@ -1,21 +1,21 @@
 package com.epam.project.db.dao;
 
-import com.epam.project.entityes.User;
+import com.epam.project.entities.User;
 
 import java.util.List;
 
-public interface UserDao extends BaseDao<Integer,User>{
+public interface UserDao extends BaseDao<Long,User>{
     @Override
     List<User> findAllEntities();
 
     @Override
-    User findEntityById(Integer id);
+    User findEntityById(Long id);
 
     @Override
     boolean create(User entity);
 
     @Override
-    boolean delete(Integer id);
+    boolean delete(Long id);
 
     @Override
     User update(User entity);

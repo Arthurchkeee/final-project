@@ -1,13 +1,14 @@
-package com.epam.project.entityes;
+package com.epam.project.entities;
 
-public enum Status implements BaseEntity{
-    SUBSCRIPTION(1L),
-    ROOM(2L),
-    FREE(3L)
+public enum Role implements BaseEntity{
+    ADMIN(1L),
+    LIBRERIAN(2L),
+    READER(3L)
     ;
+
     private final Long id;
 
-    Status(Long id) {
+    Role(Long id) {
         this.id=id;
     }
 
