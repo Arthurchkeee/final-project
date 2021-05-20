@@ -24,4 +24,6 @@ public interface BookService {
     Book getBookInRoom(Book book);
 
     Book getBookInSubscribe(Book book);
+
+    List<Book> findBookByAuthor(String author);
 }

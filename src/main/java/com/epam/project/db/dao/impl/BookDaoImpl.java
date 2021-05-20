@@ -2,6 +2,7 @@ package com.epam.project.db.dao.impl;
 
 import com.epam.project.db.ConnectionPool;
 import com.epam.project.db.dao.BaseDao;
+import com.epam.project.db.dao.BookDao;
 import com.epam.project.entities.Book;
 import com.epam.project.entities.Genre;
 import com.epam.project.entities.Status;
@@ -13,12 +14,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookDaoImpl implements BaseDao<Long, Book> {
+public class BookDaoImpl implements BookDao {
     private static final String SELECT_BOOK_BY_ID = "SELECT * FROM book WHERE id=?";
     private static final String SELECT_ALL_BOOK = "SELECT * FROM book";
     private static final String CREATE_BOOK_BY = "INSERT INTO book (id,name,author,genre,status) VALUES (?,?,?,?,?);";
     private static final String DELETE_BOOK_BY_ID = "DELETE  FROM book WHERE id=?";
     private static final String UPDATE_BOOK_BY_ID = "UPDATE book SET name=?,author=?,genre=?,status=? WHERE id=?;";
+    private static final String SELECT_BOOK_BY_AUTHOR="SELECT * FROM book WHERE author=?";
 
     @Override
     public List<Book> findAllEntities() {
@@ -104,5 +106,25 @@ public class BookDaoImpl implements BaseDao<Long, Book> {
             throwables.printStackTrace();
         }
         return entity;
+    }
+
+    @Override
+    public List<Book> findBookByAuthor(String author) {
+        List<Book> bookList = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BOOK_BY_AUTHOR);) {
+            preparedStatement.setString(1,"author");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Long id = resultSet.getLong("id");
+                String name = resultSet.getString("name");
+                String genre = resultSet.getString("genre");
+                String status = resultSet.getString("status");
+                bookList.add(new Book(id, name, author, Genre.valueOf(genre), Status.valueOf(status)));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return bookList;
     }
 }

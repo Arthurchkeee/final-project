@@ -116,6 +116,6 @@ public class SubscriptionDaoImpl implements BaseDao<Long,Subscription> {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return null;
+        return entity;
     }
 }

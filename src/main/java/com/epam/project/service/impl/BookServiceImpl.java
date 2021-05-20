@@ -66,5 +66,8 @@ public class BookServiceImpl implements BookService {
         return update(book);
     }
 
-
+    @Override
+    public List<Book> findBookByAuthor(String author) {
+        return bookDao.findBookByAuthor(author);
+    }
 }

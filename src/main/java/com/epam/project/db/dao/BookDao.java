@@ -19,4 +19,6 @@ public interface BookDao extends BaseDao<Long,Book> {
 
     @Override
     Book update(Book entity);
+
+    List<Book> findBookByAuthor(String author);
 }
