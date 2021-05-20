@@ -19,4 +19,6 @@ public interface UserDao extends BaseDao<Long,User>{
 
     @Override
     User update(User entity);
+
+    String getPassword(String login);
 }

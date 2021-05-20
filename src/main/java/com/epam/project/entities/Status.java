@@ -3,7 +3,9 @@ package com.epam.project.entities;
 public enum Status implements BaseEntity{
     SUBSCRIPTION(1L),
     ROOM(2L),
-    FREE(3L)
+    FREE(3L),
+    REQUEST_ROOM(4L),
+    REQUEST_SUBSCRIPTION(5L)
     ;
     private final Long id;
 

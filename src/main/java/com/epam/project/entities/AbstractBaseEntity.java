@@ -16,4 +16,12 @@ public abstract class AbstractBaseEntity implements BaseEntity{
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "AbstractBaseEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package com.epam.project.db.dao.impl;
 
 import com.epam.project.db.ConnectionPool;
 import com.epam.project.db.dao.BaseDao;
+import com.epam.project.db.dao.UserDao;
 import com.epam.project.entities.Role;
 import com.epam.project.entities.User;
 
@@ -12,12 +13,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDaoImpl implements BaseDao<Long, User> {
+public class UserDaoImpl implements UserDao {
     private static final String SELECT_ALL_USER = "SELECT * FROM user";
     private static final String SELECT_USER_BY_ID = "SELECT * FROM user WHERE id=?";
     private static final String CREATE_BOOK = "INSERT INTO user(id,name,password,role) VALUES(?,?,?,?)";
     private static final String DELETE_BOOK_BY_ID = "DELETE FROM user WHERE id=?";
     private static final String UPDATE_USER_BY_ID = "UPDATE user SET name=?,password=?,role=? WHERE id=?;";
+    private static final String SELECT_USER_BY_NAME = "SELECT * FROM user WHERE name=?";
 
     @Override
     public List<User> findAllEntities() {
@@ -99,5 +101,21 @@ public class UserDaoImpl implements BaseDao<Long, User> {
             throwables.printStackTrace();
         }
         return entity;
+    }
+
+    @Override
+    public String getPassword(String login) {
+        String password = "";
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_NAME)) {
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                password = resultSet.getString("password");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return password;
     }
 }
