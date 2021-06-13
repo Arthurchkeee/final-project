@@ -118,4 +118,23 @@ public class UserDaoImpl implements UserDao {
         }
         return password;
     }
+
+    public User findUserByLogin(String login){
+        User user=null;
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_NAME)) {
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Long id= resultSet.getLong("id");
+                String name = resultSet.getString("name");
+                String password = resultSet.getString("password");
+                String role = resultSet.getString("role");
+                user = new User(id, name, password, Role.valueOf(role));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return user;
+    }
 }

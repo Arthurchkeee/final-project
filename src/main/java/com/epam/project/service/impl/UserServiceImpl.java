@@ -42,6 +42,8 @@ public class UserServiceImpl implements UserService {
                 .md5Hex(password).toUpperCase();
         return md5Hex.equals(userDao.getPassword(login));
     }
-
-
+    @Override
+    public User findUserByLogin(String login){
+        return userDao.findUserByLogin(login);
+    }
 }

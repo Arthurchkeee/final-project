@@ -16,4 +16,6 @@ public interface UserService {
     User update(User entity);
 
     boolean getAccess(String login, String password);
+
+    public User findUserByLogin(String login);
 }
