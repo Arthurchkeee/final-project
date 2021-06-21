@@ -12,8 +12,8 @@
 </head>
 <body>
 <div>
-    <a href="/controller?command=show_login">Sign in</a>
-    <a href="/controller?command=show_page">Show page</a>
+    <a href="${pageContext.request.contextPath}/controller?command=show_login">Sign in</a>
+    <a href="${pageContext.request.contextPath}/controller?command=show_page">Show page</a>
 
     ${role}
 </div>

@@ -12,7 +12,7 @@
 </head>
 <body style="background-color:DodgerBlue;">
 <p style="color: tomato"></p>
-<form method="post" action="/controller?command=login">
+<form method="post" action="${pageContext.request.contextPath}/controller?command=login">
     <input name="login">
     <input name="password">
 
