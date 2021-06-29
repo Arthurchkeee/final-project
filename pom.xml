@@ -33,10 +33,10 @@
         <scope>provided</scope>
     </dependency>
         <dependency>
-        <groupId>javax.servlet.jsp.jstl</groupId>
-        <artifactId>jstl-api</artifactId>
-        <version>1.2</version>
-    </dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+            <version>1.2.6</version>
+        </dependency>
     </dependencies>
 
     <name>final-project Maven Webapp</name>

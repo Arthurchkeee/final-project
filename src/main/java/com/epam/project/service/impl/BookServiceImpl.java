@@ -1,5 +1,6 @@
 package com.epam.project.service.impl;
 
+import com.epam.project.db.dao.BookDao;
 import com.epam.project.db.dao.impl.BookDaoImpl;
 import com.epam.project.entities.Book;
 import com.epam.project.entities.Status;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class BookServiceImpl implements BookService {
 
-    private BookDaoImpl bookDao = new BookDaoImpl();
+    private BookDao bookDao = new BookDaoImpl();
 
     @Override
     public List<Book> findAllBooks() {
@@ -36,6 +37,8 @@ public class BookServiceImpl implements BookService {
         return bookDao.update(entity);
     }
 
+
+
     @Override
     public Book returnBook(Book book) {
         book.setStatus(Status.FREE);
@@ -44,13 +47,13 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book roomRequestBook(Book book) {
-        book.setStatus(Status.REQUEST_ROOM);
+        book.setStatus(Status.ORDERED_ROOM);
         return update(book);
     }
 
     @Override
     public Book subscribeRequestBook(Book book) {
-        book.setStatus(Status.REQUEST_SUBSCRIPTION);
+        book.setStatus(Status.ORDERED_SUBSCRIPTION);
         return update(book);
     }
 
@@ -69,5 +72,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findBookByAuthor(String author) {
         return bookDao.findBookByAuthor(author);
+    }
+
+    @Override
+    public List<Book> findAllFreeBook() {
+        return bookDao.findBookByStatus(Status.FREE);
     }
 }

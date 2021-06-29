@@ -26,4 +26,6 @@ public interface BookService {
     Book getBookInSubscribe(Book book);
 
     List<Book> findBookByAuthor(String author);
+
+    List<Book> findAllFreeBook();
 }

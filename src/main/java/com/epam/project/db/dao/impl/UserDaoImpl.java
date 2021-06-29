@@ -135,6 +135,7 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        System.out.println(user);
         return user;
     }
 }

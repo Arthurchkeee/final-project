@@ -21,6 +21,7 @@ public class BookDaoImpl implements BookDao {
     private static final String DELETE_BOOK_BY_ID = "DELETE  FROM book WHERE id=?";
     private static final String UPDATE_BOOK_BY_ID = "UPDATE book SET name=?,author=?,genre=?,status=? WHERE id=?;";
     private static final String SELECT_BOOK_BY_AUTHOR="SELECT * FROM book WHERE author=?";
+    private static final String SELECT_BOOK_BY_STATUS="SELECT * FROM book WHERE status=?";
 
     @Override
     public List<Book> findAllEntities() {
@@ -113,7 +114,7 @@ public class BookDaoImpl implements BookDao {
         List<Book> bookList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BOOK_BY_AUTHOR);) {
-            preparedStatement.setString(1,"author");
+            preparedStatement.setString(1,author);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Long id = resultSet.getLong("id");
@@ -121,6 +122,25 @@ public class BookDaoImpl implements BookDao {
                 String genre = resultSet.getString("genre");
                 String status = resultSet.getString("status");
                 bookList.add(new Book(id, name, author, Genre.valueOf(genre), Status.valueOf(status)));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return bookList;
+    }
+
+    public List<Book> findBookByStatus(Status status){
+        List<Book> bookList=new ArrayList<>();
+        try(Connection connection=ConnectionPool.getInstance().getConnection();
+        PreparedStatement preparedStatement= connection.prepareStatement(SELECT_BOOK_BY_STATUS)){
+            preparedStatement.setString(1,status.getName());
+            ResultSet resultSet=preparedStatement.executeQuery();
+            while(resultSet.next()){
+                Long id = resultSet.getLong("id");
+                String name = resultSet.getString("name");
+                String genre = resultSet.getString("genre");
+                String author = resultSet.getString("author");
+                bookList.add(new Book(id, name, author, Genre.valueOf(genre), status));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
