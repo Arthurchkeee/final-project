@@ -22,6 +22,7 @@ public class BookDaoImpl implements BookDao {
     private static final String UPDATE_BOOK_BY_ID = "UPDATE book SET name=?,author=?,genre=?,status=? WHERE id=?;";
     private static final String SELECT_BOOK_BY_AUTHOR="SELECT * FROM book WHERE author=?";
     private static final String SELECT_BOOK_BY_STATUS="SELECT * FROM book WHERE status=?";
+    private static final String UPDATE_BOOK_STATUS="UPDATE book SET status=? WHERE id=?";
 
     @Override
     public List<Book> findAllEntities() {
@@ -146,5 +147,18 @@ public class BookDaoImpl implements BookDao {
             throwables.printStackTrace();
         }
         return bookList;
+    }
+
+    @Override
+    public void updateBookStatus(Status status,Long id){
+        try(Connection connection=ConnectionPool.getInstance().getConnection();
+            PreparedStatement preparedStatement= connection.prepareStatement(UPDATE_BOOK_STATUS)){
+            preparedStatement.setString(1,status.getName());
+            preparedStatement.setLong(2,id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 }

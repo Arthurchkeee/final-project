@@ -35,6 +35,14 @@
                     <td>${book.author}</td>
                     <td>${book.genre}</td>
                     <td>${book.status}</td>
+                    <c:if test="${book.status eq 'FREE'}">
+                    <form method="get" action="order">
+                        <input type="hidden" name="id" value=${book.id} />
+                    <td id="action">
+                        <input type="submit" value="ORDER">
+                    </td>
+                    </form>
+                    </c:if>
                 </tr>
             </c:forEach>
         </table>

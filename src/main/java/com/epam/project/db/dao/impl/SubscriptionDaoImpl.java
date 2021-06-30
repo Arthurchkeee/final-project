@@ -2,6 +2,7 @@ package com.epam.project.db.dao.impl;
 
 import com.epam.project.db.ConnectionPool;
 import com.epam.project.db.dao.BaseDao;
+import com.epam.project.db.dao.SubscriptionDao;
 import com.epam.project.entities.*;
 
 import java.sql.Connection;
@@ -12,12 +13,13 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 
-public class SubscriptionDaoImpl implements BaseDao<Long,Subscription> {
+public class SubscriptionDaoImpl implements SubscriptionDao {
     private static final String SELECT_ALL_SUBSCRIPTION="SELECT * FROM subscribe INNER JOIN user u on subscribe.user_id = u.id INNER JOIN book b on subscribe.book_id = b.id";
     private static final String SELECT_SUBSCRIPTION_BY_ID="SELECT * FROM subscribe INNER JOIN user u on subscribe.user_id = u.id INNER JOIN book b on subscribe.book_id = b.id WHERE subscribe.id=?";
     private static final String CREATE_SUBSCRIPTION="INSERT INTO subscribe(id,book_id,day_from,day_to,user_id) VALUES(?,?,?,?,?)";
     private static final String DELETE_SUBSCRIPTION_BY_ID="DELETE FROM subscribe WHERE id=?";
     private static final String UPDATE_SUBSCRIPTION="UPDATE subscribe SET book_id=?,day_from=?,day_to=?,user_id=? WHERE id=?;";
+    private static final String ORDER_SUBSCRIPTION="INSERT INTO subscribe(book_id,day_from,day_to,user_id) VALUES(?,?,?,?)";
     @Override
     public List<Subscription> findAllEntities() {
         List<Subscription> subscriptionList =new ArrayList<Subscription>();
@@ -117,5 +119,22 @@ public class SubscriptionDaoImpl implements BaseDao<Long,Subscription> {
             throwables.printStackTrace();
         }
         return entity;
+    }
+
+    @Override
+    public boolean order(Long book_id, Long user_id, Date to) {
+        try(Connection connection=ConnectionPool.getInstance().getConnection();
+            PreparedStatement preparedStatement= connection.prepareStatement(ORDER_SUBSCRIPTION)) {
+            preparedStatement.setLong(1,book_id);
+            long millis=System.currentTimeMillis();
+            preparedStatement.setDate(2,new Date(millis));
+            preparedStatement.setDate(3, to);
+            preparedStatement.setLong(4,user_id);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 }

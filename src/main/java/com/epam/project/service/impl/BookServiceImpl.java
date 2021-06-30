@@ -78,4 +78,9 @@ public class BookServiceImpl implements BookService {
     public List<Book> findAllFreeBook() {
         return bookDao.findBookByStatus(Status.FREE);
     }
+
+    @Override
+    public void orderBook(Long id){
+        bookDao.updateBookStatus(Status.ORDERED_SUBSCRIPTION,id);
+    }
 }

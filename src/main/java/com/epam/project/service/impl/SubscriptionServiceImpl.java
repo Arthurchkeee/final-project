@@ -2,6 +2,7 @@ package com.epam.project.service.impl;
 
 import com.epam.project.db.dao.impl.SubscriptionDaoImpl;
 import com.epam.project.entities.Subscription;
+import com.epam.project.service.BookService;
 import com.epam.project.service.SubscriptionService;
 
 import java.sql.Date;
@@ -9,6 +10,8 @@ import java.util.List;
 
 public class SubscriptionServiceImpl implements SubscriptionService {
     SubscriptionDaoImpl subscriptionDao=new SubscriptionDaoImpl();
+    BookService bookService=new BookServiceImpl();
+
     @Override
     public List<Subscription> findAllSubscriptions() {
         return subscriptionDao.findAllEntities();
@@ -46,5 +49,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         subscription.setFrom(from);
         subscription.setTo(to);
         return subscriptionDao.update(subscription);
+    }
+    @Override
+    public void orderSubscription(Long user_id,Long book_id,Date to){
+        subscriptionDao.order(book_id,user_id,to);
+        bookService.orderBook(book_id);
     }
 }

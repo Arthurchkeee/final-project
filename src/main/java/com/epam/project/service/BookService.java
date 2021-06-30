@@ -28,4 +28,6 @@ public interface BookService {
     List<Book> findBookByAuthor(String author);
 
     List<Book> findAllFreeBook();
+
+    public void orderBook(Long id);
 }

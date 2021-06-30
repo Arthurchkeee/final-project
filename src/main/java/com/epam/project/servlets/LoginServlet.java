@@ -25,6 +25,7 @@ public class LoginServlet extends HttpServlet {
             User user = userService.findUserByLogin(username);
             HttpSession session=req.getSession();
             session.setAttribute("username",username);
+            session.setAttribute("user_id",user.getId());
             session.setAttribute("role",user.getRole());
             RequestDispatcher view= req.getRequestDispatcher("WEB-INF/jsp/main.jsp");
             view.forward(req,resp);

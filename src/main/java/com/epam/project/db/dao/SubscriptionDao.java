@@ -2,6 +2,7 @@ package com.epam.project.db.dao;
 
 import com.epam.project.entities.Subscription;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface SubscriptionDao extends BaseDao<Long, Subscription>{
@@ -19,4 +20,6 @@ public interface SubscriptionDao extends BaseDao<Long, Subscription>{
 
     @Override
     Subscription update(Subscription entity);
+
+    public boolean order(Long book_id, Long user_id, Date to);
 }

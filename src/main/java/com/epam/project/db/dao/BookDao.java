@@ -3,6 +3,7 @@ package com.epam.project.db.dao;
 import com.epam.project.entities.Book;
 import com.epam.project.entities.Status;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface BookDao extends BaseDao<Long,Book> {
@@ -24,4 +25,8 @@ public interface BookDao extends BaseDao<Long,Book> {
     List<Book> findBookByAuthor(String author);
 
     List<Book> findBookByStatus(Status status);
+
+    public void updateBookStatus(Status status,Long id);
+
+
 }

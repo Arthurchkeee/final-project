@@ -2,6 +2,7 @@ package com.epam.project.service;
 
 import com.epam.project.entities.Subscription;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface SubscriptionService {
@@ -10,4 +11,5 @@ public interface SubscriptionService {
     boolean create(Subscription entity);
     boolean delete(Long id);
     Subscription update(Subscription entity);
+    public void orderSubscription(Long user_id, Long book_id, Date to);
 }
