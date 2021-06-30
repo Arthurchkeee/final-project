@@ -83,4 +83,9 @@ public class BookServiceImpl implements BookService {
     public void orderBook(Long id){
         bookDao.updateBookStatus(Status.ORDERED_SUBSCRIPTION,id);
     }
+
+    @Override
+    public void updateBookStatus(Status status,Long id){
+        bookDao.updateBookStatus(status,id);
+    }
 }

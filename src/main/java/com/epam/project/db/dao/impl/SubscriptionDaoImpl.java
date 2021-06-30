@@ -20,6 +20,10 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
     private static final String DELETE_SUBSCRIPTION_BY_ID="DELETE FROM subscribe WHERE id=?";
     private static final String UPDATE_SUBSCRIPTION="UPDATE subscribe SET book_id=?,day_from=?,day_to=?,user_id=? WHERE id=?;";
     private static final String ORDER_SUBSCRIPTION="INSERT INTO subscribe(book_id,day_from,day_to,user_id) VALUES(?,?,?,?)";
+    private static final String SELECT_SUBSCRIPTION_BY_STATUS="SELECT * FROM subscribe INNER JOIN user u on subscribe.user_id = u.id INNER JOIN book b on subscribe.book_id = b.id WHERE b.status=?";
+
+
+
     @Override
     public List<Subscription> findAllEntities() {
         List<Subscription> subscriptionList =new ArrayList<Subscription>();
@@ -136,5 +140,32 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
             throwables.printStackTrace();
         }
         return false;
+    }
+    @Override
+    public List<Subscription> findAllBookByStatus(Status status) {
+        List<Subscription> subscriptionList = new ArrayList<Subscription>();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_SUBSCRIPTION_BY_STATUS)) {
+            preparedStatement.setString(1,status.getName());
+            ResultSet resultSet= preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Long id=resultSet.getLong("subscribe.id");
+                Long book_id = resultSet.getLong("b.id");
+                String book_name = resultSet.getString("b.name");
+                String book_genre = resultSet.getString("b.genre");
+                String book_status = resultSet.getString("b.status");
+                String book_author = resultSet.getString("b.author");
+                Date from = resultSet.getDate("day_from");
+                Date to = resultSet.getDate("day_to");
+                Long user_id = resultSet.getLong("u.id");
+                String user_name = resultSet.getString("u.name");
+                String user_password = resultSet.getString("u.password");
+                String user_role = resultSet.getString("u.role");
+                subscriptionList.add(new Subscription(id,user_name,new Book(book_id,book_name,book_author, Genre.valueOf(book_genre), Status.valueOf(book_status)),from,to,new User(user_id,user_name,user_password,Role.valueOf(user_role))));
+            }
+            } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return subscriptionList;
     }
 }

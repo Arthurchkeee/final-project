@@ -1,5 +1,6 @@
 package com.epam.project.service;
 
+import com.epam.project.entities.Status;
 import com.epam.project.entities.Subscription;
 
 import java.sql.Date;
@@ -12,4 +13,5 @@ public interface SubscriptionService {
     boolean delete(Long id);
     Subscription update(Subscription entity);
     public void orderSubscription(Long user_id, Long book_id, Date to);
+    public List<Subscription> findAllBookByStatus(Status status);
 }

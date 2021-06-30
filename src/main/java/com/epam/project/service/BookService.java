@@ -1,6 +1,7 @@
 package com.epam.project.service;
 
 import com.epam.project.entities.Book;
+import com.epam.project.entities.Status;
 
 import java.util.List;
 
@@ -30,4 +31,6 @@ public interface BookService {
     List<Book> findAllFreeBook();
 
     public void orderBook(Long id);
+
+    public void updateBookStatus(Status status, Long id);
 }

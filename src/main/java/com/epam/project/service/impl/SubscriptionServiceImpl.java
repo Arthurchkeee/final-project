@@ -1,6 +1,7 @@
 package com.epam.project.service.impl;
 
 import com.epam.project.db.dao.impl.SubscriptionDaoImpl;
+import com.epam.project.entities.Status;
 import com.epam.project.entities.Subscription;
 import com.epam.project.service.BookService;
 import com.epam.project.service.SubscriptionService;
@@ -54,5 +55,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public void orderSubscription(Long user_id,Long book_id,Date to){
         subscriptionDao.order(book_id,user_id,to);
         bookService.orderBook(book_id);
+    }
+    @Override
+    public List<Subscription> findAllBookByStatus(Status status){
+        return subscriptionDao.findAllBookByStatus(status);
     }
 }

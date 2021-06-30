@@ -1,5 +1,6 @@
 package com.epam.project.db.dao;
 
+import com.epam.project.entities.Status;
 import com.epam.project.entities.Subscription;
 
 import java.sql.Date;
@@ -22,4 +23,6 @@ public interface SubscriptionDao extends BaseDao<Long, Subscription>{
     Subscription update(Subscription entity);
 
     public boolean order(Long book_id, Long user_id, Date to);
+
+    public List<Subscription> findAllBookByStatus(Status status);
 }
