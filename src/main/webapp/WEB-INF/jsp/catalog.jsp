@@ -40,7 +40,9 @@
                         <input type="hidden" name="id" value=${book.id} />
                     <td id="action">
                         <input type="radio" id="room" name="status" value="ROOM">
-                        <input type="radio" id="css" name="status" value="SUBSCRIBE">
+                        <label for="room">ROOM</label><br>
+                        <input type="radio" id="subscribe" name="status" value="SUBSCRIBE">
+                        <label for="subscribe">SUBSCRIBE</label><br>
                         <input type="submit" value="ORDER">
                     </td>
                     </form>

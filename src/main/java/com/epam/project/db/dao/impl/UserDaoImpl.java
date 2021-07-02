@@ -17,7 +17,7 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
     private static final String SELECT_ALL_USER = "SELECT * FROM user";
     private static final String SELECT_USER_BY_ID = "SELECT * FROM user WHERE id=?";
-    private static final String CREATE_BOOK = "INSERT INTO user(id,name,password,role) VALUES(?,?,?,?)";
+    private static final String CREATE_BOOK = "INSERT INTO user(name,password,role) VALUES(?,?,?)";
     private static final String DELETE_BOOK_BY_ID = "DELETE FROM user WHERE id=?";
     private static final String UPDATE_USER_BY_ID = "UPDATE user SET name=?,password=?,role=? WHERE id=?;";
     private static final String SELECT_USER_BY_NAME = "SELECT * FROM user WHERE name=?";
@@ -66,10 +66,9 @@ public class UserDaoImpl implements UserDao {
     public boolean create(User entity) {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_BOOK)) {
-            preparedStatement.setLong(1, entity.getId());
-            preparedStatement.setString(2, entity.getName());
-            preparedStatement.setString(3, entity.getPassword());
-            preparedStatement.setString(4, entity.getRole().getName());
+            preparedStatement.setString(1, entity.getName());
+            preparedStatement.setString(2, entity.getPassword());
+            preparedStatement.setString(3, entity.getRole().getName());
             preparedStatement.executeUpdate();
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;

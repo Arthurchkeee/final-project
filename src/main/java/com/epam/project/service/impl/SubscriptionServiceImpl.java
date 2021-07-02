@@ -66,8 +66,14 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public List<Subscription> findAllBookByStatus(Status status){
         return subscriptionDao.findAllBookByStatus(status);
     }
+
     @Override
     public List<Subscription> findAllSubscriptionByUser(Long user_id){
         return subscriptionDao.findAllSubscriptionByUser(user_id);
+    }
+    @Override
+    public void deleteSubscription(Long id,Long book_id){
+        subscriptionDao.delete(id);
+        bookService.updateBookStatus(Status.FREE,book_id);
     }
 }

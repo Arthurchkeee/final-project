@@ -18,7 +18,7 @@ import java.util.List;
 public class BookDaoImpl implements BookDao {
     private static final String SELECT_BOOK_BY_ID = "SELECT * FROM book WHERE id=?";
     private static final String SELECT_ALL_BOOK = "SELECT * FROM book";
-    private static final String CREATE_BOOK_BY = "INSERT INTO book (id,name,author,genre,status) VALUES (?,?,?,?,?);";
+    private static final String CREATE_BOOK_BY = "INSERT INTO book (name,author,genre,status) VALUES (?,?,?,?);";
     private static final String DELETE_BOOK_BY_ID = "DELETE  FROM book WHERE id=?";
     private static final String UPDATE_BOOK_BY_ID = "UPDATE book SET name=?,author=?,genre=?,status=? WHERE id=?;";
     private static final String SELECT_BOOK_BY_AUTHOR="SELECT * FROM book WHERE author=?";
@@ -72,11 +72,10 @@ public class BookDaoImpl implements BookDao {
     public boolean create(Book entity) {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE_BOOK_BY)) {
-            preparedStatement.setLong(1, entity.getId());
-            preparedStatement.setString(2, entity.getName());
-            preparedStatement.setString(3, entity.getAuthor());
-            preparedStatement.setString(4, entity.getGenre().getName());
-            preparedStatement.setString(5, entity.getStatus().getName());
+            preparedStatement.setString(1, entity.getName());
+            preparedStatement.setString(2, entity.getAuthor());
+            preparedStatement.setString(3, entity.getGenre().getName());
+            preparedStatement.setString(4, entity.getStatus().getName());
             preparedStatement.executeUpdate();
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;

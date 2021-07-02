@@ -11,7 +11,7 @@
 <head>
     <title>Title</title>
 </head>
-<body>
+<body style="background-color:DodgerBlue;">
 <div>
     ${role}
     <a href="info.jsp">Profile</a>
@@ -26,8 +26,19 @@
         <td id="action">
             <input type="submit" value="orders"/>
         </td>
-    </c:if>
+
     ${role}
+    </form>
+        <form method="post" action="returning">
+            <td id="return">
+                <input type="returning" value="returning"/>
+            </td>
+        </form>
+    </c:if>
+    <c:if test="${role eq 'ADMIN'}">
+        <a href="createUser">Create User</a>
+        <a href="createBook">Create Book</a>
+    </c:if>
 </div>
 </body>
 </html>

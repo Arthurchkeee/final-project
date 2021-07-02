@@ -1,8 +1,8 @@
 package com.epam.project.entities;
 
 public enum Genre implements BaseEntity{
-    COMEDY(1L),
-    HORROR(2L),
+    COMEDY(2L),
+    HORROR(1L),
     DRAMA(3L),
     DETECTIVE(4L),
     ADULT(5L)

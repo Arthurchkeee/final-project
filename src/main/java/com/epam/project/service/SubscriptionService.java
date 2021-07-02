@@ -16,4 +16,5 @@ public interface SubscriptionService {
     public void orderRoom(Long user_id,Long book_id);
     public List<Subscription> findAllBookByStatus(Status status);
     public List<Subscription> findAllSubscriptionByUser(Long user_id);
+    public void deleteSubscription(Long id,Long book_id);
 }
