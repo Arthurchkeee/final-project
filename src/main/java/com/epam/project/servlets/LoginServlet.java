@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(name="loginUser",urlPatterns = "/LoginUser")
 public class LoginServlet extends HttpServlet {
@@ -31,9 +32,10 @@ public class LoginServlet extends HttpServlet {
             view.forward(req,resp);
         }
         else{
-            req.setAttribute("username","anon");
-            RequestDispatcher view= req.getRequestDispatcher("WEB-INF/jsp/main.jsp");
-            view.forward(req,resp);
+            PrintWriter out=resp.getWriter();
+            req.getRequestDispatcher("WEB-INF/jsp/login.jsp").include(req,resp);
+            out.print("Your login or password are wrong!");
+            out.close();
         }
     }
 }

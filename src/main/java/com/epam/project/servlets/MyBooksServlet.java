@@ -1,6 +1,7 @@
 package com.epam.project.servlets;
 
 import com.epam.project.entities.Status;
+import com.epam.project.entities.Subscription;
 import com.epam.project.service.BookService;
 import com.epam.project.service.SubscriptionService;
 import com.epam.project.service.impl.BookServiceImpl;
@@ -12,28 +13,32 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet(name="librarian",urlPatterns = "/librarian")
-public class LibrarianServlet extends HttpServlet {
+@WebServlet(name="myBooks",urlPatterns = "/myBooks")
+public class MyBooksServlet extends HttpServlet {
+
     SubscriptionService service=new SubscriptionServiceImpl();
     BookService bookService=new BookServiceImpl();
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session= req.getSession();
+        List<Subscription> subscriptionList=  service.findAllSubscriptionByUser((Long) session.getAttribute("user_id"));
+        req.setAttribute("subscriptions",subscriptionList);
+        RequestDispatcher view= req.getRequestDispatcher("WEB-INF/jsp/myBooks.jsp");
+        view.forward(req,resp);
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id=req.getParameter("id");
         String status=req.getParameter("status");
-        if(status.equals(Status.ORDERED_SUBSCRIPTION))
-            bookService.updateBookStatus(Status.SUBSCRIPTION,Long.valueOf(id));
+        if(status.equals(Status.ROOM))
+            bookService.updateBookStatus(Status.RETURNING_ROOM,Long.valueOf(id));
         else
-            bookService.updateBookStatus(Status.ROOM,Long.valueOf(id));
+            bookService.updateBookStatus(Status.RETURNING_SUBSCRIPTION,Long.valueOf(id));
         doPost(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        req.setAttribute("subscriptions",service.findAllSubscriptions());
-        RequestDispatcher view= req.getRequestDispatcher("WEB-INF/jsp/librarian.jsp");
-        view.forward(req,resp);
     }
 }

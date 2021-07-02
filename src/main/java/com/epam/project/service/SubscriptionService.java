@@ -13,5 +13,7 @@ public interface SubscriptionService {
     boolean delete(Long id);
     Subscription update(Subscription entity);
     public void orderSubscription(Long user_id, Long book_id, Date to);
+    public void orderRoom(Long user_id,Long book_id);
     public List<Subscription> findAllBookByStatus(Status status);
+    public List<Subscription> findAllSubscriptionByUser(Long user_id);
 }

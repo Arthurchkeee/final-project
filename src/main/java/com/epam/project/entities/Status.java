@@ -5,7 +5,9 @@ public enum Status implements BaseEntity{
     ROOM(2L),
     FREE(3L),
     ORDERED_SUBSCRIPTION(4L),
-    ORDERED_ROOM(5L)
+    ORDERED_ROOM(5L),
+    RETURNING_ROOM(6L),
+    RETURNING_SUBSCRIPTION(7L)
     ;
     private final Long id;
 

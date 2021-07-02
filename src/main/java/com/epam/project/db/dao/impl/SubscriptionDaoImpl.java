@@ -1,6 +1,7 @@
 package com.epam.project.db.dao.impl;
 
 import com.epam.project.db.ConnectionPool;
+import com.epam.project.db.ConnectionProxy;
 import com.epam.project.db.dao.BaseDao;
 import com.epam.project.db.dao.SubscriptionDao;
 import com.epam.project.entities.*;
@@ -21,6 +22,7 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
     private static final String UPDATE_SUBSCRIPTION="UPDATE subscribe SET book_id=?,day_from=?,day_to=?,user_id=? WHERE id=?;";
     private static final String ORDER_SUBSCRIPTION="INSERT INTO subscribe(book_id,day_from,day_to,user_id) VALUES(?,?,?,?)";
     private static final String SELECT_SUBSCRIPTION_BY_STATUS="SELECT * FROM subscribe INNER JOIN user u on subscribe.user_id = u.id INNER JOIN book b on subscribe.book_id = b.id WHERE b.status=?";
+    private static final String SELECT_SUBSCRIPTION_BY_USER="SELECT * FROM subscribe INNER JOIN user u on subscribe.user_id = u.id INNER JOIN book b on subscribe.book_id = b.id WHERE u.id=?";
 
 
 
@@ -45,6 +47,7 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
                 String user_role = resultSet.getString("u.role");
                 subscriptionList.add(new Subscription(id,user_name,new Book(book_id,book_name,book_author, Genre.valueOf(book_genre), Status.valueOf(book_status)),from,to,new User(user_id,user_name,user_password,Role.valueOf(user_role))));
             }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -73,6 +76,7 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
                 String user_role = resultSet.getString("u.role");
                 subscription = new Subscription(subs_id, user_name, new Book(book_id, book_name, book_author, Genre.valueOf(book_genre), Status.valueOf(book_status)), from, to, new User(user_id, user_name, user_password, Role.valueOf(user_role)));
             }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -89,6 +93,7 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
             preparedStatement.setDate(4, entity.getTo());
             preparedStatement.setLong(5,entity.getUser().getId());
             preparedStatement.executeUpdate();
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -102,6 +107,7 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
         PreparedStatement preparedStatement= connection.prepareStatement(DELETE_SUBSCRIPTION_BY_ID)) {
             preparedStatement.setLong(1,id);
             preparedStatement.executeUpdate();
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -119,6 +125,8 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
             preparedStatement.setDate(3,entity.getTo());
             preparedStatement.setLong(4,entity.getUser().getId());
             preparedStatement.executeUpdate();
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -135,6 +143,7 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
             preparedStatement.setDate(3, to);
             preparedStatement.setLong(4,user_id);
             preparedStatement.executeUpdate();
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -163,7 +172,35 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
                 String user_role = resultSet.getString("u.role");
                 subscriptionList.add(new Subscription(id,user_name,new Book(book_id,book_name,book_author, Genre.valueOf(book_genre), Status.valueOf(book_status)),from,to,new User(user_id,user_name,user_password,Role.valueOf(user_role))));
             }
-            } catch (SQLException throwables) {
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return subscriptionList;
+    }
+    @Override
+    public List<Subscription> findAllSubscriptionByUser(Long user_id){
+        List<Subscription> subscriptionList = new ArrayList<Subscription>();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_SUBSCRIPTION_BY_USER)) {
+            preparedStatement.setLong(1,user_id);
+            ResultSet resultSet= preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Long id=resultSet.getLong("subscribe.id");
+                Long book_id = resultSet.getLong("b.id");
+                String book_name = resultSet.getString("b.name");
+                String book_genre = resultSet.getString("b.genre");
+                String book_status = resultSet.getString("b.status");
+                String book_author = resultSet.getString("b.author");
+                Date from = resultSet.getDate("day_from");
+                Date to = resultSet.getDate("day_to");
+                String user_name = resultSet.getString("u.name");
+                String user_password = resultSet.getString("u.password");
+                String user_role = resultSet.getString("u.role");
+                subscriptionList.add(new Subscription(id,user_name,new Book(book_id,book_name,book_author, Genre.valueOf(book_genre), Status.valueOf(book_status)),from,to,new User(user_id,user_name,user_password,Role.valueOf(user_role))));
+            }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return subscriptionList;

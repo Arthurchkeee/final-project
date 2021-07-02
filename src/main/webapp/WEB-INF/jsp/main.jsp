@@ -18,10 +18,13 @@
     <a href="page.jsp">Show page</a>
     <a href="LogoutUser">Log out</a>
     <a href="catalog">catalog</a>
+    <form method="post" action="myBooks">
+        <input type="submit" value="My Books"/>
+    </form>
     <c:if test="${role eq 'LIBRERIAN'}">
     <form method="post" action="librarian">
         <td id="action">
-            <input type="text" value="access">
+            <input type="submit" value="orders"/>
         </td>
     </c:if>
     ${role}

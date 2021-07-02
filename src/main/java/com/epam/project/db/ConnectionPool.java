@@ -12,6 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public final class ConnectionPool {
     private static ConnectionPool INSTANCE = getInstance();
     private static BlockingQueue<ConnectionProxy> availableConnectionList;
+    private static BlockingQueue<ConnectionProxy> usedConnectionList;
 
     private ConnectionPool(){
         initConnectionPool();
@@ -31,6 +32,7 @@ public final class ConnectionPool {
              throwables.printStackTrace();
          }
          availableConnectionList=new LinkedBlockingQueue<>(Properties.getConnectionPoolSize());
+         usedConnectionList=new LinkedBlockingQueue<>(Properties.getConnectionPoolSize());
          for (int i = 0; i < Properties.getConnectionPoolSize(); i++) {
             try{
                 availableConnectionList.add(new ConnectionProxy(DriverManager.getConnection(Properties.getURL(),Properties.getUSER(),Properties.getPASSWORD())));
@@ -44,6 +46,9 @@ public final class ConnectionPool {
     public Connection getConnection(){
         ConnectionProxy connection=null;
         try{
+            if(availableConnectionList.size()==0)
+                updateConnections();
+            System.out.println(availableConnectionList.size());
             connection=availableConnectionList.take();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -51,5 +56,14 @@ public final class ConnectionPool {
         return connection;
     }
 
+    public void returnConnection(ConnectionProxy connection){
+        usedConnectionList.add(connection);
+    }
+
+    public void updateConnections() throws InterruptedException {
+        for (int i = 0; i < Properties.getConnectionPoolSize(); i++) {
+            availableConnectionList.add(usedConnectionList.take());
+        }
+    }
 
 }

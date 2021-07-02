@@ -13,9 +13,9 @@
     <title>Title</title>
 </head>
 <body>
+<c:import url="main.jsp"/>
 <div>
-    <a href="page.jsp">Show page</a>
-    <a href="LogoutUser">Log out</a>
+
     ${role}
 
     <div>
@@ -28,6 +28,7 @@
                 <th>Access</th>
             </tr>
             <c:forEach var="subscription" items="${subscriptions}">
+                <c:if test="${subscription.books.status eq 'ORDERED_ROOM' || subscription.books.status eq 'ORDERED_SUBSCRIPTION'}">
                 ${subscription.id}
                 <tr>
                     <td>${subscription.books.id}</td>
@@ -36,11 +37,13 @@
                     <td>${subscription.user.name}</td>
                     <form method="get" action="librarian">
                         <input type="hidden" name="id" value=${subscription.books.id} />
+                        <input type="hidden" name="status" value=${subscription.books.status} />
                         <td id="action">
                             <input type="submit" value="access">
                         </td>
                     </form>
                 </tr>
+                </c:if>
             </c:forEach>
         </table>
     </div>

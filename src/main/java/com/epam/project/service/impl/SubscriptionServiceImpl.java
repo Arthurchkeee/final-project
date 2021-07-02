@@ -57,7 +57,17 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         bookService.orderBook(book_id);
     }
     @Override
+    public void orderRoom(Long user_id,Long book_id){
+        subscriptionDao.order(book_id,user_id,new Date(System.currentTimeMillis()));
+        bookService.updateBookStatus(Status.ORDERED_ROOM,book_id);
+    }
+    @Override
+
     public List<Subscription> findAllBookByStatus(Status status){
         return subscriptionDao.findAllBookByStatus(status);
+    }
+    @Override
+    public List<Subscription> findAllSubscriptionByUser(Long user_id){
+        return subscriptionDao.findAllSubscriptionByUser(user_id);
     }
 }

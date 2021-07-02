@@ -16,11 +16,10 @@ public class LogoutServlet extends HttpServlet {
 
         req.getRequestDispatcher("WEB-INF/jsp/login.jsp").include(req, resp);
 
-        HttpSession session=req.getSession();
-        session.invalidate();
-
+        req.getSession(false).invalidate();
+        req.getSession(true);
         out.print("You are successfully logged out!");
-
         out.close();
+
     }
 }

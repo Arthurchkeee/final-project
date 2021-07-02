@@ -1,6 +1,7 @@
 package com.epam.project.db.dao.impl;
 
 import com.epam.project.db.ConnectionPool;
+import com.epam.project.db.ConnectionProxy;
 import com.epam.project.db.dao.BaseDao;
 import com.epam.project.db.dao.UserDao;
 import com.epam.project.entities.Role;
@@ -34,6 +35,7 @@ public class UserDaoImpl implements UserDao {
                 String role = resultSet.getString("role");
                 userList.add(new User(id, name, password, Role.valueOf(role)));
             }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -53,6 +55,7 @@ public class UserDaoImpl implements UserDao {
                 String role = resultSet.getString("role");
                 user = new User(id, name, password, Role.valueOf(role));
             }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -68,6 +71,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(3, entity.getPassword());
             preparedStatement.setString(4, entity.getRole().getName());
             preparedStatement.executeUpdate();
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -81,6 +85,7 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BOOK_BY_ID)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -97,6 +102,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(2, entity.getPassword());
             preparedStatement.setString(3, entity.getRole().getName());
             preparedStatement.executeUpdate();
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -113,6 +119,7 @@ public class UserDaoImpl implements UserDao {
             while (resultSet.next()) {
                 password = resultSet.getString("password");
             }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -132,6 +139,7 @@ public class UserDaoImpl implements UserDao {
                 String role = resultSet.getString("role");
                 user = new User(id, name, password, Role.valueOf(role));
             }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

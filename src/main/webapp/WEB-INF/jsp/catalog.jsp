@@ -13,9 +13,9 @@
     <title>Title</title>
 </head>
 <body>
+<c:import url="main.jsp"/>
 <div>
-    <a href="page.jsp">Show page</a>
-    <a href="LogoutUser">Log out</a>
+
     ${role}
 
     <div>
@@ -39,6 +39,8 @@
                     <form method="get" action="order">
                         <input type="hidden" name="id" value=${book.id} />
                     <td id="action">
+                        <input type="radio" id="room" name="status" value="ROOM">
+                        <input type="radio" id="css" name="status" value="SUBSCRIBE">
                         <input type="submit" value="ORDER">
                     </td>
                     </form>

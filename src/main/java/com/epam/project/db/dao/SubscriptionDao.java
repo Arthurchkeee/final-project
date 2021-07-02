@@ -25,4 +25,6 @@ public interface SubscriptionDao extends BaseDao<Long, Subscription>{
     public boolean order(Long book_id, Long user_id, Date to);
 
     public List<Subscription> findAllBookByStatus(Status status);
+
+    public List<Subscription> findAllSubscriptionByUser(Long user_id);
 }

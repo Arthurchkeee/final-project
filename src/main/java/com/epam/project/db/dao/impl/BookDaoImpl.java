@@ -1,6 +1,7 @@
 package com.epam.project.db.dao.impl;
 
 import com.epam.project.db.ConnectionPool;
+import com.epam.project.db.ConnectionProxy;
 import com.epam.project.db.dao.BaseDao;
 import com.epam.project.db.dao.BookDao;
 import com.epam.project.entities.Book;
@@ -38,6 +39,7 @@ public class BookDaoImpl implements BookDao {
                 String author = resultSet.getString("author");
                 bookList.add(new Book(id, name, author, Genre.valueOf(genre), Status.valueOf(status)));
             }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -58,6 +60,8 @@ public class BookDaoImpl implements BookDao {
                 String author = rs.getString("author");
                 book = new Book(id, name, author, Genre.valueOf(genre), Status.valueOf(status));
             }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -74,6 +78,7 @@ public class BookDaoImpl implements BookDao {
             preparedStatement.setString(4, entity.getGenre().getName());
             preparedStatement.setString(5, entity.getStatus().getName());
             preparedStatement.executeUpdate();
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -87,6 +92,7 @@ public class BookDaoImpl implements BookDao {
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BOOK_BY_ID)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -104,6 +110,8 @@ public class BookDaoImpl implements BookDao {
             preparedStatement.setString(3, entity.getGenre().getName());
             preparedStatement.setString(4, entity.getStatus().getName());
             preparedStatement.executeUpdate();
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -124,6 +132,7 @@ public class BookDaoImpl implements BookDao {
                 String status = resultSet.getString("status");
                 bookList.add(new Book(id, name, author, Genre.valueOf(genre), Status.valueOf(status)));
             }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -143,6 +152,7 @@ public class BookDaoImpl implements BookDao {
                 String author = resultSet.getString("author");
                 bookList.add(new Book(id, name, author, Genre.valueOf(genre), status));
             }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -156,6 +166,7 @@ public class BookDaoImpl implements BookDao {
             preparedStatement.setString(1,status.getName());
             preparedStatement.setLong(2,id);
             preparedStatement.executeUpdate();
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

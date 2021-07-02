@@ -21,9 +21,13 @@ public class OrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id=req.getParameter("id");
+        String status=req.getParameter("status");
         HttpSession session= req.getSession();
         Long user= (Long) session.getAttribute("user_id");
+        if(status.equals("SUBSCRIBE"))
         service.orderSubscription(user,Long.valueOf(id),new Date(System.currentTimeMillis()));
+        else
+            service.orderRoom(user,Long.valueOf(id));
         RequestDispatcher view= req.getRequestDispatcher("/catalog");
         view.forward(req,resp);
     }
