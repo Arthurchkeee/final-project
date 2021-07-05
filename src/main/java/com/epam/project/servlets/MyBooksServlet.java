@@ -20,25 +20,25 @@ import java.util.List;
 @WebServlet(name="myBooks",urlPatterns = "/myBooks")
 public class MyBooksServlet extends HttpServlet {
 
-    SubscriptionService service=new SubscriptionServiceImpl();
-    BookService bookService=new BookServiceImpl();
+    SubscriptionService service=SubscriptionServiceImpl.getInstance();
+    BookService bookService=BookServiceImpl.getInstance();
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session= req.getSession();
         List<Subscription> subscriptionList=  service.findAllSubscriptionByUser((Long) session.getAttribute("user_id"));
         req.setAttribute("subscriptions",subscriptionList);
-        RequestDispatcher view= req.getRequestDispatcher("WEB-INF/jsp/myBooks.jsp");
+        RequestDispatcher view= req.getRequestDispatcher("jsp/myBooks.jsp");
         view.forward(req,resp);
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id=req.getParameter("id");
         String status=req.getParameter("status");
         if(status.equals(Status.ROOM))
             bookService.updateBookStatus(Status.RETURNING_ROOM,Long.valueOf(id));
         else
             bookService.updateBookStatus(Status.RETURNING_SUBSCRIPTION,Long.valueOf(id));
-        doPost(req, resp);
+        doGet(req, resp);
     }
 }

@@ -3,7 +3,6 @@ package com.epam.project.servlets;
 import com.epam.project.entities.Book;
 import com.epam.project.entities.Genre;
 import com.epam.project.entities.Status;
-import com.epam.project.service.BookService;
 import com.epam.project.service.impl.BookServiceImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -13,21 +12,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-@WebServlet(name = "createBook", urlPatterns = "/createBook")
-public class CreateBookServlet extends HttpServlet {
-    BookService service=BookServiceImpl.getInstance();
 
+@WebServlet(name = "editBook", urlPatterns = "/editBook")
+public class EditBookServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name=req.getParameter("name");
-        Book book=new Book(null,name,req.getParameter("author"), Genre.valueOf(req.getParameter("genre")), Status.FREE);
-        service.create(book);
-        RequestDispatcher view= req.getRequestDispatcher("jsp/createBook.jsp");
+        req.setAttribute("id",req.getParameter("id"));
+        req.setAttribute("name",req.getParameter("name"));
+        req.setAttribute("author",req.getParameter("author"));
+        RequestDispatcher view=req.getRequestDispatcher("jsp/editBook.jsp");
         view.forward(req,resp);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("jsp/createBook.jsp").forward(req, resp);
+        BookServiceImpl.getInstance().update(new Book(Long.valueOf(req.getParameter("id")),req.getParameter("book_name"),req.getParameter("author_name"), Genre.valueOf(req.getParameter("genre")), Status.FREE));
+        RequestDispatcher view=req.getRequestDispatcher("/books");
+        view.forward(req,resp);
     }
 }

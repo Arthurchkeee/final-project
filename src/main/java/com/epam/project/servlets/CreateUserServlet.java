@@ -16,11 +16,11 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "createUser",urlPatterns = "/createUser")
 public class CreateUserServlet extends HttpServlet {
-    UserService userService=new UserServiceImpl();
+    UserService userService=UserServiceImpl.getInstance();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user=new User(null,req.getParameter("name"),req.getParameter("password"), Role.valueOf(req.getParameter("role")));
-        RequestDispatcher view= req.getRequestDispatcher("WEB-INF/jsp/createUser.jsp");
+        RequestDispatcher view= req.getRequestDispatcher("jsp/createUser.jsp");
         view.forward(req,resp);
         PrintWriter out=resp.getWriter();
         if(userService.create(user)){
@@ -33,6 +33,6 @@ public class CreateUserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/jsp/createUser.jsp").forward(req, resp);
+        req.getRequestDispatcher("jsp/createUser.jsp").forward(req, resp);
     }
 }

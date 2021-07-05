@@ -16,10 +16,7 @@ import java.sql.Date;
 
 public class Main {
     public static void main(String[] args) {
-        BookService bookService=new BookServiceImpl();
-        for (int i = 0; i < 12; i++) {
-            bookService.findAllBooks();
-        }
+
 
     }
 }

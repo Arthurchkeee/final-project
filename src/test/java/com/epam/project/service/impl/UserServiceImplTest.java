@@ -3,7 +3,7 @@ package com.epam.project.service.impl;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserServiceImplTest {
-    UserServiceImpl userService = new UserServiceImpl();
+    UserServiceImpl userService = UserServiceImpl.getInstance();
 
     @org.junit.jupiter.api.Test
     void getAccess() {

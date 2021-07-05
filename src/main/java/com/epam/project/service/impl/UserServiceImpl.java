@@ -7,9 +7,21 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.List;
 
-public class UserServiceImpl implements UserService {
+public final class UserServiceImpl implements UserService {
+    private static UserServiceImpl INSTANCE;
 
-    private UserDaoImpl userDao = new UserDaoImpl();
+    private UserDaoImpl userDao;
+
+    private UserServiceImpl(){
+        userDao = new UserDaoImpl();
+    }
+
+    public static UserServiceImpl getInstance(){
+        if(INSTANCE==null){
+            INSTANCE=new UserServiceImpl();
+        }
+        return INSTANCE;
+    }
 
     @Override
     public List<User> findAllUsers() {

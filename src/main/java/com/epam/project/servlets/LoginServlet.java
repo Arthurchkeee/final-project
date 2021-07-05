@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 
 @WebServlet(name="loginUser",urlPatterns = "/LoginUser")
 public class LoginServlet extends HttpServlet {
-    UserService userService=new UserServiceImpl();
+    UserService userService=UserServiceImpl.getInstance();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username=req.getParameter("login");
@@ -28,12 +28,12 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("username",username);
             session.setAttribute("user_id",user.getId());
             session.setAttribute("role",user.getRole());
-            RequestDispatcher view= req.getRequestDispatcher("WEB-INF/jsp/main.jsp");
+            RequestDispatcher view= req.getRequestDispatcher("jsp/main.jsp");
             view.forward(req,resp);
         }
         else{
             PrintWriter out=resp.getWriter();
-            req.getRequestDispatcher("WEB-INF/jsp/login.jsp").include(req,resp);
+            req.getRequestDispatcher("jsp/login.jsp").include(req,resp);
             out.print("Your login or password are wrong!");
             out.close();
         }

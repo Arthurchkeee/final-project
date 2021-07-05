@@ -3,15 +3,25 @@ package com.epam.project.service.impl;
 import com.epam.project.db.dao.impl.SubscriptionDaoImpl;
 import com.epam.project.entities.Status;
 import com.epam.project.entities.Subscription;
-import com.epam.project.service.BookService;
 import com.epam.project.service.SubscriptionService;
 
 import java.sql.Date;
 import java.util.List;
 
-public class SubscriptionServiceImpl implements SubscriptionService {
-    SubscriptionDaoImpl subscriptionDao=new SubscriptionDaoImpl();
-    BookService bookService=new BookServiceImpl();
+public final class SubscriptionServiceImpl implements SubscriptionService {
+    private static SubscriptionServiceImpl INSTANCE;
+    private static SubscriptionDaoImpl subscriptionDao;
+
+    private SubscriptionServiceImpl() {
+        subscriptionDao=new SubscriptionDaoImpl();
+    }
+
+    public static SubscriptionServiceImpl getInstance(){
+        if(INSTANCE==null){
+            INSTANCE=new SubscriptionServiceImpl();
+        }
+        return INSTANCE;
+    }
 
     @Override
     public List<Subscription> findAllSubscriptions() {
@@ -54,12 +64,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public void orderSubscription(Long user_id,Long book_id,Date to){
         subscriptionDao.order(book_id,user_id,to);
-        bookService.orderBook(book_id);
     }
     @Override
     public void orderRoom(Long user_id,Long book_id){
         subscriptionDao.order(book_id,user_id,new Date(System.currentTimeMillis()));
-        bookService.updateBookStatus(Status.ORDERED_ROOM,book_id);
     }
     @Override
 
@@ -74,6 +82,5 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public void deleteSubscription(Long id,Long book_id){
         subscriptionDao.delete(id);
-        bookService.updateBookStatus(Status.FREE,book_id);
     }
 }

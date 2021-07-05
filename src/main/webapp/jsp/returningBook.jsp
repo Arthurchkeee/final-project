@@ -9,13 +9,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <c:import url="main.jsp"/>
-<div>
-    <div>
-        <table id="books" border="1" cellpadding="5">
+<div class="container">
+    <a class="btn btn-outline-dark m-lg-3" href="librarian" >Orders</a>
+    <a class="btn btn-outline-dark m-lg-3" href="returning" disabled="true">Return</a>
+
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+    <br>
+        <table id="books" class="table table-bordered table-striped">
+            <thead class="thread-light">
             <tr>
                 <th>Book id</th>
                 <th>Book name</th>
@@ -23,6 +28,8 @@
                 <th>Username</th>
                 <th>Return</th>
             </tr>
+            </thead>
+            <tbody id="bookTable">
             <c:forEach var="subscription" items="${subscriptions}">
                 <c:if test="${subscription.books.status eq 'RETURNING_ROOM' || subscription.books.status eq 'RETURNING_SUBSCRIPTION'}">
                     <tr>
@@ -30,18 +37,29 @@
                         <td>${subscription.books.name}</td>
                         <td>${subscription.books.author}</td>
                         <td>${subscription.user.name}</td>
-                        <form method="get" action="returning">
+                        <form method="post" action="returning">
                             <input type="hidden" name="id" value=${subscription.id} />
                             <input type="hidden" name="book_id" value=${subscription.books.id} />
                             <td id="action">
-                                <input type="submit" value="return">
+                                <input type="submit" class="btn btn-outline-success" value="RETURN">
                             </td>
                         </form>
                     </tr>
                 </c:if>
             </c:forEach>
+            </tbody>
         </table>
-    </div>
+
 </div>
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#bookTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
 </body>
 </html>

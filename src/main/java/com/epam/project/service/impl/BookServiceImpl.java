@@ -8,9 +8,20 @@ import com.epam.project.service.BookService;
 
 import java.util.List;
 
-public class BookServiceImpl implements BookService {
+public final class BookServiceImpl implements BookService {
+    private static BookServiceImpl INSTANCE;
+    private  BookDao bookDao;
 
-    private BookDao bookDao = new BookDaoImpl();
+    public static BookServiceImpl getInstance(){
+        if(INSTANCE==null){
+            INSTANCE=new BookServiceImpl();
+        }
+        return INSTANCE;
+    }
+
+    private BookServiceImpl(){
+        bookDao=new BookDaoImpl();
+    }
 
     @Override
     public List<Book> findAllBooks() {

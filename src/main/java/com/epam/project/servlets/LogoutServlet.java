@@ -14,7 +14,7 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out=resp.getWriter();
 
-        req.getRequestDispatcher("WEB-INF/jsp/login.jsp").include(req, resp);
+        req.getRequestDispatcher("jsp/login.jsp").include(req, resp);
 
         req.getSession(false).invalidate();
         req.getSession(true);

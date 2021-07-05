@@ -10,7 +10,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public final class ConnectionPool {
-    private static ConnectionPool INSTANCE = getInstance();
+    private static ConnectionPool INSTANCE;
     private static BlockingQueue<ConnectionProxy> availableConnectionList;
     private static BlockingQueue<ConnectionProxy> usedConnectionList;
 
