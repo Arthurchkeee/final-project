@@ -33,7 +33,7 @@ public class MyBooksServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(Status.ROOM.equals(req.getParameter("status")))
+        if(Status.ROOM.equals(Status.valueOf(req.getParameter("status"))))
             BookServiceImpl.getInstance().updateBookStatus(Status.RETURNING_ROOM,Long.valueOf(req.getParameter("id")));
         else
             BookServiceImpl.getInstance().updateBookStatus(Status.RETURNING_SUBSCRIPTION,Long.valueOf(req.getParameter("id")));

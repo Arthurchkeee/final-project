@@ -18,7 +18,7 @@ import java.io.IOException;
 public class LibrarianServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(Status.ORDERED_SUBSCRIPTION.equals(req.getParameter("status")))
+        if(Status.ORDERED_SUBSCRIPTION.equals(Status.valueOf(req.getParameter("status"))))
             BookServiceImpl.getInstance().updateBookStatus(Status.SUBSCRIPTION,Long.valueOf(req.getParameter("id")));
         else
             BookServiceImpl.getInstance().updateBookStatus(Status.ROOM,Long.valueOf(req.getParameter("id")));
