@@ -14,8 +14,7 @@ import java.io.IOException;
 public class DeleteBookServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id=req.getParameter("id");
-        BookServiceImpl.getInstance().delete(Long.valueOf(id));
+        BookServiceImpl.getInstance().delete(Long.valueOf(req.getParameter("id")));
         RequestDispatcher view= req.getRequestDispatcher("/books");
         view.forward(req,resp);
     }

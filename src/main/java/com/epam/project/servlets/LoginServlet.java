@@ -16,13 +16,12 @@ import java.io.PrintWriter;
 
 @WebServlet(name="loginUser",urlPatterns = "/LoginUser")
 public class LoginServlet extends HttpServlet {
-    UserService userService=UserServiceImpl.getInstance();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username=req.getParameter("login");
         String password=req.getParameter("password");
-        if(userService.getAccess(username,password)){
-            User user = userService.findUserByLogin(username);
+        if(UserServiceImpl.getInstance().getAccess(username,password)){
+            User user = UserServiceImpl.getInstance().findUserByLogin(username);
             HttpSession session=req.getSession();
             session.setAttribute("username",username);
             session.setAttribute("user_id",user.getId());

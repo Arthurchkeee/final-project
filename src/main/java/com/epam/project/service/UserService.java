@@ -17,5 +17,5 @@ public interface UserService {
 
     boolean getAccess(String login, String password);
 
-    public User findUserByLogin(String login);
+    User findUserByLogin(String login);
 }

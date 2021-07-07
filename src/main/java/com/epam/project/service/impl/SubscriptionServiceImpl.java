@@ -1,5 +1,6 @@
 package com.epam.project.service.impl;
 
+import com.epam.project.db.dao.SubscriptionDao;
 import com.epam.project.db.dao.impl.SubscriptionDaoImpl;
 import com.epam.project.entities.Status;
 import com.epam.project.entities.Subscription;
@@ -10,10 +11,10 @@ import java.util.List;
 
 public final class SubscriptionServiceImpl implements SubscriptionService {
     private static SubscriptionServiceImpl INSTANCE;
-    private static SubscriptionDaoImpl subscriptionDao;
+    private static SubscriptionDao subscriptionDao;
 
     private SubscriptionServiceImpl() {
-        subscriptionDao=new SubscriptionDaoImpl();
+        subscriptionDao =new SubscriptionDaoImpl();
     }
 
     public static SubscriptionServiceImpl getInstance(){
@@ -49,8 +50,7 @@ public final class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     public Subscription ConfirmRoomSubscription(Subscription subscription){
-        long millis=System.currentTimeMillis();
-        Date date=new Date(millis);
+        Date date=new Date(System.currentTimeMillis());
         subscription.setTo(date);
         subscription.setFrom(date);
         return subscriptionDao.update(subscription);
@@ -62,25 +62,25 @@ public final class SubscriptionServiceImpl implements SubscriptionService {
         return subscriptionDao.update(subscription);
     }
     @Override
-    public void orderSubscription(Long user_id,Long book_id,Date to){
-        subscriptionDao.order(book_id,user_id,to);
+    public void orderSubscription(Long userId, Long bookId, Date to){
+        subscriptionDao.order(bookId, userId,to);
     }
     @Override
-    public void orderRoom(Long user_id,Long book_id){
-        subscriptionDao.order(book_id,user_id,new Date(System.currentTimeMillis()));
+    public void orderRoom(Long userId, Long bookId){
+        subscriptionDao.order(bookId, userId,new Date(System.currentTimeMillis()));
     }
     @Override
 
-    public List<Subscription> findAllBookByStatus(Status status){
+    public List<Subscription> findAllBooksByStatus(Status status){
         return subscriptionDao.findAllBookByStatus(status);
     }
 
     @Override
-    public List<Subscription> findAllSubscriptionByUser(Long user_id){
-        return subscriptionDao.findAllSubscriptionByUser(user_id);
+    public List<Subscription> findAllSubscriptionByUser(Long userId){
+        return subscriptionDao.findAllSubscriptionByUser(userId);
     }
     @Override
-    public void deleteSubscription(Long id,Long book_id){
+    public void deleteSubscription(Long id,Long bookId){
         subscriptionDao.delete(id);
     }
 }

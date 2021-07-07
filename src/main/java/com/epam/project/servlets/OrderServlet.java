@@ -19,13 +19,12 @@ import java.sql.Date;
 
 @WebServlet(name="order",urlPatterns = "/order")
 public class OrderServlet extends HttpServlet {
-    SubscriptionService service=SubscriptionServiceImpl.getInstance();
-    BookService bookService=BookServiceImpl.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id=req.getParameter("id");
-       Book book= bookService.findBookById(Long.valueOf(id));
+       Book book= BookServiceImpl.getInstance().findBookById(Long.valueOf(id));
+       req.setAttribute("id",id);
        req.setAttribute("name",book.getName());
        req.setAttribute("author",book.getAuthor());
        req.setAttribute("status",book.getStatus());
@@ -37,20 +36,20 @@ public class OrderServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id=req.getParameter("id");
         String status=req.getParameter("status");
         HttpSession session= req.getSession();
         Long user= (Long) session.getAttribute("user_id");
         if(status.equals("SUBSCRIBE")) {
-            service.orderSubscription(user, Long.valueOf(id), new Date(System.currentTimeMillis()));
-            bookService.orderBook(Long.valueOf(id));
+            SubscriptionServiceImpl.getInstance().orderSubscription(user, Long.valueOf(id), new Date(System.currentTimeMillis()));
+            BookServiceImpl.getInstance().updateBookStatus(Status.ORDERED_SUBSCRIPTION,Long.valueOf(id));
         }
         else {
-            service.orderRoom(user, Long.valueOf(id));
-            bookService.updateBookStatus(Status.ORDERED_ROOM, Long.valueOf(id));
+            SubscriptionServiceImpl.getInstance().orderRoom(user, Long.valueOf(id));
+            BookServiceImpl.getInstance().updateBookStatus(Status.ORDERED_ROOM, Long.valueOf(id));
         }
-        RequestDispatcher view= req.getRequestDispatcher("/catalog");
+        RequestDispatcher view=req.getRequestDispatcher("/catalog");
         view.forward(req,resp);
     }
 }

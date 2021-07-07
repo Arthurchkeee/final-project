@@ -22,9 +22,9 @@ public interface SubscriptionDao extends BaseDao<Long, Subscription>{
     @Override
     Subscription update(Subscription entity);
 
-    public boolean order(Long book_id, Long user_id, Date to);
+    public boolean order(Long bookId, Long userId, Date to);
 
     public List<Subscription> findAllBookByStatus(Status status);
 
-    public List<Subscription> findAllSubscriptionByUser(Long user_id);
+    public List<Subscription> findAllSubscriptionByUser(Long userId);
 }

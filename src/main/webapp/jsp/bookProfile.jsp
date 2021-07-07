@@ -32,8 +32,8 @@
                     ${description}</p>
                 <c:choose>
                     <c:when test="${status == 'FREE'}">
-                        <form method="post" action="order">
-                            <input type="hidden" name="id" value=${book.id} />
+                        <form method="get" action="order">
+                            <input type="hidden" name="id" value=${id} />
                                 <input type="radio" class="form-check-input" id="room" name="status" value="ROOM" checked>
                                 <label for="room" >ROOM</label><br>
                                 <input type="radio" class="form-check-input" id="subscribe" name="status" value="SUBSCRIBE">

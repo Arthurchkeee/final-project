@@ -21,4 +21,6 @@ public interface UserDao extends BaseDao<Long,User>{
     User update(User entity);
 
     String getPassword(String login);
+
+    User findUserByLogin(String login);
 }

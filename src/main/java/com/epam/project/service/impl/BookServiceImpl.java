@@ -49,51 +49,16 @@ public final class BookServiceImpl implements BookService {
     }
 
 
-
     @Override
-    public Book returnBook(Book book) {
-        book.setStatus(Status.FREE);
-        return update(book);
-    }
-
-    @Override
-    public Book roomRequestBook(Book book) {
-        book.setStatus(Status.ORDERED_ROOM);
-        return update(book);
-    }
-
-    @Override
-    public Book subscribeRequestBook(Book book) {
-        book.setStatus(Status.ORDERED_SUBSCRIPTION);
-        return update(book);
-    }
-
-    @Override
-    public Book getBookInRoom(Book book) {
-        book.setStatus(Status.ROOM);
-        return update(book);
-    }
-
-    @Override
-    public Book getBookInSubscribe(Book book) {
-        book.setStatus(Status.SUBSCRIPTION);
-        return update(book);
-    }
-
-    @Override
-    public List<Book> findBookByAuthor(String author) {
+    public List<Book> findBooksByAuthor(String author) {
         return bookDao.findBookByAuthor(author);
     }
 
     @Override
-    public List<Book> findAllFreeBook() {
+    public List<Book> findAllFreeBooks() {
         return bookDao.findBookByStatus(Status.FREE);
     }
 
-    @Override
-    public void orderBook(Long id){
-        bookDao.updateBookStatus(Status.ORDERED_SUBSCRIPTION,id);
-    }
 
     @Override
     public void updateBookStatus(Status status,Long id){

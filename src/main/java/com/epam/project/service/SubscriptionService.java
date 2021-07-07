@@ -12,9 +12,9 @@ public interface SubscriptionService {
     boolean create(Subscription entity);
     boolean delete(Long id);
     Subscription update(Subscription entity);
-    public void orderSubscription(Long user_id, Long book_id, Date to);
-    public void orderRoom(Long user_id,Long book_id);
-    public List<Subscription> findAllBookByStatus(Status status);
-    public List<Subscription> findAllSubscriptionByUser(Long user_id);
-    public void deleteSubscription(Long id,Long book_id);
+    void orderSubscription(Long userId, Long bookId, Date to);
+    void orderRoom(Long userId,Long bookId);
+    List<Subscription> findAllBooksByStatus(Status status);
+    List<Subscription> findAllSubscriptionByUser(Long userId);
+    void deleteSubscription(Long id,Long bookId);
 }

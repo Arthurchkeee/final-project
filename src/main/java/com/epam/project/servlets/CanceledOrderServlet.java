@@ -30,11 +30,6 @@ public class CanceledOrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SubscriptionServiceImpl.getInstance().delete(Long.valueOf(req.getParameter("id")));
         BookServiceImpl.getInstance().updateBookStatus(Status.FREE,Long.valueOf(req.getParameter("book_id")));
-        HttpSession session= req.getSession();
-        if(req.getParameter("flag").equals("lib")&& session.getAttribute("role").equals("LIBRARIAN")){
-            RequestDispatcher view= req.getRequestDispatcher("/librarian");
-            view.forward(req,resp);
-        }else
         doGet(req, resp);
     }
 }

@@ -12,11 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 @WebServlet(name="catalog",urlPatterns = "/catalog")
 public class CatalogServlet extends HttpServlet {
-    BookService bookService= BookServiceImpl.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        req.setAttribute("books",bookService.findAllBooks());
+        req.setAttribute("books",BookServiceImpl.getInstance().findAllBooks());
         RequestDispatcher view= req.getRequestDispatcher("jsp/catalog.jsp");
         view.forward(req,resp);
     }

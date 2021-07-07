@@ -41,7 +41,7 @@
                     <td>${book.author}</td>
                     <td>${book.genre}</td>
                     <td>${book.status}</td>
-                    <form method="get" action="order">
+                    <form method="post" action="order">
                         <input type="hidden" name="id" value=${book.id} />
                         <td>
                         <input type="submit" class="btn btn-outline-primary" value="More">

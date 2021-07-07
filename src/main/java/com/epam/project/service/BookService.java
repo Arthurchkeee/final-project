@@ -16,21 +16,9 @@ public interface BookService {
 
     Book update(Book entity);
 
-    Book returnBook(Book book);
+    List<Book> findBooksByAuthor(String author);
 
-    Book roomRequestBook(Book book);
+    List<Book> findAllFreeBooks();
 
-    Book subscribeRequestBook(Book book);
-
-    Book getBookInRoom(Book book);
-
-    Book getBookInSubscribe(Book book);
-
-    List<Book> findBookByAuthor(String author);
-
-    List<Book> findAllFreeBook();
-
-    public void orderBook(Long id);
-
-    public void updateBookStatus(Status status, Long id);
+    void updateBookStatus(Status status, Long id);
 }

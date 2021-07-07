@@ -16,23 +16,19 @@ import java.io.IOException;
 
 @WebServlet(name="librarian",urlPatterns = "/librarian")
 public class LibrarianServlet extends HttpServlet {
-    SubscriptionService service=SubscriptionServiceImpl.getInstance();
-    BookService bookService=BookServiceImpl.getInstance();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id=req.getParameter("id");
-        String status=req.getParameter("status");
-        if(status.equals(Status.ORDERED_SUBSCRIPTION))
-            bookService.updateBookStatus(Status.SUBSCRIPTION,Long.valueOf(id));
+        if(Status.ORDERED_SUBSCRIPTION.equals(req.getParameter("status")))
+            BookServiceImpl.getInstance().updateBookStatus(Status.SUBSCRIPTION,Long.valueOf(req.getParameter("id")));
         else
-            bookService.updateBookStatus(Status.ROOM,Long.valueOf(id));
+            BookServiceImpl.getInstance().updateBookStatus(Status.ROOM,Long.valueOf(req.getParameter("id")));
         doGet(req, resp);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        req.setAttribute("subscriptions",service.findAllSubscriptions());
+        req.setAttribute("subscriptions",SubscriptionServiceImpl.getInstance().findAllSubscriptions());
         RequestDispatcher view= req.getRequestDispatcher("jsp/librarian.jsp");
         view.forward(req,resp);
     }

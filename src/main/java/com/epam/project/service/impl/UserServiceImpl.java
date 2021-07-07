@@ -1,5 +1,6 @@
 package com.epam.project.service.impl;
 
+import com.epam.project.db.dao.UserDao;
 import com.epam.project.db.dao.impl.UserDaoImpl;
 import com.epam.project.entities.User;
 import com.epam.project.service.UserService;
@@ -10,7 +11,7 @@ import java.util.List;
 public final class UserServiceImpl implements UserService {
     private static UserServiceImpl INSTANCE;
 
-    private UserDaoImpl userDao;
+    private UserDao userDao;
 
     private UserServiceImpl(){
         userDao = new UserDaoImpl();

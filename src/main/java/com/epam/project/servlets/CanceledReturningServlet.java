@@ -28,12 +28,10 @@ public class CanceledReturningServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id=req.getParameter("book_id");
-        String status=req.getParameter("status");
-        if(status.equals(Status.RETURNING_ROOM))
-            BookServiceImpl.getInstance().updateBookStatus(Status.ROOM,Long.valueOf(id));
+        if(Status.RETURNING_ROOM.equals(req.getParameter("status")))
+            BookServiceImpl.getInstance().updateBookStatus(Status.ROOM,Long.valueOf(req.getParameter("book_id")));
         else
-            BookServiceImpl.getInstance().updateBookStatus(Status.SUBSCRIPTION,Long.valueOf(id));
+            BookServiceImpl.getInstance().updateBookStatus(Status.SUBSCRIPTION,Long.valueOf(req.getParameter("book_id")));
         doGet(req, resp);
     }
 }

@@ -16,19 +16,13 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "createUser",urlPatterns = "/createUser")
 public class CreateUserServlet extends HttpServlet {
-    UserService userService=UserServiceImpl.getInstance();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user=new User(null,req.getParameter("name"),req.getParameter("password"), Role.valueOf(req.getParameter("role")));
+        UserServiceImpl.getInstance().create(user);
         RequestDispatcher view= req.getRequestDispatcher("jsp/createUser.jsp");
         view.forward(req,resp);
-        PrintWriter out=resp.getWriter();
-        if(userService.create(user)){
-            out.print("User added successfully");
-        }
-        else
-            out.print("Check your input data!");
-        out.close();
+
     }
 
     @Override
