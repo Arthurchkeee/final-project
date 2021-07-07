@@ -16,7 +16,7 @@ public class DeleteBookServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id=req.getParameter("id");
         BookServiceImpl.getInstance().delete(Long.valueOf(id));
-        RequestDispatcher view= req.getRequestDispatcher("/editBook");
+        RequestDispatcher view= req.getRequestDispatcher("/books");
         view.forward(req,resp);
     }
 }

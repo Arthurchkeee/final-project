@@ -41,34 +41,12 @@
                     <td>${book.author}</td>
                     <td>${book.genre}</td>
                     <td>${book.status}</td>
-                    <c:choose>
-                    <c:when test="${book.status == 'FREE'}">
                     <form method="get" action="order">
                         <input type="hidden" name="id" value=${book.id} />
-                    <td id="action">
-                        <input type="radio" class="form-check-input" id="room" name="status" value="ROOM" checked>
-                        <label for="room" >ROOM</label><br>
-                        <input type="radio" class="form-check-input" id="subscribe" name="status" value="SUBSCRIBE">
-                        <label for="subscribe">SUBSCRIBE</label><br>
-                    </td>
                         <td>
-                        <input type="submit" class="btn btn-outline-success" value="ORDER">
+                        <input type="submit" class="btn btn-outline-primary" value="More">
                     </td>
                     </form>
-                    </c:when>
-                    <c:otherwise>
-                        <td>
-                            <input type="radio" class="form-check-input" id="room1" name="status" value="ROOM " disabled>
-                            <label for="room" >ROOM</label><br>
-                            <input type="radio" class="form-check-input" id="subscribe1" name="status" value="SUBSCRIBE" disabled>
-                            <label for="subscribe">SUBSCRIBE</label>
-                        </td>
-                        <td>
-                            <input type="submit" class="btn btn-outline-success" value="ORDER" disabled>
-                        </td>
-                    </c:otherwise>
-                    </c:choose>
-
                     <div class="collapse" id="${book.name}">
                         <div class="card card-body">
                             Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.

@@ -19,8 +19,8 @@ public class CreateBookServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name=req.getParameter("name");
-        Book book=new Book(null,name,req.getParameter("author"), Genre.valueOf(req.getParameter("genre")), Status.FREE);
+        req.setCharacterEncoding("UTF-8");
+        Book book=new Book(null,req.getParameter("name"),req.getParameter("author"), Genre.valueOf(req.getParameter("genre")), Status.FREE,req.getParameter("description"),req.getParameter("image"));
         service.create(book);
         RequestDispatcher view= req.getRequestDispatcher("jsp/createBook.jsp");
         view.forward(req,resp);

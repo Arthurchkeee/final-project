@@ -4,12 +4,24 @@ public class Book extends AbstractBaseEntity {
     private String author;
     private Genre genre;
     private Status status;
+    private String description;
+    private String image;
 
-    public Book(Long id, String name, String author, Genre genre, Status status){
+    public String getDescription() {
+        return description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public Book(Long id, String name, String author, Genre genre, Status status, String description, String image){
         super(id,name);
         this.author=author;
         this.genre=genre;
         this.status=status;
+        this.description=description;
+        this.image=image;
     }
 
 

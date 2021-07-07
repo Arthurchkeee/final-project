@@ -27,6 +27,7 @@
                 <th>Book name</th>
                 <th>Author</th>
                 <th>Username</th>
+                <th>Canceled</th>
                 <th>Access</th>
             </tr>
             </thead>
@@ -39,6 +40,14 @@
                     <td>${subscription.books.name}</td>
                     <td>${subscription.books.author}</td>
                     <td>${subscription.user.name}</td>
+                    <form method="post" action="canceledOrder">
+                        <input type="hidden" name="book_id" value=${subscription.books.id} />
+                        <input type="hidden" name="id" value=${subscription.id} />
+                        <td id="canceled">
+                            <input type="submit" class="btn btn-outline-danger" value="CANCELED">
+                        </td>
+                    </form>
+
                     <form method="post" action="librarian">
                         <input type="hidden" name="id" value=${subscription.books.id} />
                         <input type="hidden" name="status" value=${subscription.books.status} />
@@ -46,6 +55,7 @@
                             <input type="submit" class="btn btn-outline-success" value="ACCESS">
                         </td>
                     </form>
+
                 </tr>
                 </c:if>
             </c:forEach>

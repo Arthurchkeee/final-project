@@ -17,6 +17,7 @@ import java.io.IOException;
 public class EditBookServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         req.setAttribute("id",req.getParameter("id"));
         req.setAttribute("name",req.getParameter("name"));
         req.setAttribute("author",req.getParameter("author"));
@@ -26,7 +27,7 @@ public class EditBookServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        BookServiceImpl.getInstance().update(new Book(Long.valueOf(req.getParameter("id")),req.getParameter("book_name"),req.getParameter("author_name"), Genre.valueOf(req.getParameter("genre")), Status.FREE));
+        BookServiceImpl.getInstance().update(new Book(Long.valueOf(req.getParameter("id")),req.getParameter("book_name"),req.getParameter("author_name"), Genre.valueOf(req.getParameter("genre")), Status.FREE,req.getParameter("description"),req.getParameter("image")));
         RequestDispatcher view=req.getRequestDispatcher("/books");
         view.forward(req,resp);
     }

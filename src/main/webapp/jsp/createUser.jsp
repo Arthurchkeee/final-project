@@ -12,17 +12,25 @@
     <title>Title</title>
 </head>
 <body>
-<c:import url="main.jsp"/>
+<c:import url="entities.jsp"/>
+<div class="container">
+    <div class="input-group mb-3">
 <form method="post" action="createUser">
-    <input name="username">
-    <input name="password"><br>
-    <input type="radio" id="admin" name="role" value="ADMIN">
-    <label for="admin">ADMIN</label><br>
-    <input type="radio" id="librarian" name="role" value="LIBRARIAN">
-    <label for="librarian">LIBRARIAN</label><br>
-    <input type="radio" id="user" name="role" value="USER">
-    <label for="user">USER</label><br>
-    <input type="submit" value="create">
+    <span class="input-group-text" id="basic-addon1">Name</span>
+    <input type="text" name="name" class="form-control" placeholder="Name"  aria-label="Name" aria-describedby="basic-addon1" value=${name} >
+    <span class="input-group-text" id="basic-addon2">Password</span>
+    <input type="text" name="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon2"  >
+
+    <br>
+    <span class="input-group-text" id="basic-select">Role</span>
+    <select class="form-select" name="role" aria-describedby="basic-select">
+        <option value="ADMIN">Admin</option>
+        <option value="LIBRARIAN">Librarian</option>
+        <option value="READER" selected>Reader</option>
+    </select>
+    <input type="submit" class="btn btn-outline-success" value="CREATE">
 </form>
+</div>
+</div>
 </body>
 </html>

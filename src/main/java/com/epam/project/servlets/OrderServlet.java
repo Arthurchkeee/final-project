@@ -1,5 +1,6 @@
 package com.epam.project.servlets;
 
+import com.epam.project.entities.Book;
 import com.epam.project.entities.Status;
 import com.epam.project.service.BookService;
 import com.epam.project.service.SubscriptionService;
@@ -20,8 +21,23 @@ import java.sql.Date;
 public class OrderServlet extends HttpServlet {
     SubscriptionService service=SubscriptionServiceImpl.getInstance();
     BookService bookService=BookServiceImpl.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id=req.getParameter("id");
+       Book book= bookService.findBookById(Long.valueOf(id));
+       req.setAttribute("name",book.getName());
+       req.setAttribute("author",book.getAuthor());
+       req.setAttribute("status",book.getStatus());
+       req.setAttribute("genre",book.getGenre());
+       req.setAttribute("description",book.getDescription());
+       req.setAttribute("image",book.getImage());
+        RequestDispatcher view= req.getRequestDispatcher("/jsp/bookProfile.jsp");
+        view.forward(req,resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id=req.getParameter("id");
         String status=req.getParameter("status");
         HttpSession session= req.getSession();

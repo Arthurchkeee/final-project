@@ -17,11 +17,16 @@
         <form method="get" action="editBook">
             <input type="hidden" name="id" value=${id} />
         <span class="input-group-text" id="basic-addon1">Name</span>
-        <input type="text" name="book_name" class="form-control" placeholder="Name"  aria-label="Name" aria-describedby="basic-addon1" value=${name} >
+        <input type="text" name="book_name" class="form-control" placeholder="Name"  aria-label="Name" aria-describedby="basic-addon1">
         <span class="input-group-text" id="basic-addon2">Author</span>
-        <input type="text" name="author_name" class="form-control" placeholder="Author" aria-label="Author" aria-describedby="basic-addon2" value=${author} >
+        <input type="text" name="author_name" class="form-control" placeholder="Author" aria-label="Author" aria-describedby="basic-addon2" >
         <span class="input-group-text" id="basic-select">Genre</span>
-        <select class="form-select" name="genre" aria-describedby="basic-select">
+            <span class="input-group-text" id="basic-addon3">Description</span>
+            <input type="text" name="description" class="form-control" placeholder="Description" aria-label="Description" aria-describedby="basic-addon3" >
+            <span class="input-group-text" id="basic-addon4">Image Address</span>
+            <input type="text" name="image" class="form-control" placeholder="Image Address" aria-label="Image Address" aria-describedby="basic-addon4" >
+
+            <select class="form-select" name="genre" aria-describedby="basic-select">
             <option value="DETECTIVE">DETECTIVE</option>
             <option value="HORROR">HORROR</option>
             <option value="COMEDY">COMEDY</option>

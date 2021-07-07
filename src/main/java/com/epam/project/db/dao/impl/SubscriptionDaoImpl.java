@@ -39,13 +39,15 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
                 String book_genre = resultSet.getString("b.genre");
                 String book_status = resultSet.getString("b.status");
                 String book_author = resultSet.getString("b.author");
+                String book_description=resultSet.getString("b.description");
+                String book_image=resultSet.getString("b.image");
                 Date from =resultSet.getDate("day_from");
                 Date to=resultSet.getDate("day_to");
                 Long user_id=resultSet.getLong("u.id");
                 String user_name = resultSet.getString("u.name");
                 String user_password = resultSet.getString("u.password");
                 String user_role = resultSet.getString("u.role");
-                subscriptionList.add(new Subscription(id,user_name,new Book(book_id,book_name,book_author, Genre.valueOf(book_genre), Status.valueOf(book_status)),from,to,new User(user_id,user_name,user_password,Role.valueOf(user_role))));
+                subscriptionList.add(new Subscription(id,user_name,new Book(book_id,book_name,book_author, Genre.valueOf(book_genre), Status.valueOf(book_status),book_description,book_image),from,to,new User(user_id,user_name,user_password,Role.valueOf(user_role))));
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
@@ -68,13 +70,15 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
                 String book_genre = resultSet.getString("b.genre");
                 String book_status = resultSet.getString("b.status");
                 String book_author = resultSet.getString("b.author");
+                String book_description=resultSet.getString("b.description");
+                String book_image=resultSet.getString("b.image");
                 Date from = resultSet.getDate("day_from");
                 Date to = resultSet.getDate("day_to");
                 Long user_id = resultSet.getLong("u.id");
                 String user_name = resultSet.getString("u.name");
                 String user_password = resultSet.getString("u.password");
                 String user_role = resultSet.getString("u.role");
-                subscription = new Subscription(subs_id, user_name, new Book(book_id, book_name, book_author, Genre.valueOf(book_genre), Status.valueOf(book_status)), from, to, new User(user_id, user_name, user_password, Role.valueOf(user_role)));
+                subscription = new Subscription(subs_id, user_name, new Book(book_id, book_name, book_author, Genre.valueOf(book_genre), Status.valueOf(book_status),book_description,book_image), from, to, new User(user_id, user_name, user_password, Role.valueOf(user_role)));
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
@@ -164,13 +168,15 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
                 String book_genre = resultSet.getString("b.genre");
                 String book_status = resultSet.getString("b.status");
                 String book_author = resultSet.getString("b.author");
+                String book_description=resultSet.getString("b.description");
+                String book_image=resultSet.getString("b.image");
                 Date from = resultSet.getDate("day_from");
                 Date to = resultSet.getDate("day_to");
                 Long user_id = resultSet.getLong("u.id");
                 String user_name = resultSet.getString("u.name");
                 String user_password = resultSet.getString("u.password");
                 String user_role = resultSet.getString("u.role");
-                subscriptionList.add(new Subscription(id,user_name,new Book(book_id,book_name,book_author, Genre.valueOf(book_genre), Status.valueOf(book_status)),from,to,new User(user_id,user_name,user_password,Role.valueOf(user_role))));
+                subscriptionList.add(new Subscription(id,user_name,new Book(book_id,book_name,book_author, Genre.valueOf(book_genre), Status.valueOf(book_status),book_description,book_image),from,to,new User(user_id,user_name,user_password,Role.valueOf(user_role))));
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
@@ -192,12 +198,14 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
                 String book_genre = resultSet.getString("b.genre");
                 String book_status = resultSet.getString("b.status");
                 String book_author = resultSet.getString("b.author");
+                String book_description=resultSet.getString("b.description");
+                String book_image=resultSet.getString("b.image");
                 Date from = resultSet.getDate("day_from");
                 Date to = resultSet.getDate("day_to");
                 String user_name = resultSet.getString("u.name");
                 String user_password = resultSet.getString("u.password");
                 String user_role = resultSet.getString("u.role");
-                subscriptionList.add(new Subscription(id,user_name,new Book(book_id,book_name,book_author, Genre.valueOf(book_genre), Status.valueOf(book_status)),from,to,new User(user_id,user_name,user_password,Role.valueOf(user_role))));
+                subscriptionList.add(new Subscription(id,user_name,new Book(book_id,book_name,book_author, Genre.valueOf(book_genre), Status.valueOf(book_status),book_description,book_image),from,to,new User(user_id,user_name,user_password,Role.valueOf(user_role))));
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {

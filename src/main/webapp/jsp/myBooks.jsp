@@ -16,6 +16,10 @@
 <c:import url="main.jsp"/>
 <div class="container">
     <p class="h5">Your Books</p>
+
+    <a class="btn btn-outline-dark " href="${pageContext.request.contextPath}/canceledOrder">Orders</a>
+
+
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
         <table id="books" class="table table-bordered table-striped">
@@ -34,7 +38,7 @@
                         <td>${subscription.books.id}</td>
                         <td>${subscription.books.name}</td>
                         <td>${subscription.books.author}</td>
-                        <form method="get" action="deleteBook">
+                        <form method="post" action="myBooks">
                             <input type="hidden" name="id" value=${subscription.books.id} />
                             <input type="hidden" name="status" value=${subscription.books.status} />
                             <td id="action">

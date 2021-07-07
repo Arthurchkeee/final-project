@@ -26,6 +26,7 @@
                 <th>Book name</th>
                 <th>Author</th>
                 <th>Username</th>
+                <th>Canceled</th>
                 <th>Return</th>
             </tr>
             </thead>
@@ -37,6 +38,13 @@
                         <td>${subscription.books.name}</td>
                         <td>${subscription.books.author}</td>
                         <td>${subscription.user.name}</td>
+                        <form method="post" action="canceledReturning">
+                            <input type="hidden" name="book_id" value=${subscription.books.id} />
+                            <input type="hidden" name="status" value=${subscription.books.status} />
+                            <td id="canceled">
+                                <input type="submit" class="btn btn-outline-danger" value="CANCELED">
+                            </td>
+                        </form>
                         <form method="post" action="returning">
                             <input type="hidden" name="id" value=${subscription.id} />
                             <input type="hidden" name="book_id" value=${subscription.books.id} />

@@ -6,7 +6,7 @@
   Time: 10:50
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
 
@@ -20,7 +20,7 @@
     </head>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a href="" class="navbar-brand">Library</a>
         <button class="navbar-toggler" tybe="button" data-toggle="collapse" data-target="#navbarContent"
@@ -50,16 +50,21 @@
                     <a href="${pageContext.request.contextPath}/jsp/entities.jsp" class="nav-link">Entities</a>
                 </c:if>
 
+
             </ul>
-            <div class="d-flex">
-                <button class="btn btn-outline-success m-lg-3" data-toggle="modal" data-target="#signModal">Sign In</button>
-                <a class="btn btn-outline-danger m-lg-3" href="${pageContext.request.contextPath}/LogoutUser">Sign Out</a>
-            </div>
+            <form class="offset-md-8">
+                <input type="hidden" class="form-control ">
+                <a class="btn btn-outline-danger " href="${pageContext.request.contextPath}/LogoutUser">Sign Out</a>
+            </form>
         </div>
     </div>
 </nav>
 
+
+
+
 <div>
+
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 

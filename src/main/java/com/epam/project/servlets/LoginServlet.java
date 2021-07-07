@@ -21,14 +21,13 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username=req.getParameter("login");
         String password=req.getParameter("password");
-
         if(userService.getAccess(username,password)){
             User user = userService.findUserByLogin(username);
             HttpSession session=req.getSession();
             session.setAttribute("username",username);
             session.setAttribute("user_id",user.getId());
             session.setAttribute("role",user.getRole());
-            RequestDispatcher view= req.getRequestDispatcher("jsp/main.jsp");
+            RequestDispatcher view= req.getRequestDispatcher("jsp/start.jsp");
             view.forward(req,resp);
         }
         else{
