@@ -155,7 +155,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
         return false;
     }
     @Override
-    public List<Subscription> findAllBookByStatus(Status status) {
+    public List<Subscription> findAllBooksByStatus(Status status) {
         List<Subscription> subscriptionList = new ArrayList<Subscription>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_SUBSCRIPTION_BY_STATUS)) {
@@ -185,7 +185,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
         return subscriptionList;
     }
     @Override
-    public List<Subscription> findAllSubscriptionByUser(Long userId){
+    public List<Subscription> findAllSubscriptionsByUser(Long userId){
         List<Subscription> subscriptionList = new ArrayList<Subscription>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_SUBSCRIPTION_BY_USER)) {

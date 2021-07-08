@@ -9,14 +9,14 @@ import com.epam.project.service.BookService;
 import java.util.List;
 
 public final class BookServiceImpl implements BookService {
-    private static BookServiceImpl INSTANCE;
+    private static BookServiceImpl instance;
     private  BookDao bookDao;
 
     public static BookServiceImpl getInstance(){
-        if(INSTANCE==null){
-            INSTANCE=new BookServiceImpl();
+        if(instance ==null){
+            instance =new BookServiceImpl();
         }
-        return INSTANCE;
+        return instance;
     }
 
     private BookServiceImpl(){

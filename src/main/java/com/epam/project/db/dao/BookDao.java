@@ -26,7 +26,7 @@ public interface BookDao extends BaseDao<Long,Book> {
 
     List<Book> findBookByStatus(Status status);
 
-    public void updateBookStatus(Status status,Long id);
+    void updateBookStatus(Status status,Long id);
 
 
 }

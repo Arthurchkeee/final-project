@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.util.List;
 
 public final class SubscriptionServiceImpl implements SubscriptionService {
-    private static SubscriptionServiceImpl INSTANCE;
+    private static SubscriptionServiceImpl instance;
     private static SubscriptionDao subscriptionDao;
 
     private SubscriptionServiceImpl() {
@@ -18,10 +18,10 @@ public final class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     public static SubscriptionServiceImpl getInstance(){
-        if(INSTANCE==null){
-            INSTANCE=new SubscriptionServiceImpl();
+        if(instance ==null){
+            instance =new SubscriptionServiceImpl();
         }
-        return INSTANCE;
+        return instance;
     }
 
     @Override
@@ -72,12 +72,12 @@ public final class SubscriptionServiceImpl implements SubscriptionService {
     @Override
 
     public List<Subscription> findAllBooksByStatus(Status status){
-        return subscriptionDao.findAllBookByStatus(status);
+        return subscriptionDao.findAllBooksByStatus(status);
     }
 
     @Override
     public List<Subscription> findAllSubscriptionByUser(Long userId){
-        return subscriptionDao.findAllSubscriptionByUser(userId);
+        return subscriptionDao.findAllSubscriptionsByUser(userId);
     }
     @Override
     public void deleteSubscription(Long id,Long bookId){

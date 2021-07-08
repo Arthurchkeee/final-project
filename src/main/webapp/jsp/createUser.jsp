@@ -26,7 +26,7 @@
     <span class="input-group-text" id="basic-select"><fmt:message key="addUser.role"/></span>
     <select class="form-select" name="role" aria-describedby="basic-select">
         <option value="ADMIN"><fmt:message key="role.administrator"/></option>
-        <option value="LIBRARIAN"><fmt:message key="role.librarian"/></option>
+        <option value="LIBRERIAN"><fmt:message key="role.librarian"/></option>
         <option value="READER" selected><fmt:message key="role.reader"/></option>
     </select>
     <input type="submit" class="btn btn-outline-success" value="<fmt:message key="addUser.button"/>">

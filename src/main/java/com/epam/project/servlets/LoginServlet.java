@@ -3,6 +3,7 @@ package com.epam.project.servlets;
 import com.epam.project.entities.User;
 import com.epam.project.service.UserService;
 import com.epam.project.service.impl.UserServiceImpl;
+import com.epam.project.validator.LoginValidator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,7 +21,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username=req.getParameter("login");
         String password=req.getParameter("password");
-        if(UserServiceImpl.getInstance().getAccess(username,password)){
+        if(LoginValidator.getInstance().isValidate(username,password) && UserServiceImpl.getInstance().getAccess(username,password)){
             User user = UserServiceImpl.getInstance().findUserByLogin(username);
             HttpSession session=req.getSession();
             session.setAttribute("username",username);

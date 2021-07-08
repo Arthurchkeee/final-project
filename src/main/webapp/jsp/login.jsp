@@ -39,7 +39,7 @@
     <div class="input-group " >
     <form class="mx-auto"  method="post" action="LoginUser">
         <span class="input-group-text" id="basic-addon1"><fmt:message key="login.login"/></span>
-        <input type="text" name="login" class="form-control" placeholder="<fmt:message key="login.login"/>"  aria-label="<fmt:message key="login.login"/>" aria-describedby="basic-addon1"  required minlength="6" maxlength="25">
+        <input type="text" name="login" class="form-control" placeholder="<fmt:message key="login.login"/>"  aria-label="<fmt:message key="login.login"/>" aria-describedby="basic-addon1"  required minlength="6" maxlength="25" pattern="^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\d.-]{0,25}$">
         <br>
         <span class="input-group-text" id="basic-addon2"><fmt:message key="login.password"/></span>
         <input type="text" name="password" class="form-control" placeholder="<fmt:message key="login.password"/>" aria-label="<fmt:message key="login.password"/>" aria-describedby="basic-addon2"  required minlength="5" maxlength="50"  pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$">

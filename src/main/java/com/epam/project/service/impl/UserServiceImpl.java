@@ -9,7 +9,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import java.util.List;
 
 public final class UserServiceImpl implements UserService {
-    private static UserServiceImpl INSTANCE;
+    private static UserServiceImpl instance;
 
     private UserDao userDao;
 
@@ -18,10 +18,10 @@ public final class UserServiceImpl implements UserService {
     }
 
     public static UserServiceImpl getInstance(){
-        if(INSTANCE==null){
-            INSTANCE=new UserServiceImpl();
+        if(instance ==null){
+            instance =new UserServiceImpl();
         }
-        return INSTANCE;
+        return instance;
     }
 
     @Override

@@ -31,11 +31,11 @@ public final class ConnectionPool {
          } catch (SQLException throwables) {
              throwables.printStackTrace();
          }
-         availableConnectionList=new LinkedBlockingQueue<>(Properties.getConnectionPoolSize());
-         usedConnectionList=new LinkedBlockingQueue<>(Properties.getConnectionPoolSize());
-         for (int i = 0; i < Properties.getConnectionPoolSize(); i++) {
+         availableConnectionList=new LinkedBlockingQueue<>(Properties.CONNECTION_POOL_SIZE);
+         usedConnectionList=new LinkedBlockingQueue<>(Properties.CONNECTION_POOL_SIZE);
+         for (int i = 0; i < Properties.CONNECTION_POOL_SIZE; i++) {
             try{
-                availableConnectionList.add(new ConnectionProxy(DriverManager.getConnection(Properties.getURL(),Properties.getUSER(),Properties.getPASSWORD())));
+                availableConnectionList.add(new ConnectionProxy(DriverManager.getConnection(Properties.URL,Properties.USER,Properties.PASSWORD)));
             } catch (SQLException  throwables) {
                 throwables.printStackTrace();
             }
@@ -61,7 +61,7 @@ public final class ConnectionPool {
     }
 
     public void updateConnections() throws InterruptedException {
-        for (int i = 0; i < Properties.getConnectionPoolSize(); i++) {
+        for (int i = 0; i < Properties.CONNECTION_POOL_SIZE; i++) {
             availableConnectionList.add(usedConnectionList.take());
         }
     }

@@ -4,6 +4,7 @@ import com.epam.project.entities.Role;
 import com.epam.project.entities.User;
 import com.epam.project.service.UserService;
 import com.epam.project.service.impl.UserServiceImpl;
+import com.epam.project.validator.LoginValidator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,8 +19,10 @@ import java.io.PrintWriter;
 public class CreateUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user=new User(null,req.getParameter("name"),req.getParameter("password"), Role.valueOf(req.getParameter("role")));
+        if(LoginValidator.getInstance().isValidate(req.getParameter("name"),req.getParameter("password"))) {
+            User user=new User(null,req.getParameter("name"),req.getParameter("password"), Role.valueOf(req.getParameter("role")));
         UserServiceImpl.getInstance().create(user);
+        }
         RequestDispatcher view= req.getRequestDispatcher("jsp/createUser.jsp");
         view.forward(req,resp);
 
