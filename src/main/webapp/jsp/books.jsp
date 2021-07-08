@@ -36,8 +36,8 @@
                     <td>${book.author}</td>
                     <td>${book.genre}</td>
                     <td>${book.status}</td>
-                    <c:choose>
-                        <c:when test="${book.status == 'FREE'}">
+
+                        <c:if test="${book.status == 'FREE'}">
                             <td>
                                 <form method="post" action="editBook">
                                     <input type="hidden" name="id" value=${book.id} />
@@ -51,13 +51,8 @@
                                 </form>
                             </td>
 
-                        </c:when>
-                        <c:otherwise>
-                            <td>
-                                <input type="submit" class="btn btn-outline-success" value="ORDER" disabled>
-                            </td>
-                        </c:otherwise>
-                    </c:choose>
+                        </c:if>
+
                 </tr>
 
         </c:forEach>
