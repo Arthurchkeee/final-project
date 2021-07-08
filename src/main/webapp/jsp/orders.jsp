@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tag" uri="tag" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: krysh
@@ -14,17 +15,17 @@
 <body>
 <c:import url="main.jsp"/>
 <div class="container">
-    <a class="btn btn-outline-dark " href="${pageContext.request.contextPath}/canceledReturning">Returning Order</a>
+    <a class="btn btn-outline-dark " href="${pageContext.request.contextPath}/canceledReturning"><fmt:message key="myBooks.returnOrders"/></a>
 
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
     <table id="books" class="table table-bordered table-striped">
         <thead class="thread-light">
         <tr>
-            <th>Book id</th>
-            <th>Book name</th>
-            <th>Author</th>
-            <th>Canceled</th>
+            <th>№</th>
+            <th><fmt:message key="catalog.book"/></th>
+            <th><fmt:message key="catalog.author"/></th>
+            <th><fmt:message key="myBooks.cancel"/></th>
         </tr>
         </thead>
         <tbody id="bookTable">

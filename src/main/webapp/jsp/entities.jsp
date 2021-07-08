@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: krysh
@@ -14,8 +15,8 @@
 <body>
 <c:import url="main.jsp"/>
 <div class="container">
-    <a class="btn btn-outline-dark m-lg-3" href="${pageContext.request.contextPath}/users" >Users</a>
-    <a class="btn btn-outline-dark m-lg-3" href="${pageContext.request.contextPath}/books" >Books</a>
+    <a class="btn btn-outline-dark m-lg-3" href="${pageContext.request.contextPath}/users" ><fmt:message key="entities.users"/></a>
+    <a class="btn btn-outline-dark m-lg-3" href="${pageContext.request.contextPath}/books" ><fmt:message key="books.name"/></a>
 </div>
 </body>
 </html>

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: krysh
@@ -14,18 +15,21 @@
 <c:import url="entities.jsp"/>
 <div class="container">
     <div class="input-group mb-3">
-        <form method="get" action="editBook">
+        <form class="mx-auto" method="get" action="editBook">
             <input type="hidden" name="id" value=${id} />
-        <span class="input-group-text" id="basic-addon1">Name</span>
-        <input type="text" name="book_name" class="form-control" placeholder="Name"  aria-label="Name" aria-describedby="basic-addon1">
-        <span class="input-group-text" id="basic-addon2">Author</span>
-        <input type="text" name="author_name" class="form-control" placeholder="Author" aria-label="Author" aria-describedby="basic-addon2" >
-        <span class="input-group-text" id="basic-select">Genre</span>
-            <span class="input-group-text" id="basic-addon3">Description</span>
-            <input type="text" name="description" class="form-control" placeholder="Description" aria-label="Description" aria-describedby="basic-addon3" >
-            <span class="input-group-text" id="basic-addon4">Image Address</span>
-            <input type="text" name="image" class="form-control" placeholder="Image Address" aria-label="Image Address" aria-describedby="basic-addon4" >
+        <span class="input-group-text" id="basic-addon1"><fmt:message key="addBook.name"/></span>
+        <input type="text" name="book_name" class="form-control" placeholder="<fmt:message key="addBook.name"/>"  aria-label="<fmt:message key="addBook.name"/>" aria-describedby="basic-addon1">
+            <br>
+        <span class="input-group-text" id="basic-addon2"><fmt:message key="addBook.Author"/></span>
+        <input type="text" name="author_name" class="form-control" placeholder="<fmt:message key="addBook.Author"/>" aria-label="<fmt:message key="addBook.Author"/>" aria-describedby="basic-addon2" >
+            <br>
+            <span class="input-group-text" id="basic-addon3"><fmt:message key="addBook.Description"/></span>
+            <input type="text" name="description" class="form-control" placeholder="<fmt:message key="addBook.Description"/>" aria-label="<fmt:message key="addBook.Description"/>" aria-describedby="basic-addon3" >
+            <span class="input-group-text" id="basic-addon4"><fmt:message key="addBook.imageAddress"/></span>
+            <input type="text" name="image" class="form-control" placeholder="<fmt:message key="addBook.Description"/>" aria-label="<fmt:message key="addBook.Description"/>" aria-describedby="basic-addon4" >
+            <br>
 
+            <span class="input-group-text" id="basic-select"><fmt:message key="addBook.genre"/></span>
             <select class="form-select" name="genre" aria-describedby="basic-select">
             <option value="DETECTIVE">DETECTIVE</option>
             <option value="HORROR">HORROR</option>
@@ -33,7 +37,8 @@
             <option value="DRAMA" selected>DRAMA</option>
             <option value="ADULT">ADULT</option>
         </select>
-            <input type="submit" class="btn btn-outline-success" value="Edit">
+            <br>
+            <input type="submit" class="btn btn-outline-success" value="<fmt:message key="books.edit"/>">
         </form>
     </div>
 </div>

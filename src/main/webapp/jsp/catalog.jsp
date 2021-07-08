@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: krysh
@@ -16,63 +17,39 @@
 <body>
 <c:import url="main.jsp"/>
 <div class="container">
-
-    ${role}
+    <br>
 
         <input class="form-control" id="myInput" type="text" placeholder="Search..">
         <br>
-        <table class="table table-bordered table-striped" id="detail_table">
+        <table class="table table-bordered table-striped" >
             <thead class="thread-light">
             <tr>
-                <th>Id</th>
-                <th>Book</th>
-                <th>Author</th>
-                <th>Genre</th>
-                <th>Status</th>
-                <th>Choose</th>
-                <th>Order</th>
+                <th>№</th>
+                <th><fmt:message key="catalog.book"/></th>
+                <th><fmt:message key="catalog.author"/></th>
+                <th><fmt:message key="catalog.genre"/></th>
+                <th><fmt:message key="catalog.more"/></th>
             </tr>
             </thead>
             <tbody id="bookTable">
             <c:forEach var="book" items="${books}">
-                <tr class="parent" id="a${book.id}" title="Click to expand/collapse" style="cursor: pointer;">
+                <tr>
                     <td>${book.id}</td>
                     <td>${book.name}</td>
                     <td>${book.author}</td>
                     <td>${book.genre}</td>
-                    <td>${book.status}</td>
                     <form method="post" action="order">
                         <input type="hidden" name="id" value=${book.id} />
                         <td>
-                        <input type="submit" class="btn btn-outline-primary" value="More">
+                        <input type="submit" class="btn btn-outline-primary" value="<fmt:message key="catalog.more"/>">
                     </td>
                     </form>
-                    <div class="collapse" id="${book.name}">
-                        <div class="card card-body">
-                            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                        </div>
-                    </div>
-                </tr>
-                <tr class="child-a${book.id}" style="display: none;">
-                    <td> Collapse</td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
 
-        <p>
-            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                Link with href
-            </a>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                Button with data-bs-target
-            </button>
-        </p>
-        <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-                Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-            </div>
-        </div>
+
         </div>
 
 
@@ -81,22 +58,11 @@
 
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('tr.parent')
-            .css("cursor", "pointer")
-            .attr("title", "Click to expand/collapse")
-            .click(function () {
-                $(this).siblings('.child-' + this.id).toggle();
-            });
-        $('tr[@class^=child-]').hide().children('td');
-    });
-</script>
 <script>
     $(document).ready(function(){
         $("#myInput").on("keyup", function() {
             var value = $(this).val().toLowerCase();
-            $("#bookTable ").filter(function() {
+            $("#bookTable tr").filter(function() {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });

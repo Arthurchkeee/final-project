@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: krysh
@@ -15,7 +16,8 @@
 <body>
 <c:import url="entities.jsp"/>
 <div class="container">
-    <a class="btn btn-outline-dark m-lg-3" href="${pageContext.request.contextPath}/createUser" >Add User</a>
+    <a class="btn btn-outline-dark m-lg-3" href="${pageContext.request.contextPath}/createUser" ><fmt:message key="entities.addUser"/></a>
+    <br>
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
 
@@ -23,10 +25,10 @@
     <table id="books" class="table table-bordered table-striped">
         <thead class="thread-light">
         <tr>
-            <th>Book id</th>
-            <th>Book name</th>
-            <th>Author</th>
-            <th>Access</th>
+            <th>№</th>
+            <th><fmt:message key="users.name"/></th>
+            <th><fmt:message key="users.role"/></th>
+            <th><fmt:message key="users.actions"/></th>
         </tr>
         </thead>
         <tbody id="myTable">
@@ -40,11 +42,11 @@
                             <form method="post" action="editUser">
                                 <input type="hidden" name="id" value=${user.id} />
                                 <input type="hidden" name="name" value=${user.name} />
-                                <input type="submit" class="btn btn-outline-warning m-lg-3" value="Edit">
+                                <input type="submit" class="btn btn-outline-warning m-lg-3" value="<fmt:message key="users.edit"/>">
                             </form>
                             <form method="get" action="deleteUser">
                                 <input type="hidden" name="id" value=${user.id} />
-                                <input type="submit" class="btn btn-outline-danger m-lg-3" value="Delete">
+                                <input type="submit" class="btn btn-outline-danger m-lg-3" value="<fmt:message key="users.delete"/>">
                             </form>
                         </td>
 

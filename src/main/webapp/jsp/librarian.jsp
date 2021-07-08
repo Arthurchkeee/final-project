@@ -8,6 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -15,20 +16,19 @@
 <body>
 <c:import url="main.jsp"/>
 <div class="container">
-    <a class="btn btn-outline-dark m-lg-3" href="librarian" disabled>Orders</a>
-    <a class="btn btn-outline-dark m-lg-3" href="returning" >Return</a>
+    <a class="btn btn-outline-dark m-lg-3" href="librarian" disabled><fmt:message key="orders.order"/></a>
+    <a class="btn btn-outline-dark m-lg-3" href="returning" ><fmt:message key="orders.return"/></a>
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
     <div>
         <table id="books" class="table table-bordered table-striped">
             <thead class="thead-light">
             <tr>
-                <th>Book id</th>
-                <th>Book name</th>
-                <th>Author</th>
-                <th>Username</th>
-                <th>Canceled</th>
-                <th>Access</th>
+                <th>№</th>
+                <th><fmt:message key="orders.bookName"/></th>
+                <th><fmt:message key="orders.author"/></th>
+                <th><fmt:message key="orders.username"/></th>
+                <th><fmt:message key="orders.access"/></th>
             </tr>
             </thead>
             <tbody id="bookTable">
@@ -40,19 +40,12 @@
                     <td>${subscription.books.name}</td>
                     <td>${subscription.books.author}</td>
                     <td>${subscription.user.name}</td>
-                    <form method="post" action="canceledOrder">
-                        <input type="hidden" name="book_id" value=${subscription.books.id} />
-                        <input type="hidden" name="id" value=${subscription.id} />
-                        <td id="canceled">
-                            <input type="submit" class="btn btn-outline-danger" value="CANCELED">
-                        </td>
-                    </form>
 
                     <form method="post" action="librarian">
                         <input type="hidden" name="id" value=${subscription.books.id} />
                         <input type="hidden" name="status" value=${subscription.books.status} />
                         <td id="action">
-                            <input type="submit" class="btn btn-outline-success" value="ACCESS">
+                            <input type="submit" class="btn btn-outline-success" value="<fmt:message key="orders.access"/>">
                         </td>
                     </form>
 

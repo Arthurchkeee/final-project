@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: krysh
@@ -14,7 +15,9 @@
 <body>
 <c:import url="entities.jsp"/>
 <div class="container">
-    <a class="btn btn-outline-dark m-lg-3" href="${pageContext.request.contextPath}/createBook" >Add Book</a>
+    <br>
+    <a class="btn btn-outline-dark m-lg-3" href="${pageContext.request.contextPath}/createBook" ><fmt:message key="books.addBook"/></a>
+    <br>
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
 
@@ -22,10 +25,12 @@
     <table id="books" class="table table-bordered table-striped">
         <thead class="thread-light">
         <tr>
-            <th>Book id</th>
-            <th>Book name</th>
-            <th>Author</th>
-            <th>Access</th>
+            <th>№</th>
+            <th><fmt:message key="books.name"/></th>
+            <th><fmt:message key="books.author"/></th>
+            <th><fmt:message key="books.genre"/></th>
+            <th><fmt:message key="books.status"/></th>
+            <th><fmt:message key="users.actions"/></th>
         </tr>
         </thead>
         <tbody id="myTable">
@@ -43,11 +48,11 @@
                                     <input type="hidden" name="id" value=${book.id} />
                                     <input type="hidden" name="name" value=${book.name} />
                                     <input type="hidden" name="author" value=${book.author} />
-                                    <input type="submit" class="btn btn-outline-warning m-lg-3" value="Edit">
+                                    <input type="submit" class="btn btn-outline-warning m-lg-3" value="<fmt:message key="books.edit"/>">
                                 </form>
                                 <form method="get" action="deleteBook">
                                     <input type="hidden" name="id" value=${book.id} />
-                                    <input type="submit" class="btn btn-outline-danger m-lg-3" value="Delete">
+                                    <input type="submit" class="btn btn-outline-danger m-lg-3" value="<fmt:message key="books.delete"/>">
                                 </form>
                             </td>
 

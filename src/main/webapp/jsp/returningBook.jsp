@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: krysh
@@ -14,20 +15,19 @@
 <body>
 <c:import url="main.jsp"/>
 <div class="container">
-    <a class="btn btn-outline-dark m-lg-3" href="librarian" >Orders</a>
-    <a class="btn btn-outline-dark m-lg-3" href="returning" disabled="true">Return</a>
-
+    <a class="btn btn-outline-dark m-lg-3" href="librarian" ><fmt:message key="orders.order"/></a>
+    <a class="btn btn-outline-dark m-lg-3" href="returning" disabled="true"><fmt:message key="orders.return"/></a>
+    <br>
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
         <table id="books" class="table table-bordered table-striped">
             <thead class="thread-light">
             <tr>
-                <th>Book id</th>
-                <th>Book name</th>
-                <th>Author</th>
-                <th>Username</th>
-                <th>Canceled</th>
-                <th>Return</th>
+                <th>№</th>
+                <th><fmt:message key="orders.bookName"/></th>
+                <th><fmt:message key="orders.author"/></th>
+                <th><fmt:message key="orders.username"/></th>
+                <th><fmt:message key="orders.access"/></th>
             </tr>
             </thead>
             <tbody id="bookTable">
@@ -43,7 +43,7 @@
                             <input type="hidden" name="id" value=${subscription.id} />
                             <input type="hidden" name="book_id" value=${subscription.books.id} />
                             <td id="action">
-                                <input type="submit" class="btn btn-outline-success" value="RETURN">
+                                <input type="submit" class="btn btn-outline-success" value="<fmt:message key="orders.return"/>">
                             </td>
                         </form>
                     </tr>

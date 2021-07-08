@@ -45,7 +45,7 @@ public class FilterTag extends SimpleTagSupport {
                     "                        <input type=\"hidden\" name=\"book_id\" value="+id+" />\n" +
                     "                        <input type=\"hidden\" name=\"id\" value="+subId+" />\n" +
                     "                        <td id=\"action\">\n" +
-                    "                            <input type=\"submit\" class=\"btn btn-outline-danger\" value=\"CANCELED\">\n" +
+                    "                            <input type=\"submit\" class=\"btn btn-outline-danger\" value=\"<fmt:message key=\"myBooks.cancel\"/>\">\n" +
                     "                        </td>\n" +
                     "                    </form>\n" +
                     "                </tr>");
