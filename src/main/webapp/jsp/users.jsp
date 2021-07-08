@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="deleteUserButton" uri="deleteUserButton" %>
 <%--
   Created by IntelliJ IDEA.
   User: krysh
@@ -44,10 +45,7 @@
                                 <input type="hidden" name="name" value=${user.name} />
                                 <input type="submit" class="btn btn-outline-warning m-lg-3" value="<fmt:message key="users.edit"/>">
                             </form>
-                            <form method="get" action="deleteUser">
-                                <input type="hidden" name="id" value=${user.id} />
-                                <input type="submit" class="btn btn-outline-danger m-lg-3" value="<fmt:message key="users.delete"/>">
-                            </form>
+                            <deleteUserButton:deleteUserButton id="${user.id}" />
                         </td>
 
             </tr>

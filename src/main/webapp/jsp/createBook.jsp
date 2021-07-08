@@ -18,16 +18,16 @@
     <div class="input-group mb-3">
 <form class="mx-auto" method="post" action="createBook">
     <span class="input-group-text" id="basic-addon1"><fmt:message key="addBook.name"/></span>
-    <input type="text" name="name" class="form-control" placeholder="<fmt:message key="addBook.name"/>"  aria-label="<fmt:message key="addBook.name"/>" aria-describedby="basic-addon1"  >
+    <input type="text" name="name" class="form-control" placeholder="<fmt:message key="addBook.name"/>"  aria-label="<fmt:message key="addBook.name"/>" aria-describedby="basic-addon1"  required minlength="1" maxlength="100">
     <br>
     <span class="input-group-text" id="basic-addon2"><fmt:message key="addBook.Author"/></span>
-    <input type="text" name="author" class="form-control" placeholder="<fmt:message key="addBook.Author"/>" aria-label="<fmt:message key="addBook.Author"/>" aria-describedby="basic-addon2" >
+    <input type="text" name="author" class="form-control" placeholder="<fmt:message key="addBook.Author"/>" aria-label="<fmt:message key="addBook.Author"/>" aria-describedby="basic-addon2" required minlength="1" maxlength="100">
     <br>
     <span class="input-group-text" id="basic-addon3"><fmt:message key="addBook.Description"/></span>
     <input type="text" name="description" class="form-control" placeholder="<fmt:message key="addBook.Description"/>" aria-label="<fmt:message key="addBook.Description"/>" aria-describedby="basic-addon3" >
     <br>
     <span class="input-group-text" id="basic-addon4"><fmt:message key="addBook.imageAddress"/></span>
-    <input type="text" name="image" class="form-control" placeholder="<fmt:message key="addBook.imageAddress"/>" aria-label="<fmt:message key="addBook.imageAddress"/>" aria-describedby="basic-addon4" >
+    <input type="text" name="image" class="form-control" placeholder="<fmt:message key="addBook.imageAddress"/>" aria-label="<fmt:message key="addBook.imageAddress"/>" aria-describedby="basic-addon4" required minlength="5" maxlength="100">
 <br>
     <span class="input-group-text" id="basic-select"><fmt:message key="addBook.genre"/></span>
     <select class="form-select" name="genre" aria-describedby="basic-select">

@@ -18,10 +18,10 @@
         <form class="mx-auto" method="get" action="editUser">
             <input type="hidden" name="id" value=${id} />
             <span class="input-group-text" id="basic-addon1"><fmt:message key="addUser.name"/></span>
-            <input type="text" name="user_name" class="form-control" placeholder="<fmt:message key="addBook.name"/>"  aria-label="<fmt:message key="addUser.name"/>" aria-describedby="basic-addon1" value=${name} >
+            <input type="text" name="user_name" class="form-control" placeholder="<fmt:message key="addBook.name"/>"  aria-label="<fmt:message key="addUser.name"/>" aria-describedby="basic-addon1" value="${name}" required minlength="6" maxlength="25"  pattern="^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\d.-]{0,25}$" >
             <br>
             <span class="input-group-text" id="basic-addon2"><fmt:message key="addUser.password"/></span>
-            <input type="text" name="password" class="form-control" placeholder="<fmt:message key="addUser.password"/>" aria-label="<fmt:message key="addUser.password"/>" aria-describedby="basic-addon2"  >
+            <input type="text" name="password" class="form-control" placeholder="<fmt:message key="addUser.password"/>" aria-label="<fmt:message key="addUser.password"/>" aria-describedby="basic-addon2"  required minlength="5" maxlength="50"  pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$">
             <br>
             <span class="input-group-text" id="basic-select"><fmt:message key="addUser.role"/></span>
             <select class="form-select" name="role" aria-describedby="basic-select">

@@ -18,7 +18,7 @@
 
     <br>
 
-    <a class="btn btn-outline-dark " href="${pageContext.request.contextPath}/canceledOrder"><fmt:message key="myBooks.order"/></a>
+    <a class="btn btn-outline-dark " href="${pageContext.request.contextPath}/canceledOrder"> </a>
 
 <br>
 

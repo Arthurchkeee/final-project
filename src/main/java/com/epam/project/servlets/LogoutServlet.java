@@ -14,10 +14,10 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out=resp.getWriter();
 
-        req.getRequestDispatcher("jsp/login.jsp").include(req, resp);
-
         req.getSession(false).invalidate();
         req.getSession(true);
+        req.getRequestDispatcher("jsp/login.jsp").include(req, resp);
+
         out.print("You are successfully logged out!");
         out.close();
 
