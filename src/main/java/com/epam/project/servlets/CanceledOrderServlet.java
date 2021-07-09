@@ -20,7 +20,7 @@ public class CanceledOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session= req.getSession();
-        List<Subscription> subscriptionList=  SubscriptionServiceImpl.getInstance().findAllSubscriptionByUser((Long) session.getAttribute("user_id"));
+        List<Subscription> subscriptionList=  SubscriptionServiceImpl.getInstance().findAllSubscriptionsByUser((Long) session.getAttribute("user_id"));
         req.setAttribute("subscriptions",subscriptionList);
         RequestDispatcher view= req.getRequestDispatcher("jsp/orders.jsp");
         view.forward(req,resp);

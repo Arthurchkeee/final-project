@@ -18,7 +18,7 @@ public class DeleteUserButtonTag extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException, IOException {
 
-        if(SubscriptionServiceImpl.getInstance().findAllSubscriptionByUser(id).size()==0){
+        if(SubscriptionServiceImpl.getInstance().findAllSubscriptionsByUser(id).size()==0){
             getJspContext().getOut().print("<form method=\"get\" action=\"deleteUser\">\n" +
                     "                                <input type=\"hidden\" name=\"id\" value="+id+" />\n" +
                     "                               <input type=\"submit\" class=\"btn btn-outline-danger m-lg-3\" value="+"<fmt:message key=\"users.delete\"/>\">  " +

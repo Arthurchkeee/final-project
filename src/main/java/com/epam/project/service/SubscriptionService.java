@@ -64,7 +64,7 @@ public interface SubscriptionService {
      * @param userId is a foreign key of table "subscribe"
      * @return {@code List<Subscription>} wrapped in a{@link List}
      */
-    List<Subscription> findAllSubscriptionByUser(Long userId);
+    List<Subscription> findAllSubscriptionsByUser(Long userId);
 
     /**
      * @param id is a primary key of table 'subscribe'

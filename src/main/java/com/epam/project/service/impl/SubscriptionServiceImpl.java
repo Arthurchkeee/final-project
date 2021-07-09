@@ -76,7 +76,7 @@ public final class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public List<Subscription> findAllSubscriptionByUser(Long userId){
+    public List<Subscription> findAllSubscriptionsByUser(Long userId){
         return subscriptionDao.findAllSubscriptionsByUser(userId);
     }
     @Override

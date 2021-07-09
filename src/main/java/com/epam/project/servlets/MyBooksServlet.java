@@ -2,8 +2,6 @@ package com.epam.project.servlets;
 
 import com.epam.project.entities.Status;
 import com.epam.project.entities.Subscription;
-import com.epam.project.service.BookService;
-import com.epam.project.service.SubscriptionService;
 import com.epam.project.service.impl.BookServiceImpl;
 import com.epam.project.service.impl.SubscriptionServiceImpl;
 
@@ -25,7 +23,7 @@ public class MyBooksServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session= req.getSession();
-        List<Subscription> subscriptionList=  SubscriptionServiceImpl.getInstance().findAllSubscriptionByUser((Long) session.getAttribute("user_id"));
+        List<Subscription> subscriptionList=  SubscriptionServiceImpl.getInstance().findAllSubscriptionsByUser((Long) session.getAttribute("user_id"));
         req.setAttribute("subscriptions",subscriptionList);
         RequestDispatcher view= req.getRequestDispatcher("jsp/myBooks.jsp");
         view.forward(req,resp);
