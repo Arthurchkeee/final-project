@@ -41,7 +41,7 @@
                         <fmt:message key="nav.MyBooks"/>
                     </a>
                 </li>
-                <c:if test="${role eq 'LIBRERIAN'}">
+                <c:if test="${role eq 'LIBRARIAN'}">
                     <li class="nav-item">
                         <a href="${pageContext.request.contextPath}/librarian" class="nav-link">
                             <fmt:message key="nav.Orders"/>

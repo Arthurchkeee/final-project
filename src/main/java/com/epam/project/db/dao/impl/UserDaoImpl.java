@@ -6,6 +6,8 @@ import com.epam.project.db.dao.BaseDao;
 import com.epam.project.db.dao.UserDao;
 import com.epam.project.entities.Role;
 import com.epam.project.entities.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
+    private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
     private static final String SELECT_ALL_USER = "SELECT * FROM user";
     private static final String SELECT_USER_BY_ID = "SELECT * FROM user WHERE id=?";
     private static final String CREATE_BOOK = "INSERT INTO user(name,password,role) VALUES(?,?,?)";
@@ -37,7 +40,7 @@ public class UserDaoImpl implements UserDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find all users, "+ throwables);
         }
         return userList;
     }
@@ -57,7 +60,7 @@ public class UserDaoImpl implements UserDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find user by id, "+throwables);
         }
         return user;
     }
@@ -73,7 +76,7 @@ public class UserDaoImpl implements UserDao {
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to create user, "+throwables);
         }
         return false;
     }
@@ -87,7 +90,7 @@ public class UserDaoImpl implements UserDao {
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to delete user, "+throwables);
         }
         return false;
     }
@@ -103,7 +106,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.executeUpdate();
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to update user, "+throwables);
         }
         return entity;
     }
@@ -120,7 +123,7 @@ public class UserDaoImpl implements UserDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to get password, "+throwables);
         }
         return password;
     }
@@ -140,7 +143,7 @@ public class UserDaoImpl implements UserDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find user by login, "+throwables);
         }
         System.out.println(user);
         return user;

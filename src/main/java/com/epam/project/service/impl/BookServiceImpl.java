@@ -51,12 +51,12 @@ public final class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findBooksByAuthor(String author) {
-        return bookDao.findBookByAuthor(author);
+        return bookDao.findBooksByAuthor(author);
     }
 
     @Override
     public List<Book> findAllFreeBooks() {
-        return bookDao.findBookByStatus(Status.FREE);
+        return bookDao.findBooksByStatus(Status.FREE);
     }
 
 

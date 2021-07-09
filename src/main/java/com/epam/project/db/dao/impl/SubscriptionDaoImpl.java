@@ -5,6 +5,8 @@ import com.epam.project.db.ConnectionProxy;
 import com.epam.project.db.dao.BaseDao;
 import com.epam.project.db.dao.SubscriptionDao;
 import com.epam.project.entities.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +17,8 @@ import java.sql.Date;
 import java.util.List;
 
 public class SubscriptionDaoImpl implements com.epam.project.db.dao.SubscriptionDao {
+    private static final Logger LOGGER = LogManager.getLogger(SubscriptionDaoImpl.class);
+
     private static final String SELECT_ALL_SUBSCRIPTION="SELECT * FROM subscribe INNER JOIN user u on subscribe.user_id = u.id INNER JOIN book b on subscribe.book_id = b.id";
     private static final String SELECT_SUBSCRIPTION_BY_ID="SELECT * FROM subscribe INNER JOIN user u on subscribe.user_id = u.id INNER JOIN book b on subscribe.book_id = b.id WHERE subscribe.id=?";
     private static final String CREATE_SUBSCRIPTION="INSERT INTO subscribe(id,book_id,day_from,day_to,user_id) VALUES(?,?,?,?,?)";
@@ -51,7 +55,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find all subscriptions, "+throwables);
         }
         return subscriptionList;
     }
@@ -82,7 +86,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find subscription by id, "+throwables);
         }
         return subscription;
     }
@@ -100,7 +104,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to create subscription, "+throwables);
         }
         return false;
     }
@@ -114,7 +118,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to delete subscription, "+throwables);
         }
         return false;
     }
@@ -132,7 +136,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to update subscription, "+throwables);
         }
         return entity;
     }
@@ -150,7 +154,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to order book, "+throwables);
         }
         return false;
     }
@@ -180,7 +184,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find all books by status, "+throwables);
         }
         return subscriptionList;
     }
@@ -209,7 +213,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find all subscriptions by user, "+throwables);
         }
         return subscriptionList;
     }

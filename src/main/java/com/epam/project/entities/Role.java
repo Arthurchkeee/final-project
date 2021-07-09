@@ -2,7 +2,7 @@ package com.epam.project.entities;
 
 public enum Role implements BaseEntity{
     ADMIN(1L),
-    LIBRERIAN(2L),
+    LIBRARIAN(2L),
     READER(3L),
     ANONYMOUS(4L)
     ;

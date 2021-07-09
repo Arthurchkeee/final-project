@@ -21,27 +21,22 @@ public class LoginValidator {
 
     private static final String REGEX_FOR_LOGIN = "^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\\d.-]{1,50}$";
 
-    public boolean isValidate(String login,String password){
-        if(validateLoginLength(login) && validatePasswordLength(password)){
-            return validatePassword(password)&&validateLogin(login);
+    public boolean isValid(String login, String password){
+        if(validateLength(login,LOGIN_MIN_LENGTH,LOGIN_MAX_LENGTH) && validateLength(password,PASSWORD_MIN_LENGTH,PASSWORD_MAX_LENGTH)&&validateRegex(password,REGEX_FOR_PASSWORD)&&validateRegex(login, REGEX_FOR_LOGIN)){
+            return true;
         }
         else return false;
     }
 
-    private boolean validatePassword(String password){
-        return Pattern.matches(REGEX_FOR_PASSWORD,password);
+
+    private boolean validateRegex(String login, String regex){
+        return Pattern.matches(regex,login);
     }
 
-    private boolean validateLogin(String login){
-        return Pattern.matches(REGEX_FOR_LOGIN,login);
-    }
 
-    private boolean validateLoginLength(String login){
-        return login.length()>LOGIN_MIN_LENGTH&&login.length()<LOGIN_MAX_LENGTH;
-    }
 
-    private boolean validatePasswordLength(String password){
-        return password.length()>PASSWORD_MIN_LENGTH&&password.length()<PASSWORD_MAX_LENGTH;
+    private boolean validateLength(String string, int min, int max){
+        return string.length()>min && string.length()<max;
     }
 
 }

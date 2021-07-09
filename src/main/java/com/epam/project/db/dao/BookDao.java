@@ -22,9 +22,9 @@ public interface BookDao extends BaseDao<Long,Book> {
     @Override
     Book update(Book entity);
 
-    List<Book> findBookByAuthor(String author);
+    List<Book> findBooksByAuthor(String author);
 
-    List<Book> findBookByStatus(Status status);
+    List<Book> findBooksByStatus(Status status);
 
     void updateBookStatus(Status status,Long id);
 

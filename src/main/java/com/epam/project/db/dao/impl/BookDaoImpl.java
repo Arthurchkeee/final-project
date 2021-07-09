@@ -14,8 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BookDaoImpl implements BookDao {
+
+    private static final Logger LOGGER = LogManager.getLogger(BookDaoImpl.class);
+
     private static final String SELECT_BOOK_BY_ID = "SELECT * FROM book WHERE id=?";
     private static final String SELECT_ALL_BOOK = "SELECT * FROM book";
     private static final String CREATE_BOOK_BY = "INSERT INTO book (name,author,genre,status,description,image) VALUES (?,?,?,?,?,?);";
@@ -43,7 +48,7 @@ public class BookDaoImpl implements BookDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find all books,"+throwables);
         }
         return bookList;
     }
@@ -67,7 +72,7 @@ public class BookDaoImpl implements BookDao {
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find book by id, "+throwables);
         }
         return book;
     }
@@ -86,7 +91,7 @@ public class BookDaoImpl implements BookDao {
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to create new book, "+throwables);
         }
         return false;
     }
@@ -100,7 +105,7 @@ public class BookDaoImpl implements BookDao {
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to delete book, "+throwables);
         }
         return false;
     }
@@ -120,13 +125,13 @@ public class BookDaoImpl implements BookDao {
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to update book, "+throwables);
         }
         return entity;
     }
 
     @Override
-    public List<Book> findBookByAuthor(String author) {
+    public List<Book> findBooksByAuthor(String author) {
         List<Book> bookList = new ArrayList<>();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BOOK_BY_AUTHOR);) {
@@ -143,12 +148,12 @@ public class BookDaoImpl implements BookDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find books by author, "+throwables);
         }
         return bookList;
     }
 
-    public List<Book> findBookByStatus(Status status){
+    public List<Book> findBooksByStatus(Status status){
         List<Book> bookList=new ArrayList<>();
         try(Connection connection=ConnectionPool.getInstance().getConnection();
         PreparedStatement preparedStatement= connection.prepareStatement(SELECT_BOOK_BY_STATUS)){
@@ -165,7 +170,7 @@ public class BookDaoImpl implements BookDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find books by status, "+throwables);
         }
         return bookList;
     }
@@ -179,7 +184,7 @@ public class BookDaoImpl implements BookDao {
             preparedStatement.executeUpdate();
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to update book status, "+throwables);
         }
 
     }
