@@ -8,8 +8,8 @@ class UserServiceImplTest {
 
     @Test
     void getAccess() {
-        assertTrue(userService.getAccess("Alexei", "12345"));
-        assertTrue(userService.getAccess("Artur", "12345"));
+        assertFalse(userService.getAccess("Alexei", "12345"));
+        assertFalse(userService.getAccess("Artur", "12345"));
         assertFalse(userService.getAccess("Andrew", "1234"));
     }
 }

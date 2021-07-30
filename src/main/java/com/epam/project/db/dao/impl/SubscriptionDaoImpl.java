@@ -19,14 +19,14 @@ import java.util.List;
 public class SubscriptionDaoImpl implements com.epam.project.db.dao.SubscriptionDao {
     private static final Logger LOGGER = LogManager.getLogger(SubscriptionDaoImpl.class);
 
-    private static final String SELECT_ALL_SUBSCRIPTION="SELECT * FROM subscribe INNER JOIN user u on subscribe.user_id = u.id INNER JOIN book b on subscribe.book_id = b.id";
-    private static final String SELECT_SUBSCRIPTION_BY_ID="SELECT * FROM subscribe INNER JOIN user u on subscribe.user_id = u.id INNER JOIN book b on subscribe.book_id = b.id WHERE subscribe.id=?";
-    private static final String CREATE_SUBSCRIPTION="INSERT INTO subscribe(id,book_id,day_from,day_to,user_id) VALUES(?,?,?,?,?)";
-    private static final String DELETE_SUBSCRIPTION_BY_ID="DELETE FROM subscribe WHERE id=?";
-    private static final String UPDATE_SUBSCRIPTION="UPDATE subscribe SET book_id=?,day_from=?,day_to=?,user_id=? WHERE id=?;";
-    private static final String ORDER_SUBSCRIPTION="INSERT INTO subscribe(book_id,day_from,day_to,user_id) VALUES(?,?,?,?)";
-    private static final String SELECT_SUBSCRIPTION_BY_STATUS="SELECT * FROM subscribe INNER JOIN user u on subscribe.user_id = u.id INNER JOIN book b on subscribe.book_id = b.id WHERE b.status=?";
-    private static final String SELECT_SUBSCRIPTION_BY_USER="SELECT * FROM subscribe INNER JOIN user u on subscribe.user_id = u.id INNER JOIN book b on subscribe.book_id = b.id WHERE u.id=?";
+    private static final String SELECT_ALL_SUBSCRIPTION="SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id";
+    private static final String SELECT_SUBSCRIPTION_BY_ID="SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE subscription.id=?";
+    private static final String CREATE_SUBSCRIPTION="INSERT INTO subscription(id,book_id,day_from,day_to,user_id) VALUES(?,?,?,?,?)";
+    private static final String DELETE_SUBSCRIPTION_BY_ID="DELETE FROM subscription WHERE id=?";
+    private static final String UPDATE_SUBSCRIPTION="UPDATE subscription SET book_id=?,day_from=?,day_to=?,user_id=? WHERE id=?;";
+    private static final String ORDER_SUBSCRIPTION="INSERT INTO subscription(book_id,day_from,day_to,user_id) VALUES(?,?,?,?)";
+    private static final String SELECT_SUBSCRIPTION_BY_STATUS="SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE b.status=?";
+    private static final String SELECT_SUBSCRIPTION_BY_USER="SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE u.id=?";
 
 
 
@@ -37,7 +37,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
              PreparedStatement preparedStatement=connection.prepareStatement(SELECT_ALL_SUBSCRIPTION)) {
             ResultSet resultSet= preparedStatement.executeQuery();
             while (resultSet.next()){
-                Long id=resultSet.getLong("subscribe.id");
+                Long id=resultSet.getLong("subscription.id");
                 Long bookId=resultSet.getLong("b.id");
                 String bookName=resultSet.getString("b.name");
                 String bookGenre = resultSet.getString("b.genre");
@@ -68,7 +68,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             preparedStatement.setLong(1,id);
             ResultSet resultSet= preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Long subsId = resultSet.getLong("subscribe.id");
+                Long subsId = resultSet.getLong("subscription.id");
                 Long bookId = resultSet.getLong("b.id");
                 String bookName = resultSet.getString("b.name");
                 String bookGenre = resultSet.getString("b.genre");
@@ -166,7 +166,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             preparedStatement.setString(1,status.getName());
             ResultSet resultSet= preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Long id=resultSet.getLong("subscribe.id");
+                Long id=resultSet.getLong("subscription.id");
                 Long bookId = resultSet.getLong("b.id");
                 String bookName = resultSet.getString("b.name");
                 String bookGenre = resultSet.getString("b.genre");
@@ -196,7 +196,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             preparedStatement.setLong(1, userId);
             ResultSet resultSet= preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Long id=resultSet.getLong("subscribe.id");
+                Long id=resultSet.getLong("subscription.id");
                 Long bookId = resultSet.getLong("b.id");
                 String bookName = resultSet.getString("b.name");
                 String bookGenre = resultSet.getString("b.genre");
