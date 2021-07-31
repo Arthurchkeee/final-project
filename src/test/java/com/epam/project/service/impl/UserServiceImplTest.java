@@ -12,4 +12,9 @@ class UserServiceImplTest {
         assertFalse(userService.getAccess("Artur", "12345"));
         assertFalse(userService.getAccess("Andrew", "1234"));
     }
+
+    @Test
+    void count(){
+        assertEquals(UserServiceImpl.getInstance().count(),5);
+    }
 }

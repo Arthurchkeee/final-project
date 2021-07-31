@@ -50,4 +50,8 @@ public interface BookService {
      * @param id is a primary key from table 'book'
      */
     void updateBookStatus(Status status, Long id);
+
+    Long count();
+
+    List<Book> get20Books(Integer number);
 }

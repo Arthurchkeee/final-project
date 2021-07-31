@@ -21,9 +21,7 @@ public class CreateUserServlet extends HttpServlet {
             User user=new User(null,req.getParameter("name"),req.getParameter("password"), Role.valueOf(req.getParameter("role")));
         UserServiceImpl.getInstance().create(user);
         }
-        RequestDispatcher view= req.getRequestDispatcher("jsp/createUser.jsp");
-        view.forward(req,resp);
-
+        resp.sendRedirect(req.getContextPath()+"/createUser");
     }
 
     @Override

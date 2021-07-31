@@ -21,8 +21,8 @@ public class EditBookServlet extends HttpServlet {
         req.setAttribute("id",req.getParameter("id"));
         req.setAttribute("name",req.getParameter("name"));
         req.setAttribute("author",req.getParameter("author"));
-        RequestDispatcher view=req.getRequestDispatcher("jsp/editBook.jsp");
-        view.forward(req,resp);
+        resp.sendRedirect(req.getContextPath()+"/editBook");
+
     }
 
     @Override

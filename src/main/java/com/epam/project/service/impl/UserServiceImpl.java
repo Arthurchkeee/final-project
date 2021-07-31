@@ -59,4 +59,14 @@ public final class UserServiceImpl implements UserService {
     public User findUserByLogin(String login){
         return userDao.findUserByLogin(login);
     }
+
+    @Override
+    public Integer count() {
+        return userDao.count();
+    }
+
+    @Override
+    public List<User> select20Users(Integer number) {
+        return userDao.select20Users(number);
+    }
 }

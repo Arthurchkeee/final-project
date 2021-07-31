@@ -64,4 +64,13 @@ public final class BookServiceImpl implements BookService {
     public void updateBookStatus(Status status,Long id){
         bookDao.updateBookStatus(status,id);
     }
+
+    @Override
+    public Long count(){
+        return bookDao.count();
+    }
+
+    public List<Book> get20Books(Integer number){
+        return bookDao.get20Books(number);
+    }
 }

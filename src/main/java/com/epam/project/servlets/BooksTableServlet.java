@@ -14,7 +14,11 @@ import java.io.IOException;
 public class BooksTableServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("books", BookServiceImpl.getInstance().findAllBooks());
+        req.setAttribute("counts",BookServiceImpl.getInstance().count()/20+1);
+        String page=req.getParameter("page");
+        if(page==null)
+            page="1";
+        req.setAttribute("books",BookServiceImpl.getInstance().get20Books((Integer.parseInt(page)-1)*20));
         RequestDispatcher view=req.getRequestDispatcher("jsp/books.jsp");
         view.forward(req,resp);
     }

@@ -18,8 +18,8 @@ public class EditUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("id",req.getParameter("id"));
         req.setAttribute("name",req.getParameter("name"));
-        RequestDispatcher view=req.getRequestDispatcher("jsp/editUser.jsp");
-        view.forward(req,resp);
+        resp.sendRedirect(req.getContextPath()+"/editUser");
+
     }
 
     @Override

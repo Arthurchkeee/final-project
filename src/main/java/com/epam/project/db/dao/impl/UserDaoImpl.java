@@ -9,10 +9,7 @@ import com.epam.project.entities.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +21,8 @@ public class UserDaoImpl implements UserDao {
     private static final String DELETE_BOOK_BY_ID = "DELETE FROM user WHERE id=?";
     private static final String UPDATE_USER_BY_ID = "UPDATE user SET name=?,password=?,role=? WHERE id=?;";
     private static final String SELECT_USER_BY_NAME = "SELECT * FROM user WHERE name=?";
-
+    private static final String COUNT="SELECT COUNT(*) AS row_count FROM user";
+    private static final String SELECT_20_USERS="SELECT* FROM user ORDER BY id LIMIT ?,20";
     @Override
     public List<User> findAllEntities() {
         List<User> userList = new ArrayList<>();
@@ -147,5 +145,39 @@ public class UserDaoImpl implements UserDao {
         }
         System.out.println(user);
         return user;
+    }
+
+    public Integer count(){
+        Integer count=null;
+        try(Connection connection=ConnectionPool.getInstance().getConnection();
+            Statement statement=connection.createStatement()){
+            ResultSet resultSet=statement.executeQuery(COUNT);
+            resultSet.next();
+            count= resultSet.getInt("row_count");
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return count;
+    }
+
+    public List<User> select20Users(Integer number){
+        List<User> users=new ArrayList<>();
+        try(Connection connection=ConnectionPool.getInstance().getConnection();
+        PreparedStatement preparedStatement=connection.prepareStatement(SELECT_20_USERS)) {
+            preparedStatement.setInt(1,number);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Long id = resultSet.getLong("id");
+                String name = resultSet.getString("name");
+                String password = resultSet.getString("password");
+                String role = resultSet.getString("role");
+                users.add(new User(id, name, password, Role.valueOf(role)));
+            }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return users;
     }
 }

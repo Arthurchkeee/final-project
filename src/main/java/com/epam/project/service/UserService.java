@@ -50,4 +50,8 @@ public interface UserService {
      * @return {@link com.epam.project.entities.User} from table 'user'
      */
     User findUserByLogin(String login);
+
+    Integer count();
+
+    List<User> select20Users(Integer number);
 }

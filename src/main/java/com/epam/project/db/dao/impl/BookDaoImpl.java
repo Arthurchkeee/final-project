@@ -8,10 +8,7 @@ import com.epam.project.entities.Book;
 import com.epam.project.entities.Genre;
 import com.epam.project.entities.Status;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
@@ -29,6 +26,8 @@ public class BookDaoImpl implements BookDao {
     private static final String SELECT_BOOK_BY_AUTHOR="SELECT * FROM book WHERE author=?";
     private static final String SELECT_BOOK_BY_STATUS="SELECT * FROM book WHERE status=?";
     private static final String UPDATE_BOOK_STATUS="UPDATE book SET status=? WHERE id=?";
+    private static final String GET_20_BOOK="SELECT* FROM book ORDER BY id LIMIT ?,20";
+    private static final String COUNT="SELECT COUNT(*) AS row_count FROM book";
 
     @Override
     public List<Book> findAllEntities() {
@@ -187,5 +186,42 @@ public class BookDaoImpl implements BookDao {
             LOGGER.error("Failed to update book status, "+throwables);
         }
 
+    }
+    @Override
+    public Long count(){
+        Long count = null;
+        try(Connection connection=ConnectionPool.getInstance().getConnection();
+            Statement statement=connection.createStatement()){
+            ResultSet resultSet= statement.executeQuery(COUNT);
+            resultSet.next();
+            count = resultSet.getLong("row_count");
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return count;
+    }
+
+    public List<Book> get20Books(Integer number){
+        List<Book> books=new ArrayList<>();
+        try(Connection connection=ConnectionPool.getInstance().getConnection();
+        PreparedStatement preparedStatement=connection.prepareStatement(GET_20_BOOK)){
+            preparedStatement.setInt(1,number);
+            ResultSet resultSet=preparedStatement.executeQuery();
+            while(resultSet.next()){
+                Long id = resultSet.getLong("id");
+                String name = resultSet.getString("name");
+                String genre = resultSet.getString("genre");
+                String status = resultSet.getString("status");
+                String author = resultSet.getString("author");
+                String description=resultSet.getString("description");
+                String image=resultSet.getString("image");
+                books.add(new Book(id, name, author, Genre.valueOf(genre), Status.valueOf(status),description,image));
+            }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return books;
     }
 }

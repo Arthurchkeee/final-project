@@ -5,7 +5,12 @@ public enum Genre implements BaseEntity{
     HORROR(1L),
     DRAMA(3L),
     DETECTIVE(4L),
-    ADULT(5L)
+    ADULT(5L),
+    ADVENTURE(6L),
+    CLASSIC(7L),
+    COMICS(8L),
+    FANTASTIC(9L),
+    FANTASY(10L)
     ;
     private final Long ID;
 

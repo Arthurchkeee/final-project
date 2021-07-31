@@ -1,8 +1,6 @@
 package com.epam.project.filters;
 
 import com.epam.project.entities.Role;
-import com.epam.project.servlets.LibrarianServlet;
-import com.epam.project.servlets.ReturningServlet;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

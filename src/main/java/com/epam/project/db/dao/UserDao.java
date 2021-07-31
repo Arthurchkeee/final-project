@@ -23,4 +23,8 @@ public interface UserDao extends BaseDao<Long,User>{
     String getPassword(String login);
 
     User findUserByLogin(String login);
+
+    Integer count();
+
+    List<User> select20Users(Integer number);
 }

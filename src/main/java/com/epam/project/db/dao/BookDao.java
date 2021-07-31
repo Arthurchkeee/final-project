@@ -28,5 +28,7 @@ public interface BookDao extends BaseDao<Long,Book> {
 
     void updateBookStatus(Status status,Long id);
 
+    Long count();
 
+    List<Book> get20Books(Integer number);
 }

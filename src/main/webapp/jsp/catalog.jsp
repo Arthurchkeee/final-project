@@ -16,7 +16,8 @@
 </head>
 <body>
 <c:import url="main.jsp"/>
-<div class="container">
+
+    <div class="container">
     <br>
 
         <input class="form-control" id="myInput" type="text" placeholder="Search..">
@@ -49,12 +50,20 @@
             </tbody>
         </table>
 
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <form method="get" action="catalog">
+                    <c:forEach var="count" begin="1" end="${counts}">
 
-        </div>
+
+                    <form method="get" action="catalog">
+                        <li  class="page-item"><input type="submit" class="page-link" name="page" value="${count}"/></li>
 
 
-
-
+                        </c:forEach>
+                    </form>
+            </ul>
+        </nav>
 
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
