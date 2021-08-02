@@ -45,7 +45,7 @@
                                 <input type="hidden" name="name" value=${user.name} />
                                 <input type="submit" class="btn btn-outline-warning m-lg-3" value="<fmt:message key="users.edit"/>">
                             </form>
-                            <deleteUserButton:deleteUserButton id="${user.id}" />
+                            <deleteUserButton:deleteUserButton id="${user.id}" locale="${not empty sessionScope.locale? sessionScope.locale:'en_US'}"/>
                         </td>
 
             </tr>

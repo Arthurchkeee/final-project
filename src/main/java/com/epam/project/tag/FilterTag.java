@@ -13,6 +13,7 @@ public class FilterTag extends SimpleTagSupport {
     private String name;
     private String author;
     private Long subId;
+    private String locale;
 
     public void setId(Long id) {
         this.id = id;
@@ -34,9 +35,28 @@ public class FilterTag extends SimpleTagSupport {
         this.subId = subId;
     }
 
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
+
     @Override
     public void doTag() throws JspException, IOException {
         if(Status.ORDERED_SUBSCRIPTION.equals(Status.valueOf(status))||Status.ORDERED_ROOM.equals(Status.valueOf(status))){
+            String cancel=null;
+            switch (locale){
+                case "ru": {
+                    cancel="Отменить";
+                    break;
+                }
+                case "en_US":{
+                    cancel="Cancel";
+                    break;
+                }
+                case "by":{
+                    cancel="Адмяніць";
+                    break;
+                }
+            }
             getJspContext().getOut().print("<tr>\n" +
                     "                    <td>"+id+"</td>\n" +
                     "                    <td>"+name+"</td>\n" +
@@ -45,7 +65,7 @@ public class FilterTag extends SimpleTagSupport {
                     "                        <input type=\"hidden\" name=\"book_id\" value="+id+" />\n" +
                     "                        <input type=\"hidden\" name=\"id\" value="+subId+" />\n" +
                     "                        <td id=\"action\">\n" +
-                    "                            <input type=\"submit\" class=\"btn btn-outline-danger\" value=\"<fmt:message key=\"myBooks.cancel\"/>\">\n" +
+                    "                            <input type=\"submit\" class=\"btn btn-outline-danger\" value="+cancel+">\n" +
                     "                        </td>\n" +
                     "                    </form>\n" +
                     "                </tr>");

@@ -29,6 +29,7 @@
                 <th><fmt:message key="orders.author"/></th>
                 <th><fmt:message key="orders.username"/></th>
                 <th><fmt:message key="orders.access"/></th>
+                <th><fmt:message key="myBooks.cancel"/> </th>
             </tr>
             </thead>
             <tbody id="bookTable">
@@ -44,8 +45,17 @@
                     <form method="post" action="librarian">
                         <input type="hidden" name="id" value=${subscription.books.id} />
                         <input type="hidden" name="status" value=${subscription.books.status} />
+                        <input type="hidden" name="action" value="accept" />
                         <td id="action">
                             <input type="submit" class="btn btn-outline-success" value="<fmt:message key="orders.access"/>">
+                        </td>
+                    </form>
+                    <form method="post" action="librarian">
+                        <input type="hidden" name="book_id" value=${subscription.books.id} />
+                        <input type="hidden" name="id" value=${subscription.id} />
+                        <input type="hidden" name="action" value="delete" />
+                        <td>
+                            <input type="submit" class="btn btn-outline-danger" value="<fmt:message key="myBooks.cancel"/>">
                         </td>
                     </form>
 

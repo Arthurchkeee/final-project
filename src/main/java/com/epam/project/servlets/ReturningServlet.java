@@ -18,6 +18,7 @@ public class ReturningServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         req.setAttribute("subscriptions",SubscriptionServiceImpl.getInstance().findAllSubscriptions());
         RequestDispatcher view= req.getRequestDispatcher("jsp/returningBook.jsp");
         view.forward(req,resp);
@@ -25,8 +26,16 @@ public class ReturningServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        SubscriptionServiceImpl.getInstance().deleteSubscription(Long.valueOf(req.getParameter("id")),Long.valueOf(req.getParameter("book_id")));
-        BookServiceImpl.getInstance().updateBookStatus(Status.FREE,Long.valueOf(req.getParameter("book_id")));
+        if("cancel".equals(req.getParameter("action"))){
+            if(Status.RETURNING_ROOM.equals(Status.valueOf(req.getParameter("status"))))
+                BookServiceImpl.getInstance().updateBookStatus(Status.ROOM,Long.valueOf(req.getParameter("book_id")));
+            else
+                BookServiceImpl.getInstance().updateBookStatus(Status.SUBSCRIPTION,Long.valueOf(req.getParameter("book_id")));
+        }
+        else {
+            SubscriptionServiceImpl.getInstance().deleteSubscription(Long.valueOf(req.getParameter("id")), Long.valueOf(req.getParameter("book_id")));
+            BookServiceImpl.getInstance().updateBookStatus(Status.FREE, Long.valueOf(req.getParameter("book_id")));
+        }
         doGet(req, resp);
     }
 }

@@ -18,10 +18,15 @@ import java.io.IOException;
 public class LibrarianServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(Status.ORDERED_SUBSCRIPTION.equals(Status.valueOf(req.getParameter("status"))))
-            BookServiceImpl.getInstance().updateBookStatus(Status.SUBSCRIPTION,Long.valueOf(req.getParameter("id")));
-        else
-            BookServiceImpl.getInstance().updateBookStatus(Status.ROOM,Long.valueOf(req.getParameter("id")));
+        if("delete".equals(req.getParameter("action"))){
+            SubscriptionServiceImpl.getInstance().delete(Long.valueOf(req.getParameter("id")));
+            BookServiceImpl.getInstance().updateBookStatus(Status.FREE,Long.valueOf(req.getParameter("book_id")));
+        }else {
+            if (Status.ORDERED_SUBSCRIPTION.equals(Status.valueOf(req.getParameter("status"))))
+                BookServiceImpl.getInstance().updateBookStatus(Status.SUBSCRIPTION, Long.valueOf(req.getParameter("id")));
+            else
+                BookServiceImpl.getInstance().updateBookStatus(Status.ROOM, Long.valueOf(req.getParameter("id")));
+        }
         doGet(req, resp);
     }
 
