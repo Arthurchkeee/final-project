@@ -36,4 +36,9 @@ public class LoginServlet extends HttpServlet {
             out.close();
         }
     }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("jsp/login.jsp").include(req,resp);
+    }
 }

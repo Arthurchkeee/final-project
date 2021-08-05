@@ -4,6 +4,7 @@ import com.epam.project.entities.Book;
 import com.epam.project.entities.Genre;
 import com.epam.project.entities.Status;
 import com.epam.project.service.impl.BookServiceImpl;
+import com.epam.project.validator.BookValidator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,7 +28,9 @@ public class EditBookServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        BookServiceImpl.getInstance().update(new Book(Long.valueOf(req.getParameter("id")),req.getParameter("book_name"),req.getParameter("author_name"), Genre.valueOf(req.getParameter("genre")), Status.FREE,req.getParameter("description"),req.getParameter("image")));
+        if(BookValidator.getInstance().isValid(req.getParameter("book_name"),req.getParameter("author_name"), req.getParameter("description"),req.getParameter("image"))) {
+            BookServiceImpl.getInstance().update(new Book(Long.valueOf(req.getParameter("id")), req.getParameter("book_name"), req.getParameter("author_name"), Genre.valueOf(req.getParameter("genre")), Status.FREE, req.getParameter("description"), req.getParameter("image")));
+        }
         RequestDispatcher view=req.getRequestDispatcher("/books");
         view.forward(req,resp);
     }

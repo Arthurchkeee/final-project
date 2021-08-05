@@ -25,7 +25,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a href="" class="navbar-brand">Library</a>
-        <button class="navbar-toggler" tybe="button" data-toggle="collapse" data-target="#navbarContent"
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false">
             <span class="navbar-toggler-icon"></span>
         </button>
