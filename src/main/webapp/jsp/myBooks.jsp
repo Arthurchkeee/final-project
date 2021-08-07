@@ -13,6 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
+
 <c:import url="main.jsp"/>
 <div class="container">
 
@@ -32,15 +33,34 @@
                 <th><fmt:message key="catalog.book"/></th>
                 <th><fmt:message key="catalog.author"/></th>
                 <th><fmt:message key="myBooks.button"/></th>
+                <th>renew</th>
             </tr>
             </thead>
             <tbody id="bookTable">
             <c:forEach var="subscription" items="${subscriptions}">
                 <c:if test="${subscription.books.status eq 'SUBSCRIPTION' || subscription.books.status eq 'ROOM'}">
                     <tr>
-                        <td>${subscription.books.id}</td>
-                        <td>${subscription.books.name}</td>
-                        <td>${subscription.books.author}</td>
+                        <c:choose>
+                        <c:when test="${subscription.to lt today}">
+                            <td style="color: red;">${subscription.books.id}</td>
+                            <td style="color: red;">${subscription.books.name}</td>
+                            <td style="color: red;">${subscription.books.author}</td>
+                            <c:if test="${subscription.books.status eq 'SUBSCRIPTION'}">
+                                <form method="post" action="myBooks">
+                                    <input type="hidden" name="id" value=${subscription.books.id} />
+                                    <input type="hidden" name="action" value="renew" />
+                                    <td >
+                                        <input type="submit" class="btn btn-outline-primary" value="renew">
+                                    </td>
+                                </form>
+                            </c:if>
+                        </c:when>
+                        <c:otherwise>
+                            <td>${subscription.books.id}</td>
+                            <td>${subscription.books.name}</td>
+                            <td>${subscription.books.author}</td>
+                        </c:otherwise>
+                        </c:choose>
                         <form method="post" action="myBooks">
                             <input type="hidden" name="id" value=${subscription.books.id} />
                             <input type="hidden" name="status" value=${subscription.books.status} />

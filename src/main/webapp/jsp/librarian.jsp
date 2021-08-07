@@ -34,22 +34,34 @@
             </thead>
             <tbody id="bookTable">
             <c:forEach var="subscription" items="${subscriptions}">
-                <c:if test="${subscription.books.status eq 'ORDERED_ROOM' || subscription.books.status eq 'ORDERED_SUBSCRIPTION'}">
-                ${subscription.id}
+                <c:if test="${subscription.books.status eq 'ORDERED_ROOM' || subscription.books.status eq 'ORDERED_SUBSCRIPTION' || subscription.books.status eq 'RENEW'}">
                 <tr>
                     <td>${subscription.books.id}</td>
                     <td>${subscription.books.name}</td>
                     <td>${subscription.books.author}</td>
                     <td>${subscription.user.name}</td>
-
-                    <form method="post" action="librarian">
-                        <input type="hidden" name="id" value=${subscription.books.id} />
-                        <input type="hidden" name="status" value=${subscription.books.status} />
-                        <input type="hidden" name="action" value="accept" />
-                        <td id="action">
-                            <input type="submit" class="btn btn-outline-success" value="<fmt:message key="orders.access"/>">
-                        </td>
-                    </form>
+                    <c:choose>
+                        <c:when test="${subscription.books.status eq 'RENEW'}">
+                            <form method="post" action="librarian">
+                                <input type="hidden" name="id" value="${subscription.id}">
+                                <input type="hidden" name="book_id" value="${subscription.books.id}">
+                                <input type="hidden" name="action" value="renew" />
+                                <td>
+                                    <input type="submit" class="btn btn-outline-primary" value="renew">
+                                </td>
+                            </form>
+                        </c:when>
+                        <c:otherwise>
+                            <form method="post" action="librarian">
+                                <input type="hidden" name="book_id" value=${subscription.books.id} />
+                                <input type="hidden" name="status" value=${subscription.books.status} />
+                                <input type="hidden" name="action" value="accept" />
+                                <td id="action">
+                                    <input type="submit" class="btn btn-outline-success" value="<fmt:message key="orders.access"/>">
+                                </td>
+                            </form>
+                        </c:otherwise>
+                    </c:choose>
                     <form method="post" action="librarian">
                         <input type="hidden" name="book_id" value=${subscription.books.id} />
                         <input type="hidden" name="id" value=${subscription.id} />

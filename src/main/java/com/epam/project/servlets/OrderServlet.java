@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 
 @WebServlet(name="order",urlPatterns = "/order")
 public class OrderServlet extends HttpServlet {
@@ -42,7 +45,7 @@ public class OrderServlet extends HttpServlet {
         HttpSession session= req.getSession();
         Long user= (Long) session.getAttribute("user_id");
         if(status.equals("SUBSCRIBE")) {
-            SubscriptionServiceImpl.getInstance().orderSubscription(user, Long.valueOf(id), new Date(System.currentTimeMillis()));
+            SubscriptionServiceImpl.getInstance().orderSubscription(user, Long.valueOf(id), new Date(System.currentTimeMillis()+31l*24l*60l*60l*1000l));
             BookServiceImpl.getInstance().updateBookStatus(Status.ORDERED_SUBSCRIPTION,Long.valueOf(id));
         }
         else {

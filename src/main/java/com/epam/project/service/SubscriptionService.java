@@ -71,4 +71,6 @@ public interface SubscriptionService {
      * @param bookId is a foreign key of table 'subscribe'
      */
     void deleteSubscription(Long id,Long bookId);
+
+    boolean renewSubscription(Long id,Date to);
 }

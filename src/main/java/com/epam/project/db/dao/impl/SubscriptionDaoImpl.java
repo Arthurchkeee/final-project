@@ -23,11 +23,11 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
     private static final String SELECT_SUBSCRIPTION_BY_ID="SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE subscription.id=?";
     private static final String CREATE_SUBSCRIPTION="INSERT INTO subscription(id,book_id,day_from,day_to,user_id) VALUES(?,?,?,?,?)";
     private static final String DELETE_SUBSCRIPTION_BY_ID="DELETE FROM subscription WHERE id=?";
-    private static final String UPDATE_SUBSCRIPTION="UPDATE subscription SET book_id=?,day_from=?,day_to=?,user_id=? WHERE id=?;";
+    private static final String UPDATE_SUBSCRIPTION="UPDATE subscription SET book_id=?,day_from=?,day_to=?,user_id=? WHERE id=?";
     private static final String ORDER_SUBSCRIPTION="INSERT INTO subscription(book_id,day_from,day_to,user_id) VALUES(?,?,?,?)";
     private static final String SELECT_SUBSCRIPTION_BY_STATUS="SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE b.status=?";
-    private static final String SELECT_SUBSCRIPTION_BY_USER="SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE u.id=?";
-
+    private static final String SELECT_SUBSCRIPTION_BY_USER="SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE u.id=? ORDER by subscription.day_to";
+    private static final String RENEW_BOOK="UPDATE subscription SET  day_to=? WHERE id=?";
 
 
     @Override
@@ -216,5 +216,19 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             LOGGER.error("Failed to find all subscriptions by user, "+throwables);
         }
         return subscriptionList;
+    }
+
+    public boolean renewSubscription(Long id, Date to){
+        try (Connection connection=ConnectionPool.getInstance().getConnection();
+        PreparedStatement preparedStatement=connection.prepareStatement(RENEW_BOOK) ){
+            preparedStatement.setLong(2,id);
+            preparedStatement.setDate(1,to);
+            preparedStatement.executeUpdate();
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
+            return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 }

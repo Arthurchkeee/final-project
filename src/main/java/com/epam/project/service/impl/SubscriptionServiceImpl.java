@@ -83,4 +83,8 @@ public final class SubscriptionServiceImpl implements SubscriptionService {
     public void deleteSubscription(Long id,Long bookId){
         subscriptionDao.delete(id);
     }
+
+    public boolean renewSubscription(Long id, Date to){
+        return subscriptionDao.renewSubscription(id,to);
+    }
 }
