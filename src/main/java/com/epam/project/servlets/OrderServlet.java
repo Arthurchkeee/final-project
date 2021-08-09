@@ -5,6 +5,7 @@ import com.epam.project.entities.Status;
 import com.epam.project.service.BookService;
 import com.epam.project.service.SubscriptionService;
 import com.epam.project.service.impl.BookServiceImpl;
+import com.epam.project.service.impl.CommentServiceImpl;
 import com.epam.project.service.impl.SubscriptionServiceImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -34,6 +35,7 @@ public class OrderServlet extends HttpServlet {
        req.setAttribute("genre",book.getGenre());
        req.setAttribute("description",book.getDescription());
        req.setAttribute("image",book.getImage());
+       req.setAttribute("comments", CommentServiceImpl.getInstance().findCommentsByBook(book.getId()));
         RequestDispatcher view= req.getRequestDispatcher("/jsp/bookProfile.jsp");
         view.forward(req,resp);
     }

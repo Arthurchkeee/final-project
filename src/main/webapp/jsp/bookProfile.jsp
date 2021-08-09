@@ -14,6 +14,8 @@
 </head>
 <body>
 <c:import url="main.jsp"/>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
 <div class="container">
     <div class="card-group">
 <div class="card">
@@ -52,6 +54,39 @@
         </div>
     </div>
 </div>
+<section class="content-item" id="comments">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <form method="post" action="comment">
+                    <h3 class="pull-left">New Comment</h3>
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                <input type="text" class="fa-text-width" id="message" name="comment" placeholder="Your message" required=""></input>
+                            </div>
+                        </div>
+                    <input type="hidden" name="id" value=${id}>
+                    <button type="submit" class="btn btn-normal pull-right">Submit</button>
+                </form>
 
+                <h3>Comments</h3>
+
+                <!-- COMMENT 1 - START -->
+            <c:forEach var="comment" items="${comments}">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="media-heading">${comment.name}</h4>
+                        <ul class="list-unstyled list-inline media-detail pull-left">
+                            <li><i class="fa fa-calendar"></i>${comment.date}</li>
+                            <li><i class="fa fa-comment-o"></i>${comment.text}</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- COMMENT 1 - END -->
+            </c:forEach>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>
