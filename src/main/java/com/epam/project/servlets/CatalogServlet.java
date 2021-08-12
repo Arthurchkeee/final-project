@@ -1,6 +1,5 @@
 package com.epam.project.servlets;
 
-import com.epam.project.service.BookService;
 import com.epam.project.service.impl.BookServiceImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -16,10 +15,8 @@ public class CatalogServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         req.setAttribute("counts",BookServiceImpl.getInstance().count()/20+1);
-        String page=req.getParameter("page");
-        if(page==null)
-            page="1";
-        req.setAttribute("books",BookServiceImpl.getInstance().get20Books((Integer.parseInt(page)-1)*20));
+        String page= req.getParameter("page") ==null ? "1" :req.getParameter("page") ;
+        req.setAttribute("books",BookServiceImpl.getInstance().selectSomeBooks(20,Integer.parseInt(page)));
         RequestDispatcher view= req.getRequestDispatcher("jsp/catalog.jsp");
         view.forward(req,resp);
     }

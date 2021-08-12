@@ -11,7 +11,7 @@ class CommentServiceImplTest {
 
     @Test
     void thisCommentWas() {
-        assertTrue(CommentServiceImpl.getInstance().thisCommentWas(new Comment(1L,"administrator",8L,new Date(System.currentTimeMillis()),"1231231231231231")));
-        assertFalse(CommentServiceImpl.getInstance().thisCommentWas(new Comment(null,"124",9L,new Date(System.currentTimeMillis()),"124513")));
+        assertTrue(CommentServiceImpl.getInstance().commentAlreadyCreated(new Comment(1L,"administrator",8L,new Date(System.currentTimeMillis()),"1231231231231231")));
+        assertFalse(CommentServiceImpl.getInstance().commentAlreadyCreated(new Comment(null,"124",9L,new Date(System.currentTimeMillis()),"124513")));
     }
 }

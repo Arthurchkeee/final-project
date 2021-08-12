@@ -6,6 +6,8 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class FilterTag extends SimpleTagSupport {
     private String status;
@@ -42,21 +44,7 @@ public class FilterTag extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException, IOException {
         if(Status.ORDERED_SUBSCRIPTION.equals(Status.valueOf(status))||Status.ORDERED_ROOM.equals(Status.valueOf(status))){
-            String cancel=null;
-            switch (locale){
-                case "ru": {
-                    cancel="Отменить";
-                    break;
-                }
-                case "en_US":{
-                    cancel="Cancel";
-                    break;
-                }
-                case "by":{
-                    cancel="Адмяніць";
-                    break;
-                }
-            }
+            ResourceBundle resourceBundle=ResourceBundle.getBundle("language", Locale.forLanguageTag(locale));
             getJspContext().getOut().print("<tr>\n" +
                     "                    <td>"+id+"</td>\n" +
                     "                    <td>"+name+"</td>\n" +
@@ -65,7 +53,7 @@ public class FilterTag extends SimpleTagSupport {
                     "                        <input type=\"hidden\" name=\"book_id\" value="+id+" />\n" +
                     "                        <input type=\"hidden\" name=\"id\" value="+subId+" />\n" +
                     "                        <td id=\"action\">\n" +
-                    "                            <input type=\"submit\" class=\"btn btn-outline-danger\" value="+cancel+">\n" +
+                    "                            <input type=\"submit\" class=\"btn btn-outline-danger\" value="+resourceBundle.getString("myBooks.cancel")+">\n" +
                     "                        </td>\n" +
                     "                    </form>\n" +
                     "                </tr>");

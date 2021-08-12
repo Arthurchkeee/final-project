@@ -2,7 +2,6 @@ package com.epam.project.db.dao.impl;
 
 import com.epam.project.db.ConnectionPool;
 import com.epam.project.db.ConnectionProxy;
-import com.epam.project.db.dao.BaseDao;
 import com.epam.project.db.dao.UserDao;
 import com.epam.project.entities.Role;
 import com.epam.project.entities.User;
@@ -22,7 +21,7 @@ public class UserDaoImpl implements UserDao {
     private static final String UPDATE_USER_BY_ID = "UPDATE user SET name=?,password=?,role=? WHERE id=?;";
     private static final String SELECT_USER_BY_NAME = "SELECT * FROM user WHERE name=?";
     private static final String COUNT="SELECT COUNT(*) AS row_count FROM user";
-    private static final String SELECT_20_USERS="SELECT* FROM user ORDER BY id LIMIT ?,20";
+    private static final String SELECT_SOME_USERS ="SELECT* FROM user ORDER BY id LIMIT ?,?";
     @Override
     public List<User> findAllEntities() {
         List<User> userList = new ArrayList<>();
@@ -143,7 +142,6 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException throwables) {
             LOGGER.error("Failed to find user by login, "+throwables);
         }
-        System.out.println(user);
         return user;
     }
 
@@ -156,16 +154,17 @@ public class UserDaoImpl implements UserDao {
             count= resultSet.getInt("row_count");
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find the count of rows"+ throwables);
         }
         return count;
     }
 
-    public List<User> select20Users(Integer number){
+    public List<User> selectSomeUsers(Integer number,Integer page){
         List<User> users=new ArrayList<>();
         try(Connection connection=ConnectionPool.getInstance().getConnection();
-        PreparedStatement preparedStatement=connection.prepareStatement(SELECT_20_USERS)) {
-            preparedStatement.setInt(1,number);
+        PreparedStatement preparedStatement=connection.prepareStatement(SELECT_SOME_USERS)) {
+            preparedStatement.setInt(2,number);
+            preparedStatement.setInt(1,number*(page-1));
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Long id = resultSet.getLong("id");
@@ -176,7 +175,7 @@ public class UserDaoImpl implements UserDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to select "+number+" users "+throwables);
         }
         return users;
     }

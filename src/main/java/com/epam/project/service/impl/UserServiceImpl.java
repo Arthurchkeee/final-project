@@ -66,7 +66,7 @@ public final class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> select20Users(Integer number) {
-        return userDao.select20Users(number);
+    public List<User> selectSomeUsers(Integer number,Integer page) {
+        return userDao.selectSomeUsers(number,page);
     }
 }

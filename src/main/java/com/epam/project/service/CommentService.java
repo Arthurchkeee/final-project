@@ -18,5 +18,5 @@ public interface CommentService {
 
     List<Comment> findCommentsByBook(Long id);
 
-    boolean thisCommentWas(Comment comment);
+    boolean commentAlreadyCreated(Comment comment);
 }

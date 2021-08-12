@@ -18,7 +18,6 @@ public class AdminFilter implements Filter {
 
         HttpSession session= httpRequest.getSession();
         final Object role = session.getAttribute("role");
-        System.out.println(role);
         if(!Role.ADMIN.equals(role)){
             httpRequest.setAttribute("error", "403. Forbidden");
             httpResponse.sendError(403, "Forbidden");
@@ -26,8 +25,4 @@ public class AdminFilter implements Filter {
         filterChain.doFilter(httpRequest,httpResponse);
     }
 
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("Filter was initialization");
-    }
 }

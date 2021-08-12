@@ -22,10 +22,7 @@ public class LoginValidator {
     private static final String REGEX_FOR_LOGIN = "^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\\d.-]{1,50}$";
 
     public boolean isValid(String login, String password){
-        if(validateLength(login,LOGIN_MIN_LENGTH,LOGIN_MAX_LENGTH) && validateLength(password,PASSWORD_MIN_LENGTH,PASSWORD_MAX_LENGTH)&&validateRegex(password,REGEX_FOR_PASSWORD)&&validateRegex(login, REGEX_FOR_LOGIN)){
-            return true;
-        }
-        else return false;
+        return validateLength(login,LOGIN_MIN_LENGTH,LOGIN_MAX_LENGTH) && validateLength(password,PASSWORD_MIN_LENGTH,PASSWORD_MAX_LENGTH)&&validateRegex(password,REGEX_FOR_PASSWORD)&&validateRegex(login, REGEX_FOR_LOGIN);
     }
 
 

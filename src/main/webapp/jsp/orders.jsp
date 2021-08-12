@@ -30,7 +30,7 @@
         </thead>
         <tbody id="bookTable">
         <c:forEach var="subscription" items="${subscriptions}">
-                <tag:filterTag status="${subscription.books.status}" id="${subscription.books.id}" name="${subscription.books.name}" author="${subscription.books.author}" subId="${subscription.id}" locale="${not empty sessionScope.locale? sessionScope.locale:'en_US'}"/>
+                <tag:filterTag status="${subscription.books.status}" id="${subscription.books.id}" name="${subscription.books.name}" author="${subscription.books.author}" subId="${subscription.id}" locale="${sessionScope.locale}"/>
         </c:forEach>
         </tbody>
     </table>

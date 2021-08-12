@@ -2,7 +2,6 @@ package com.epam.project.db.dao.impl;
 
 import com.epam.project.db.ConnectionPool;
 import com.epam.project.db.ConnectionProxy;
-import com.epam.project.db.dao.BaseDao;
 import com.epam.project.db.dao.BookDao;
 import com.epam.project.entities.Book;
 import com.epam.project.entities.Genre;
@@ -26,7 +25,7 @@ public class BookDaoImpl implements BookDao {
     private static final String SELECT_BOOK_BY_AUTHOR="SELECT * FROM book WHERE author=?";
     private static final String SELECT_BOOK_BY_STATUS="SELECT * FROM book WHERE status=?";
     private static final String UPDATE_BOOK_STATUS="UPDATE book SET status=? WHERE id=?";
-    private static final String GET_20_BOOK="SELECT* FROM book ORDER BY id LIMIT ?,20";
+    private static final String SELECT_SOME_BOOK ="SELECT* FROM book ORDER BY id LIMIT ?,?";
     private static final String COUNT="SELECT COUNT(*) AS row_count FROM book";
 
     @Override
@@ -202,11 +201,12 @@ public class BookDaoImpl implements BookDao {
         return count;
     }
 
-    public List<Book> get20Books(Integer number){
+    public List<Book> selectSomeBooks(Integer number,Integer page){
         List<Book> books=new ArrayList<>();
         try(Connection connection=ConnectionPool.getInstance().getConnection();
-        PreparedStatement preparedStatement=connection.prepareStatement(GET_20_BOOK)){
-            preparedStatement.setInt(1,number);
+        PreparedStatement preparedStatement=connection.prepareStatement(SELECT_SOME_BOOK)){
+            preparedStatement.setInt(2,number);
+            preparedStatement.setInt(1,number*(page-1));
             ResultSet resultSet=preparedStatement.executeQuery();
             while(resultSet.next()){
                 Long id = resultSet.getLong("id");

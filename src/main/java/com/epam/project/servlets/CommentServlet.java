@@ -1,9 +1,7 @@
 package com.epam.project.servlets;
 
-import com.epam.project.db.dao.impl.CommentDaoImpl;
 import com.epam.project.entities.Comment;
 import com.epam.project.service.impl.CommentServiceImpl;
-import com.epam.project.service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +19,7 @@ public class CommentServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         HttpSession session=req.getSession();
         Comment comment=new Comment(null,session.getAttribute("username").toString(),Long.parseLong(req.getParameter("id")),new Date(System.currentTimeMillis()),req.getParameter("comment"));
-        if(!CommentServiceImpl.getInstance().thisCommentWas(comment)){
+        if(!CommentServiceImpl.getInstance().commentAlreadyCreated(comment)){
         CommentServiceImpl.getInstance().create(comment);
         }
         req.setAttribute("id",Long.parseLong(req.getParameter("id")));

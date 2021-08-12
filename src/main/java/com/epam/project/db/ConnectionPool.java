@@ -48,7 +48,6 @@ public final class ConnectionPool {
         try{
             if(availableConnectionList.size()==0)
                 updateConnections();
-            System.out.println(availableConnectionList.size());
             connection=availableConnectionList.take();
         } catch (InterruptedException e) {
             e.printStackTrace();

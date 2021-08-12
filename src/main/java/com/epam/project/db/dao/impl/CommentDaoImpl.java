@@ -4,12 +4,15 @@ import com.epam.project.db.ConnectionPool;
 import com.epam.project.db.ConnectionProxy;
 import com.epam.project.db.dao.CommentDao;
 import com.epam.project.entities.Comment;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommentDaoImpl implements CommentDao {
+    private static final Logger LOGGER = LogManager.getLogger(CommentDaoImpl.class);
     public static final String SELECT_ALL_COMMENTS="SELECT* FROM comment";
     private static final String CREATE_COMMENT = "INSERT INTO comment (username,date,text,book) VALUES (?,?,?,?);";
     private static final String DELETE_COMMENT_BY_ID = "DELETE  FROM comment WHERE id=?";
@@ -35,7 +38,7 @@ public class CommentDaoImpl implements CommentDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find all users "+throwables);
         }
         return comments;
     }
@@ -52,7 +55,7 @@ public class CommentDaoImpl implements CommentDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find comment by id, "+throwables);
         }
         return comment;
     }
@@ -69,7 +72,7 @@ public class CommentDaoImpl implements CommentDao {
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to create comment, "+throwables);
         }
         return false;
     }
@@ -83,7 +86,7 @@ public class CommentDaoImpl implements CommentDao {
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to delete comment, "+throwables);
         }
         return false;
     }
@@ -101,7 +104,7 @@ public class CommentDaoImpl implements CommentDao {
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to update comment, "+throwables);
         }
         return entity;
     }
@@ -120,12 +123,12 @@ public class CommentDaoImpl implements CommentDao {
 
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find comment by book id, "+throwables);
         }
         return comments;
     }
 
-    public boolean thisCommentWas(Comment comment){
+    public boolean commentAlreadyCreated(Comment comment){
         Comment comments=null;
         try(Connection connection=ConnectionPool.getInstance().getConnection();
             PreparedStatement preparedStatement=connection.prepareStatement(SELECT_COMMENT)) {
@@ -140,7 +143,7 @@ public class CommentDaoImpl implements CommentDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOGGER.error("Failed to find comment, "+throwables);
         }
         return comments != null;
     }

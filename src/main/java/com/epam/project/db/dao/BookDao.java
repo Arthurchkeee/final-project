@@ -30,5 +30,5 @@ public interface BookDao extends BaseDao<Long,Book> {
 
     Long count();
 
-    List<Book> get20Books(Integer number);
+    List<Book> selectSomeBooks(Integer number,Integer page);
 }

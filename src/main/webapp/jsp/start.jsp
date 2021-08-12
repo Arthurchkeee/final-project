@@ -13,6 +13,6 @@
 </head>
 <body>
 <c:import url="main.jsp"/>
-<img class="d-block w-100 h-100" src="${pageContext.request.contextPath}/img/background.jpg" alt="Responsive image">
+<img class="d-block w-100 h-100" src="<c:url value="/img/background.jpg"/>" alt="Responsive image">
 </body>
 </html>

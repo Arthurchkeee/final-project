@@ -70,7 +70,7 @@ public final class BookServiceImpl implements BookService {
         return bookDao.count();
     }
 
-    public List<Book> get20Books(Integer number){
-        return bookDao.get20Books(number);
+    public List<Book> selectSomeBooks(Integer number, Integer page){
+        return bookDao.selectSomeBooks(number,page);
     }
 }

@@ -51,5 +51,5 @@ public class CommentServiceImpl implements CommentService {
         return commentDao.findCommentsByBook(id);
     }
 
-    public boolean thisCommentWas(Comment comment){ return commentDao.thisCommentWas(comment);}
+    public boolean commentAlreadyCreated(Comment comment){ return commentDao.commentAlreadyCreated(comment);}
 }

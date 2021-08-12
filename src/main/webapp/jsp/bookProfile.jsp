@@ -20,7 +20,7 @@
     <div class="card-group">
 <div class="card">
     <div class="card-body mx-auto">
-        <img class="d-block" src="${pageContext.request.contextPath}${image}" alt="Responsive image">
+        <img class="d-block" src="<c:url value="${image}"/>" alt="Responsive image">
     </div>
 </div>
         <div class="card">
