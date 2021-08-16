@@ -50,7 +50,7 @@
                                     <input type="hidden" name="id" value=${subscription.books.id} />
                                     <input type="hidden" name="action" value="renew" />
                                     <td >
-                                        <input type="submit" class="btn btn-outline-primary" value="renew">
+                                        <input type="submit" class="btn btn-outline-primary" value="<fmt:message key="myBooks.renew"/> ">
                                     </td>
                                 </form>
                             </c:if>

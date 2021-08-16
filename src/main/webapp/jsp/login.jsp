@@ -35,6 +35,19 @@
                 </li>
 
             </ul>
+            <form class="offset-md-5" method="get" action="changeLocale">
+                <input type="hidden" name="lang" value="ru"/>
+                <input type="submit" class="btn btn-outline-primary " value="ru"/>
+            </form>
+
+            <form class="offset-md-1" method="get" action="changeLocale">
+                <input type="hidden" name="lang" value="en"/>
+                <input type="submit" class="btn btn-outline-primary " value="en"/>
+            </form>
+            <form class="offset-md-1" method="get" action="changeLocale">
+                <input type="hidden" name="lang" value="by"/>
+                <input type="submit" class="btn btn-outline-primary" value="by"/>
+            </form>
         </div>
     </div>
 </nav>

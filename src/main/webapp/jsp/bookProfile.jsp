@@ -59,23 +59,30 @@
         <div class="row">
             <div class="col-sm-8">
                 <form method="post" action="comment">
-                    <h3 class="pull-left">New Comment</h3>
+                    <h3 class="pull-left"><fmt:message key="myBooks.newComment"/></h3>
                         <div class="row">
                             <div class="form-group col-xs-12 col-sm-9 col-lg-10">
                                 <input type="text" class="fa-text-width" id="message" name="comment" placeholder="Your message" required=""></input>
                             </div>
                         </div>
                     <input type="hidden" name="id" value=${id}>
-                    <button type="submit" class="btn btn-normal pull-right">Submit</button>
+                    <button type="submit" class="btn btn-normal pull-right"><fmt:message key="myBooks.send"/></button>
                 </form>
 
-                <h3>Comments</h3>
+                <h3><fmt:message key="myBooks.comments"/></h3>
 
                 <!-- COMMENT 1 - START -->
             <c:forEach var="comment" items="${comments}">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="media-heading">${comment.name}</h4>
+                        <c:if test="${role eq 'ADMIN' || comment.name eq username}">
+                            <form method="post" action="deleteComment">
+                                <input type="hidden" name="commentId" value="${comment.id}">
+                                <input type="hidden" name="id" value="${comment.bookId}">
+                                <input type="submit" class="btn btn-outline-danger offset-md-11" value="<fmt:message key="myBooks.delete"/>">
+                            </form>
+                        </c:if>
                         <ul class="list-unstyled list-inline media-detail pull-left">
                             <li><i class="fa fa-calendar"></i>${comment.date}</li>
                             <li><i class="fa fa-comment-o"></i>${comment.text}</li>

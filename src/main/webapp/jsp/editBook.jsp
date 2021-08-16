@@ -36,7 +36,12 @@
             <option value="COMEDY">COMEDY</option>
             <option value="DRAMA" selected>DRAMA</option>
             <option value="ADULT">ADULT</option>
-        </select>
+                <option value="ADULT">ADVENTURE</option>
+                <option value="ADULT">CLASSIC</option>
+                <option value="ADULT">COMICS</option>
+                <option value="ADULT">FANTASTIC</option>
+                <option value="ADULT">FANTASY</option>
+            </select>
             <br>
             <input type="submit" class="btn btn-outline-success" value="<fmt:message key="books.edit"/>">
         </form>

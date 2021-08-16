@@ -15,7 +15,12 @@ public class ChangeLanguageServlet extends HttpServlet {
         HttpSession session = req.getSession();
         String lang = req.getParameter("lang");
         session.setAttribute("locale",lang);
+        if(req.getSession().getAttribute("username")==null) {
+            RequestDispatcher view = req.getRequestDispatcher("jsp/login.jsp");
+            view.forward(req,resp);
+        }else{
         RequestDispatcher view= req.getRequestDispatcher("jsp/start.jsp");
-        view.forward(req,resp);
+            view.forward(req,resp);
+        }
     }
 }
