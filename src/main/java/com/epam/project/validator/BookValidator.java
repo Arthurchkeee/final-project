@@ -12,7 +12,7 @@ public class BookValidator {
     private static final int IMAGE_MAX_LENGTH=100;
     private static final String REGEX_FOR_NAME="^([A-Za-z0-9A-Яа-яЁё./… -]*$){1,100}$";
     private static final String REGEX_FOR_AUTHOR="^([A-Za-z0-9A-Яа-яЁё./… -]*$){1,100}$";
-    private static final String REGEX_FOR_DESCRIPTION="^([A-Za-z0-9A-Яа-яЁё.,/…№#!?–:;«» -]*$)";
+    private static final String REGEX_FOR_DESCRIPTION="^([A-Za-z0-9A-Яа-яЁё.,/…№#()!?–:;«» -]*$)";
     private static final String REGEX_FOR_IMAGE="^([a-zA-Z0-9А-Яа-я/:,$#№.-]*)$";
 
     private BookValidator(){}

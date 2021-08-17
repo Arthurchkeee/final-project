@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
         }
         else{
             PrintWriter out=resp.getWriter();
-            req.getRequestDispatcher("jsp/login.jsp").include(req,resp);
+            req.getRequestDispatcher("jsp/login.jsp").forward(req,resp);
             out.print("Your login or password are wrong!");
             out.close();
         }
@@ -39,6 +39,6 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("jsp/login.jsp").include(req,resp);
+        req.getRequestDispatcher("jsp/login.jsp").forward(req,resp);
     }
 }

@@ -62,7 +62,7 @@
                     <h3 class="pull-left"><fmt:message key="myBooks.newComment"/></h3>
                         <div class="row">
                             <div class="form-group col-xs-12 col-sm-9 col-lg-10">
-                                <input type="text" class="fa-text-width" id="message" name="comment" placeholder="Your message" required=""></input>
+                                <input type="text" class="fa-text-width" id="message" name="comment" placeholder="Your message" required minlength="1" maxlength="500" pattern="^[A-Za-zА-Яа-яЁё0-9\s().,–-?!/«»]+$"></input>
                             </div>
                         </div>
                     <input type="hidden" name="id" value=${id}>

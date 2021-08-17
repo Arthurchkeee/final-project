@@ -24,7 +24,7 @@
     <input type="text" name="author" class="form-control" placeholder="<fmt:message key="addBook.Author"/>" aria-label="<fmt:message key="addBook.Author"/>" aria-describedby="basic-addon2" required minlength="1" maxlength="100" pattern="^[A-Za-zА-Яа-яЁё0-9\s-–]{1,100}">
     <br>
     <span class="input-group-text" id="basic-addon3"><fmt:message key="addBook.Description"/></span>
-    <input type="text" name="description" class="form-control" placeholder="<fmt:message key="addBook.Description"/>" aria-label="<fmt:message key="addBook.Description"/>" aria-describedby="basic-addon3" pattern="^[A-Za-zА-Яа-яЁё0-9\s.,–-?!/«»]+$">
+    <input type="text" name="description" class="form-control" placeholder="<fmt:message key="addBook.Description"/>" aria-label="<fmt:message key="addBook.Description"/>" aria-describedby="basic-addon3" pattern="^[A-Za-zА-Яа-яЁё0-9\s().,–-?!/«»]+$">
     <br>
     <span class="input-group-text" id="basic-addon4"><fmt:message key="addBook.imageAddress"/></span>
     <input type="text" name="image" class="form-control" placeholder="<fmt:message key="addBook.imageAddress"/>" aria-label="<fmt:message key="addBook.imageAddress"/>" aria-describedby="basic-addon4" required minlength="5" maxlength="100" pattern="^[A-Za-zА-Яа-яЁё0-9\s/.-–-()]{5,100}">
@@ -36,6 +36,11 @@
         <option value="COMEDY">COMEDY</option>
         <option value="DRAMA" selected>DRAMA</option>
         <option value="ADULT">ADULT</option>
+        <option value="ADULT">ADVENTURE</option>
+        <option value="ADULT">CLASSIC</option>
+        <option value="ADULT">COMICS</option>
+        <option value="ADULT">FANTASTIC</option>
+        <option value="ADULT">FANTASY</option>
     </select>
     <input type="submit" class="btn btn-outline-success" value="<fmt:message key="addBook.button"/>">
 </form>
