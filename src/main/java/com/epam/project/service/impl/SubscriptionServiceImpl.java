@@ -87,4 +87,19 @@ public final class SubscriptionServiceImpl implements SubscriptionService {
     public boolean renewSubscription(Long id, Date to){
         return subscriptionDao.renewSubscription(id,to);
     }
+
+    @Override
+    public List<Subscription> findSubscriptionsBy2BookStatus(Status status1, Status status2) {
+        return subscriptionDao.findSubscriptionsBy2BookStatus(status1,status2);
+    }
+
+    @Override
+    public List<Subscription> findSubscriptionsBy3BookStatus(Status status1, Status status2, Status status3) {
+        return subscriptionDao.findSubscriptionsBy3BookStatus(status1,status2,status3);
+    }
+
+    @Override
+    public List<Subscription> findSubscriptionsBy2BookStatusAndUser(Status status1, Status status2, Long userId) {
+        return subscriptionDao.findSubscriptionsBy2BookStatusAndUser(status1,status2,userId);
+    }
 }

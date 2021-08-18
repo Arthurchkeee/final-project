@@ -28,6 +28,10 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
     private static final String SELECT_SUBSCRIPTION_BY_STATUS="SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE b.status=?";
     private static final String SELECT_SUBSCRIPTION_BY_USER="SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE u.id=? ORDER by subscription.day_to";
     private static final String RENEW_BOOK="UPDATE subscription SET  day_to=? WHERE id=?";
+    private static final String SELECT_SUBSCRIPTIONS_BY_2_STATUS="SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE b.status=? OR b.status=?";
+    private static final String SELECT_SUBSCRIPTIONS_BY_3_STATUS="SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE b.status=? OR b.status=? OR b.status=?";
+    private static final String SELECT_SUBSCRIPTIONS_BY_2_STATUS_AND_USER="SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE u.id=? AND (b.status=? OR b.status=?)";
+
 
 
     @Override
@@ -230,5 +234,99 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             throwables.printStackTrace();
         }
         return false;
+    }
+
+    public List<Subscription> findSubscriptionsBy2BookStatus(Status status1, Status status2){
+        List<Subscription> subscriptionList =new ArrayList<Subscription>();
+        try (Connection connection= ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement=connection.prepareStatement(SELECT_SUBSCRIPTIONS_BY_2_STATUS)) {
+            preparedStatement.setString(1,status1.getName());
+            preparedStatement.setString(2,status2.getName());
+            ResultSet resultSet= preparedStatement.executeQuery();
+            while (resultSet.next()){
+                Long id=resultSet.getLong("subscription.id");
+                Long bookId=resultSet.getLong("b.id");
+                String bookName=resultSet.getString("b.name");
+                String bookGenre = resultSet.getString("b.genre");
+                String bookStatus = resultSet.getString("b.status");
+                String bookAuthor = resultSet.getString("b.author");
+                String bookDescription=resultSet.getString("b.description");
+                String bookImage=resultSet.getString("b.image");
+                Date from =resultSet.getDate("day_from");
+                Date to=resultSet.getDate("day_to");
+                Long userId=resultSet.getLong("u.id");
+                String userName = resultSet.getString("u.name");
+                String userPassword = resultSet.getString("u.password");
+                String userRole = resultSet.getString("u.role");
+                subscriptionList.add(new Subscription(id,userName,new Book(bookId,bookName,bookAuthor, Genre.valueOf(bookGenre), Status.valueOf(bookStatus),bookDescription,bookImage),from,to,new User(userId,userName,userPassword,Role.valueOf(userRole))));
+            }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
+        } catch (SQLException throwables) {
+            LOGGER.error("Failed to find all subscriptions, "+throwables);
+        }
+        return subscriptionList;
+    }
+
+    public List<Subscription> findSubscriptionsBy3BookStatus(Status status1, Status status2, Status status3){
+        List<Subscription> subscriptionList =new ArrayList<Subscription>();
+        try (Connection connection= ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement=connection.prepareStatement(SELECT_SUBSCRIPTIONS_BY_3_STATUS)) {
+            preparedStatement.setString(1,status1.getName());
+            preparedStatement.setString(2,status2.getName());
+            preparedStatement.setString(3,status3.getName());
+            ResultSet resultSet= preparedStatement.executeQuery();
+            while (resultSet.next()){
+                Long id=resultSet.getLong("subscription.id");
+                Long bookId=resultSet.getLong("b.id");
+                String bookName=resultSet.getString("b.name");
+                String bookGenre = resultSet.getString("b.genre");
+                String bookStatus = resultSet.getString("b.status");
+                String bookAuthor = resultSet.getString("b.author");
+                String bookDescription=resultSet.getString("b.description");
+                String bookImage=resultSet.getString("b.image");
+                Date from =resultSet.getDate("day_from");
+                Date to=resultSet.getDate("day_to");
+                Long userId=resultSet.getLong("u.id");
+                String userName = resultSet.getString("u.name");
+                String userPassword = resultSet.getString("u.password");
+                String userRole = resultSet.getString("u.role");
+                subscriptionList.add(new Subscription(id,userName,new Book(bookId,bookName,bookAuthor, Genre.valueOf(bookGenre), Status.valueOf(bookStatus),bookDescription,bookImage),from,to,new User(userId,userName,userPassword,Role.valueOf(userRole))));
+            }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
+        } catch (SQLException throwables) {
+            LOGGER.error("Failed to find all subscriptions, "+throwables);
+        }
+        return subscriptionList;
+    }
+
+    public List<Subscription> findSubscriptionsBy2BookStatusAndUser(Status status1, Status status2,Long userId){
+        List<Subscription> subscriptionList =new ArrayList<Subscription>();
+        try (Connection connection= ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement=connection.prepareStatement(SELECT_SUBSCRIPTIONS_BY_2_STATUS_AND_USER)) {
+            preparedStatement.setLong(1,userId);
+            preparedStatement.setString(2,status1.getName());
+            preparedStatement.setString(3,status2.getName());
+            ResultSet resultSet= preparedStatement.executeQuery();
+            while (resultSet.next()){
+                Long id=resultSet.getLong("subscription.id");
+                Long bookId=resultSet.getLong("b.id");
+                String bookName=resultSet.getString("b.name");
+                String bookGenre = resultSet.getString("b.genre");
+                String bookStatus = resultSet.getString("b.status");
+                String bookAuthor = resultSet.getString("b.author");
+                String bookDescription=resultSet.getString("b.description");
+                String bookImage=resultSet.getString("b.image");
+                Date from =resultSet.getDate("day_from");
+                Date to=resultSet.getDate("day_to");
+                String userName = resultSet.getString("u.name");
+                String userPassword = resultSet.getString("u.password");
+                String userRole = resultSet.getString("u.role");
+                subscriptionList.add(new Subscription(id,userName,new Book(bookId,bookName,bookAuthor, Genre.valueOf(bookGenre), Status.valueOf(bookStatus),bookDescription,bookImage),from,to,new User(userId,userName,userPassword,Role.valueOf(userRole))));
+            }
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
+        } catch (SQLException throwables) {
+            LOGGER.error("Failed to find all subscriptions, "+throwables);
+        }
+        return subscriptionList;
     }
 }

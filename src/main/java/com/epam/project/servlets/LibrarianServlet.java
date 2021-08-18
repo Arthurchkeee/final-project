@@ -38,7 +38,7 @@ public class LibrarianServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        req.setAttribute("subscriptions",SubscriptionServiceImpl.getInstance().findAllSubscriptions());
+        req.setAttribute("subscriptions",SubscriptionServiceImpl.getInstance().findSubscriptionsBy3BookStatus(Status.ORDERED_ROOM,Status.ORDERED_SUBSCRIPTION,Status.RENEW));
         RequestDispatcher view= req.getRequestDispatcher("jsp/librarian.jsp");
         view.forward(req,resp);
     }

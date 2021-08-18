@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="tag" uri="tag" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
@@ -30,7 +29,18 @@
         </thead>
         <tbody id="bookTable">
         <c:forEach var="subscription" items="${subscriptions}">
-                <tag:filterTag status="${subscription.books.status}" id="${subscription.books.id}" name="${subscription.books.name}" author="${subscription.books.author}" subId="${subscription.id}" locale="${sessionScope.locale}"/>
+            <tr>
+                <td>${subscription.books.id}</td>
+                <td>${subscription.books.name}</td>
+                <td>${subscription.books.author}</td>
+                <form method="post" action="canceledOrder">
+                    <input type="hidden" name="book_id" value="${subscription.books.id}"/>
+                    <input type="hidden" name="id" value="${subscription.id}" />
+                    <td id="action">
+                        <input type="submit" class="btn btn-outline-danger" value="<fmt:message key="myBooks.cancel"/> ">
+                    </td>
+                </form>
+            </tr>
         </c:forEach>
         </tbody>
     </table>

@@ -58,7 +58,7 @@
 
                     <form method="get" action="catalog">
                         <li  class="page-item"><input type="submit" class="page-link" name="page" value="${count}"/></li>
-
+                        //элемент списка в строчку
 
                         </c:forEach>
                     </form>

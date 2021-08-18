@@ -19,7 +19,7 @@ public class ReturningServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setAttribute("subscriptions",SubscriptionServiceImpl.getInstance().findAllSubscriptions());
+        req.setAttribute("subscriptions",SubscriptionServiceImpl.getInstance().findSubscriptionsBy2BookStatus(Status.RETURNING_ROOM,Status.RETURNING_SUBSCRIPTION));
         RequestDispatcher view= req.getRequestDispatcher("jsp/returningBook.jsp");
         view.forward(req,resp);
     }

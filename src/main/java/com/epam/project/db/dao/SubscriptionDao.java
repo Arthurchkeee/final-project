@@ -29,4 +29,10 @@ public interface SubscriptionDao extends BaseDao<Long, Subscription>{
     List<Subscription> findAllSubscriptionsByUser(Long userId);
 
     boolean renewSubscription(Long id,Date to);
+
+    List<Subscription> findSubscriptionsBy2BookStatus(Status status1, Status status2);
+
+    List<Subscription> findSubscriptionsBy3BookStatus(Status status1, Status status2, Status status3);
+
+    List<Subscription> findSubscriptionsBy2BookStatusAndUser(Status status1, Status status2,Long userId);
 }

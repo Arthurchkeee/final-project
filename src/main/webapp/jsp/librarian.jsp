@@ -34,7 +34,7 @@
             </thead>
             <tbody id="bookTable">
             <c:forEach var="subscription" items="${subscriptions}">
-                <c:if test="${subscription.books.status eq 'ORDERED_ROOM' || subscription.books.status eq 'ORDERED_SUBSCRIPTION' || subscription.books.status eq 'RENEW'}">
+
                 <tr>
                     <td>${subscription.books.id}</td>
                     <td>${subscription.books.name}</td>
@@ -72,7 +72,7 @@
                     </form>
 
                 </tr>
-                </c:if>
+
             </c:forEach>
             </tbody>
         </table>

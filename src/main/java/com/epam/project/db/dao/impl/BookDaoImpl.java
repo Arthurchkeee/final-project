@@ -27,6 +27,8 @@ public class BookDaoImpl implements BookDao {
     private static final String UPDATE_BOOK_STATUS="UPDATE book SET status=? WHERE id=?";
     private static final String SELECT_SOME_BOOK ="SELECT* FROM book ORDER BY id LIMIT ?,?";
     private static final String COUNT="SELECT COUNT(*) AS row_count FROM book";
+    //добавить запрос с двумя статусами
+    //добавить запрос  стремя статусами
 
     @Override
     public List<Book> findAllEntities() {
