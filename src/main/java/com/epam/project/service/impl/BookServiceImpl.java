@@ -10,17 +10,17 @@ import java.util.List;
 
 public final class BookServiceImpl implements BookService {
     private static BookServiceImpl instance;
-    private  BookDao bookDao;
+    private BookDao bookDao;
 
-    public static BookServiceImpl getInstance(){
-        if(instance ==null){
-            instance =new BookServiceImpl();
+    public static BookServiceImpl getInstance() {
+        if (instance == null) {
+            instance = new BookServiceImpl();
         }
         return instance;
     }
 
-    private BookServiceImpl(){
-        bookDao=new BookDaoImpl();
+    private BookServiceImpl() {
+        bookDao = BookDaoImpl.getInstance();
     }
 
     @Override
@@ -61,16 +61,16 @@ public final class BookServiceImpl implements BookService {
 
 
     @Override
-    public void updateBookStatus(Status status,Long id){
-        bookDao.updateBookStatus(status,id);
+    public void updateBookStatus(Status status, Long id) {
+        bookDao.updateBookStatus(status, id);
     }
 
     @Override
-    public Long count(){
+    public Long count() {
         return bookDao.count();
     }
 
-    public List<Book> selectSomeBooks(Integer number, Integer page){
-        return bookDao.selectSomeBooks(number,page);
+    public List<Book> selectBooksForPages(Integer booksAmount, Integer pageNumbers) {
+        return bookDao.selectBooksForPages(booksAmount, pageNumbers);
     }
 }

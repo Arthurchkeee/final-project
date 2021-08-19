@@ -17,7 +17,8 @@
 <body>
 <c:import url="entities.jsp"/>
 <div class="container">
-    <a class="btn btn-outline-dark m-lg-3" href="${pageContext.request.contextPath}/createUser" ><fmt:message key="entities.addUser"/></a>
+    <a class="btn btn-outline-dark m-lg-3" href="${pageContext.request.contextPath}/createUser"><fmt:message
+            key="entities.addUser"/></a>
     <br>
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
@@ -39,14 +40,15 @@
                 <td>${user.name}</td>
                 <td>${user.role}</td>
 
-                        <td>
-                            <form method="post" action="editUser">
-                                <input type="hidden" name="id" value=${user.id} />
-                                <input type="hidden" name="name" value=${user.name} />
-                                <input type="submit" class="btn btn-outline-warning m-lg-3" value="<fmt:message key="users.edit"/>">
-                            </form>
-                            <deleteUserButton:deleteUserButton id="${user.id}" locale="${sessionScope.locale}"/>
-                        </td>
+                <td>
+                    <form method="post" action="editUser">
+                        <input type="hidden" name="id" value=${user.id}/>
+                        <input type="hidden" name="name" value=${user.name}/>
+                        <input type="submit" class="btn btn-outline-warning m-lg-3"
+                               value="<fmt:message key="users.edit"/>">
+                    </form>
+                    <deleteUserButton:deleteUserButton id="${user.id}" locale="${sessionScope.locale}"/>
+                </td>
 
             </tr>
 
@@ -61,7 +63,7 @@
 
 
                 <form method="get" action="catalog">
-                    <li  class="page-item"><input type="submit" class="page-link" name="page" value="${count}"/></li>
+                    <li class="page-item"><input type="submit" class="page-link" name="page" value="${count}"/></li>
 
 
                     </c:forEach>
@@ -70,10 +72,10 @@
     </nav>
 </div>
 <script>
-    $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
             var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function() {
+            $("#myTable tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });

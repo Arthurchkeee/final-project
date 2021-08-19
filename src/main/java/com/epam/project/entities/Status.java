@@ -1,6 +1,6 @@
 package com.epam.project.entities;
 
-public enum Status implements BaseEntity{
+public enum Status implements BaseEntity {
     SUBSCRIPTION(1L),
     ROOM(2L),
     FREE(3L),
@@ -8,12 +8,11 @@ public enum Status implements BaseEntity{
     ORDERED_ROOM(5L),
     RETURNING_ROOM(6L),
     RETURNING_SUBSCRIPTION(7L),
-    RENEW(8L)
-    ;
+    RENEW(8L);
     private final Long id;
 
     Status(Long id) {
-        this.id=id;
+        this.id = id;
     }
 
     @Override

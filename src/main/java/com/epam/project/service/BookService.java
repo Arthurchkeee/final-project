@@ -53,5 +53,5 @@ public interface BookService {
 
     Long count();
 
-    List<Book> selectSomeBooks(Integer number,Integer page);
+    List<Book> selectBooksForPages(Integer number, Integer page);
 }

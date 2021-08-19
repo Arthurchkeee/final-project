@@ -14,7 +14,8 @@
 <body>
 <c:import url="main.jsp"/>
 <div class="container">
-    <a class="btn btn-outline-dark " href="${pageContext.request.contextPath}/canceledReturning"><fmt:message key="myBooks.returnOrders"/></a>
+    <a class="btn btn-outline-dark " href="${pageContext.request.contextPath}/canceledReturning"><fmt:message
+            key="myBooks.returnOrders"/></a>
 
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
@@ -35,9 +36,10 @@
                 <td>${subscription.books.author}</td>
                 <form method="post" action="canceledOrder">
                     <input type="hidden" name="book_id" value="${subscription.books.id}"/>
-                    <input type="hidden" name="id" value="${subscription.id}" />
+                    <input type="hidden" name="id" value="${subscription.id}"/>
                     <td id="action">
-                        <input type="submit" class="btn btn-outline-danger" value="<fmt:message key="myBooks.cancel"/> ">
+                        <input type="submit" class="btn btn-outline-danger"
+                               value="<fmt:message key="myBooks.cancel"/> ">
                     </td>
                 </form>
             </tr>

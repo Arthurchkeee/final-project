@@ -11,16 +11,17 @@ public class CommentServiceImpl implements CommentService {
     private static CommentServiceImpl instance;
     private final CommentDao commentDao;
 
-    public static CommentServiceImpl getInstance(){
-        if(instance ==null){
-            instance =new CommentServiceImpl();
+    public static CommentServiceImpl getInstance() {
+        if (instance == null) {
+            instance = new CommentServiceImpl();
         }
         return instance;
     }
 
-    private CommentServiceImpl(){
-        commentDao=new CommentDaoImpl();
+    private CommentServiceImpl() {
+        commentDao = CommentDaoImpl.getInstance();
     }
+
     @Override
     public List<Comment> findAllEntities() {
         return commentDao.findAllEntities();
@@ -51,5 +52,7 @@ public class CommentServiceImpl implements CommentService {
         return commentDao.findCommentsByBook(id);
     }
 
-    public boolean commentAlreadyCreated(Comment comment){ return commentDao.commentAlreadyCreated(comment);}
+    public boolean isCommentExist(Comment comment) {
+        return commentDao.isCommentExist(comment);
+    }
 }

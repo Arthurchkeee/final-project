@@ -2,7 +2,7 @@ package com.epam.project.entities;
 
 import java.sql.Date;
 
-public class Subscription extends AbstractBaseEntity{
+public class Subscription extends AbstractBaseEntity {
     private Book books;
     private Date from;
     private Date to;
@@ -19,7 +19,6 @@ public class Subscription extends AbstractBaseEntity{
     public Book getBooks() {
         return books;
     }
-
 
 
     public User getUser() {

@@ -13,13 +13,13 @@ public final class UserServiceImpl implements UserService {
 
     private UserDao userDao;
 
-    private UserServiceImpl(){
-        userDao = new UserDaoImpl();
+    private UserServiceImpl() {
+        userDao = UserDaoImpl.getInstance();
     }
 
-    public static UserServiceImpl getInstance(){
-        if(instance ==null){
-            instance =new UserServiceImpl();
+    public static UserServiceImpl getInstance() {
+        if (instance == null) {
+            instance = new UserServiceImpl();
         }
         return instance;
     }
@@ -55,8 +55,9 @@ public final class UserServiceImpl implements UserService {
                 .md5Hex(password).toUpperCase();
         return md5Hex.equals(userDao.getPassword(login));
     }
+
     @Override
-    public User findUserByLogin(String login){
+    public User findUserByLogin(String login) {
         return userDao.findUserByLogin(login);
     }
 
@@ -66,7 +67,7 @@ public final class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> selectSomeUsers(Integer number,Integer page) {
-        return userDao.selectSomeUsers(number,page);
+    public List<User> selectUsersForPages(Integer number, Integer page) {
+        return userDao.selectUsersForPages(number, page);
     }
 }

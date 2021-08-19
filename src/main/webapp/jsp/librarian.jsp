@@ -1,4 +1,3 @@
-
 <%--
   Created by IntelliJ IDEA.
   User: krysh
@@ -17,7 +16,7 @@
 <c:import url="main.jsp"/>
 <div class="container">
     <a class="btn btn-outline-dark m-lg-3" href="librarian" disabled><fmt:message key="orders.order"/></a>
-    <a class="btn btn-outline-dark m-lg-3" href="returning" ><fmt:message key="orders.return"/></a>
+    <a class="btn btn-outline-dark m-lg-3" href="returning"><fmt:message key="orders.return"/></a>
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
     <div>
@@ -29,7 +28,7 @@
                 <th><fmt:message key="orders.author"/></th>
                 <th><fmt:message key="orders.username"/></th>
                 <th><fmt:message key="orders.access"/></th>
-                <th><fmt:message key="myBooks.cancel"/> </th>
+                <th><fmt:message key="myBooks.cancel"/></th>
             </tr>
             </thead>
             <tbody id="bookTable">
@@ -45,7 +44,7 @@
                             <form method="post" action="librarian">
                                 <input type="hidden" name="id" value="${subscription.id}">
                                 <input type="hidden" name="book_id" value="${subscription.books.id}">
-                                <input type="hidden" name="action" value="renew" />
+                                <input type="hidden" name="action" value="renew"/>
                                 <td>
                                     <input type="submit" class="btn btn-outline-primary" value="renew">
                                 </td>
@@ -53,21 +52,23 @@
                         </c:when>
                         <c:otherwise>
                             <form method="post" action="librarian">
-                                <input type="hidden" name="book_id" value=${subscription.books.id} />
-                                <input type="hidden" name="status" value=${subscription.books.status} />
-                                <input type="hidden" name="action" value="accept" />
+                                <input type="hidden" name="book_id" value=${subscription.books.id}/>
+                                <input type="hidden" name="status" value=${subscription.books.status}/>
+                                <input type="hidden" name="action" value="accept"/>
                                 <td id="action">
-                                    <input type="submit" class="btn btn-outline-success" value="<fmt:message key="orders.access"/>">
+                                    <input type="submit" class="btn btn-outline-success"
+                                           value="<fmt:message key="orders.access"/>">
                                 </td>
                             </form>
                         </c:otherwise>
                     </c:choose>
                     <form method="post" action="librarian">
-                        <input type="hidden" name="book_id" value=${subscription.books.id} />
-                        <input type="hidden" name="id" value=${subscription.id} />
-                        <input type="hidden" name="action" value="delete" />
+                        <input type="hidden" name="book_id" value=${subscription.books.id}/>
+                        <input type="hidden" name="id" value=${subscription.id}/>
+                        <input type="hidden" name="action" value="delete"/>
                         <td>
-                            <input type="submit" class="btn btn-outline-danger" value="<fmt:message key="myBooks.cancel"/>">
+                            <input type="submit" class="btn btn-outline-danger"
+                                   value="<fmt:message key="myBooks.cancel"/>">
                         </td>
                     </form>
 
@@ -77,12 +78,12 @@
             </tbody>
         </table>
     </div>
-    </div>
+</div>
 <script>
-    $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
             var value = $(this).val().toLowerCase();
-            $("#bookTable tr").filter(function() {
+            $("#bookTable tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });

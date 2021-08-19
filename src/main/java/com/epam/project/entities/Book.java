@@ -15,15 +15,14 @@ public class Book extends AbstractBaseEntity {
         return image;
     }
 
-    public Book(Long id, String name, String author, Genre genre, Status status, String description, String image){
-        super(id,name);
-        this.author=author;
-        this.genre=genre;
-        this.status=status;
-        this.description=description;
-        this.image=image;
+    public Book(Long id, String name, String author, Genre genre, Status status, String description, String image) {
+        super(id, name);
+        this.author = author;
+        this.genre = genre;
+        this.status = status;
+        this.description = description;
+        this.image = image;
     }
-
 
 
     public Genre getGenre() {
@@ -44,7 +43,7 @@ public class Book extends AbstractBaseEntity {
 
     @Override
     public String toString() {
-        return super.toString()+ "Book{" +
+        return super.toString() + "Book{" +
                 "author='" + author + '\'' +
                 ", genre=" + genre +
                 ", status=" + status +

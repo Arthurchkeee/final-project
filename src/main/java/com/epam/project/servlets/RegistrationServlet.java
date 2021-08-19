@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-@WebServlet(name = "registration",urlPatterns = "/registration")
+
+@WebServlet(name = "registration", urlPatterns = "/registration")
 public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -20,10 +21,10 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(LoginValidator.getInstance().isValid(req.getParameter("name"),req.getParameter("password"))) {
-            User user=new User(null,req.getParameter("name"),req.getParameter("password"), Role.READER);
+        if (LoginValidator.getInstance().isValid(req.getParameter("name"), req.getParameter("password"))) {
+            User user = new User(null, req.getParameter("name"), req.getParameter("password"), Role.READER);
             UserServiceImpl.getInstance().create(user);
         }
-        resp.sendRedirect(req.getContextPath()+"/LoginUser");
+        resp.sendRedirect(req.getContextPath() + "/LoginUser");
     }
 }

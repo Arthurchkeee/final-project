@@ -16,8 +16,10 @@
 <body>
 <c:import url="main.jsp"/>
 <div class="container">
-    <a class="btn btn-outline-dark m-lg-3" href="${pageContext.request.contextPath}/users" ><fmt:message key="entities.users"/></a>
-    <a class="btn btn-outline-dark m-lg-3" href="${pageContext.request.contextPath}/books" ><fmt:message key="books.name"/></a>
+    <a class="btn btn-outline-dark m-lg-3" href="${pageContext.request.contextPath}/users"><fmt:message
+            key="entities.users"/></a>
+    <a class="btn btn-outline-dark m-lg-3" href="${pageContext.request.contextPath}/books"><fmt:message
+            key="books.name"/></a>
 </div>
 </body>
 </html>

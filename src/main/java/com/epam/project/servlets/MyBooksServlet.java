@@ -14,28 +14,27 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
-import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
-@WebServlet(name="myBooks",urlPatterns = "/myBooks")
+@WebServlet(name = "myBooks", urlPatterns = "/myBooks")
 public class MyBooksServlet extends HttpServlet {
-
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session= req.getSession();
-        List<Subscription> subscriptionList=  SubscriptionServiceImpl.getInstance().findSubscriptionsBy2BookStatusAndUser(Status.SUBSCRIPTION,Status.ROOM,(Long) session.getAttribute("user_id"));
-        req.setAttribute("subscriptions",subscriptionList);
-        req.setAttribute("today",new Date(System.currentTimeMillis()));
-        RequestDispatcher view= req.getRequestDispatcher("jsp/myBooks.jsp");
-        view.forward(req,resp);
+        HttpSession session = req.getSession();
+        List<Subscription> subscriptionList = SubscriptionServiceImpl.getInstance().findSubscriptionsByBookStatusesAndUser(Arrays.asList(Status.SUBSCRIPTION, Status.ROOM), (Long) session.getAttribute("user_id"));
+        req.setAttribute("subscriptions", subscriptionList);
+        req.setAttribute("today", new Date(System.currentTimeMillis()));
+        RequestDispatcher view = req.getRequestDispatcher("jsp/myBooks.jsp");
+        view.forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if ("renew".equals(req.getParameter("action")))
-            BookServiceImpl.getInstance().updateBookStatus(Status.RENEW,Long.valueOf(req.getParameter("id")));
+            BookServiceImpl.getInstance().updateBookStatus(Status.RENEW, Long.valueOf(req.getParameter("id")));
         else {
             if (Status.ROOM.equals(Status.valueOf(req.getParameter("status"))))
                 BookServiceImpl.getInstance().updateBookStatus(Status.RETURNING_ROOM, Long.valueOf(req.getParameter("id")));

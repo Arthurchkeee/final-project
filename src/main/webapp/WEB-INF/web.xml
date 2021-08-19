@@ -36,10 +36,6 @@
     </servlet-mapping>
     <jsp-config>
         <taglib>
-            <taglib-uri>uri</taglib-uri>
-            <taglib-location>WEB-INF/tag.tld</taglib-location>
-        </taglib>
-        <taglib>
             <taglib-uri>deleteUserButton</taglib-uri>
             <taglib-location>WEB-INF/deleteUserButton.tld</taglib-location>
         </taglib>

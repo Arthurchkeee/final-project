@@ -16,7 +16,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,7 +28,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarContent">
-            <ul     class="navbar-nav mr-auto mb-2">
+            <ul class="navbar-nav mr-auto mb-2">
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/registration" class="nav-link">
                         registration
@@ -53,19 +54,26 @@
 </nav>
 <div class="container">
 
-    <div class="input-group " >
-    <form class="mx-auto"  method="post" action="LoginUser">
-        <span class="input-group-text" id="basic-addon1"><fmt:message key="login.login"/></span>
-        <input type="text" name="login" class="form-control" placeholder="<fmt:message key="login.login"/>"  aria-label="<fmt:message key="login.login"/>" aria-describedby="basic-addon1"  required minlength="6" maxlength="25" pattern="^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\d.-]{0,25}$">
-        <br>
-        <span class="input-group-text" id="basic-addon2"><fmt:message key="login.password"/></span>
-        <input type="password" name="password" class="form-control" placeholder="<fmt:message key="login.password"/>" aria-label="<fmt:message key="login.password"/>" aria-describedby="basic-addon2"  required minlength="5" maxlength="50"  pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$">
-        <br>
-        <input type="submit" class="btn btn-outline-success" value="<fmt:message key="login.SignIn"/>">
+    <div class="input-group ">
+        <form class="mx-auto" method="post" action="LoginUser">
+            <span class="input-group-text" id="basic-addon1"><fmt:message key="login.login"/></span>
+            <input type="text" name="login" class="form-control" placeholder="<fmt:message key="login.login"/>"
+                   aria-label="<fmt:message key="login.login"/>" aria-describedby="basic-addon1" required minlength="6"
+                   maxlength="25" pattern="^(?=.*[A-Za-z0-9]$)[A-Za-z][A-Za-z\d.-]{0,25}$">
+            <br>
+            <span class="input-group-text" id="basic-addon2"><fmt:message key="login.password"/></span>
+            <input type="password" name="password" class="form-control"
+                   placeholder="<fmt:message key="login.password"/>" aria-label="<fmt:message key="login.password"/>"
+                   aria-describedby="basic-addon2" required minlength="5" maxlength="50"
+                   pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$">
+            <br>
+            <input type="submit" class="btn btn-outline-success" value="<fmt:message key="login.signIn"/>">
 
-    </form>
+        </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
 
 </div>
 </body>

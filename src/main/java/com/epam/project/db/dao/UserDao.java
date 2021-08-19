@@ -4,7 +4,7 @@ import com.epam.project.entities.User;
 
 import java.util.List;
 
-public interface UserDao extends BaseDao<Long,User>{
+public interface UserDao extends BaseDao<Long, User> {
     @Override
     List<User> findAllEntities();
 
@@ -26,5 +26,5 @@ public interface UserDao extends BaseDao<Long,User>{
 
     Integer count();
 
-    List<User> selectSomeUsers(Integer number,Integer page);
+    List<User> selectUsersForPages(Integer number, Integer page);
 }

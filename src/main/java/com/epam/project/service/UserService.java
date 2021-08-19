@@ -53,5 +53,5 @@ public interface UserService {
 
     Integer count();
 
-    List<User> selectSomeUsers(Integer number,Integer page);
+    List<User> selectUsersForPages(Integer number, Integer page);
 }

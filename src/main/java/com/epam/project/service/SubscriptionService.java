@@ -25,11 +25,13 @@ public interface SubscriptionService {
      * @return {@code true} if create was success, otherwise {@code false}
      */
     boolean create(Subscription entity);
+
     /**
      * @param id is a primary key of a table 'subscribe'
      * @return {@code true} if delete was success. otherwise {@code false}
      */
     boolean delete(Long id);
+
     /**
      * @param entity is a {@link com.epam.project.entities.Subscription}
      * @return {@link com.epam.project.entities.Subscription} from table 'book'
@@ -40,7 +42,7 @@ public interface SubscriptionService {
     /**
      * @param userId is a foreign key of table 'subscribe'
      * @param bookId is a unique index of table 'subscribe'
-     * @param to is a Date parameter
+     * @param to     is a Date parameter
      */
     void orderSubscription(Long userId, Long bookId, Date to);
 
@@ -49,11 +51,12 @@ public interface SubscriptionService {
      * @param userId is a foreign key of table 'subscribe'
      * @param bookId is a unique index of table 'subscribe'
      */
-    void orderRoom(Long userId,Long bookId);
+    void orderRoom(Long userId, Long bookId);
 
 
     /**
      * Finds all subscriptions by user
+     *
      * @param status is a foreign key of table "subscribe"
      * @return {@code List<Subscription>} wrapped in a{@link List}
      */
@@ -61,22 +64,21 @@ public interface SubscriptionService {
 
     /**
      * Finds all subscriptions by user
+     *
      * @param userId is a foreign key of table "subscribe"
      * @return {@code List<Subscription>} wrapped in a{@link List}
      */
     List<Subscription> findAllSubscriptionsByUser(Long userId);
 
     /**
-     * @param id is a primary key of table 'subscribe'
+     * @param id     is a primary key of table 'subscribe'
      * @param bookId is a foreign key of table 'subscribe'
      */
-    void deleteSubscription(Long id,Long bookId);
+    void deleteSubscription(Long id, Long bookId);
 
-    boolean renewSubscription(Long id,Date to);
+    boolean updateDateTo(Long id, Date to);
 
-    List<Subscription> findSubscriptionsBy2BookStatus(Status status1, Status status2);
+    List<Subscription> findSubscriptionsByBookStatuses(List<Status> statuses);
 
-    List<Subscription> findSubscriptionsBy3BookStatus(Status status1, Status status2, Status status3);
-
-    List<Subscription> findSubscriptionsBy2BookStatusAndUser(Status status1, Status status2,Long userId);
+    List<Subscription> findSubscriptionsByBookStatusesAndUser(List<Status> statuses, Long userId);
 }

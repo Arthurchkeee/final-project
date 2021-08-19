@@ -6,7 +6,7 @@ import com.epam.project.entities.Subscription;
 import java.sql.Date;
 import java.util.List;
 
-public interface SubscriptionDao extends BaseDao<Long, Subscription>{
+public interface SubscriptionDao extends BaseDao<Long, Subscription> {
     @Override
     List<Subscription> findAllEntities();
 
@@ -28,11 +28,9 @@ public interface SubscriptionDao extends BaseDao<Long, Subscription>{
 
     List<Subscription> findAllSubscriptionsByUser(Long userId);
 
-    boolean renewSubscription(Long id,Date to);
+    boolean updateDateTo(Long id, Date to);
 
-    List<Subscription> findSubscriptionsBy2BookStatus(Status status1, Status status2);
+    List<Subscription> findSubscriptionsByBookStatuses(List<Status> statuses);
 
-    List<Subscription> findSubscriptionsBy3BookStatus(Status status1, Status status2, Status status3);
-
-    List<Subscription> findSubscriptionsBy2BookStatusAndUser(Status status1, Status status2,Long userId);
+    List<Subscription> findSubscriptionsByBookStatusesAndUser(List<Status> statuses, Long userId);
 }

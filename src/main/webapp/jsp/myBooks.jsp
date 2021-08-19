@@ -19,64 +19,66 @@
 
     <br>
 
-    <a class="btn btn-outline-dark " href="${pageContext.request.contextPath}/canceledOrder"><fmt:message key="myBooks.order"/></a>
+    <a class="btn btn-outline-dark " href="${pageContext.request.contextPath}/canceledOrder"><fmt:message
+            key="myBooks.order"/></a>
 
-<br>
+    <br>
 
 
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
-        <table id="books" class="table table-bordered table-striped">
-            <thead class="thread-light">
+    <table id="books" class="table table-bordered table-striped">
+        <thead class="thread-light">
+        <tr>
+            <th>№</th>
+            <th><fmt:message key="catalog.book"/></th>
+            <th><fmt:message key="catalog.author"/></th>
+            <th><fmt:message key="myBooks.button"/></th>
+            <th>renew</th>
+        </tr>
+        </thead>
+        <tbody id="bookTable">
+        <c:forEach var="subscription" items="${subscriptions}">
             <tr>
-                <th>№</th>
-                <th><fmt:message key="catalog.book"/></th>
-                <th><fmt:message key="catalog.author"/></th>
-                <th><fmt:message key="myBooks.button"/></th>
-                <th>renew</th>
+                <c:choose>
+                    <c:when test="${subscription.to lt today}">
+                        <td style="color: red;">${subscription.books.id}</td>
+                        <td style="color: red;">${subscription.books.name}</td>
+                        <td style="color: red;">${subscription.books.author}</td>
+                        <c:if test="${subscription.books.status eq 'SUBSCRIPTION'}">
+                            <form method="post" action="myBooks">
+                                <input type="hidden" name="id" value=${subscription.books.id}/>
+                                <input type="hidden" name="action" value="renew"/>
+                                <td>
+                                    <input type="submit" class="btn btn-outline-primary"
+                                           value="<fmt:message key="myBooks.renew"/> ">
+                                </td>
+                            </form>
+                        </c:if>
+                    </c:when>
+                    <c:otherwise>
+                        <td>${subscription.books.id}</td>
+                        <td>${subscription.books.name}</td>
+                        <td>${subscription.books.author}</td>
+                    </c:otherwise>
+                </c:choose>
+                <form method="post" action="myBooks">
+                    <input type="hidden" name="id" value=${subscription.books.id}/>
+                    <input type="hidden" name="status" value=${subscription.books.status}/>
+                    <td id="action">
+                        <input type="submit" class="btn btn-outline-danger" value="<fmt:message key="myBooks.button"/>">
+                    </td>
+                </form>
             </tr>
-            </thead>
-            <tbody id="bookTable">
-            <c:forEach var="subscription" items="${subscriptions}">
-                    <tr>
-                        <c:choose>
-                        <c:when test="${subscription.to lt today}">
-                            <td style="color: red;">${subscription.books.id}</td>
-                            <td style="color: red;">${subscription.books.name}</td>
-                            <td style="color: red;">${subscription.books.author}</td>
-                            <c:if test="${subscription.books.status eq 'SUBSCRIPTION'}">
-                                <form method="post" action="myBooks">
-                                    <input type="hidden" name="id" value=${subscription.books.id} />
-                                    <input type="hidden" name="action" value="renew" />
-                                    <td >
-                                        <input type="submit" class="btn btn-outline-primary" value="<fmt:message key="myBooks.renew"/> ">
-                                    </td>
-                                </form>
-                            </c:if>
-                        </c:when>
-                        <c:otherwise>
-                            <td>${subscription.books.id}</td>
-                            <td>${subscription.books.name}</td>
-                            <td>${subscription.books.author}</td>
-                        </c:otherwise>
-                        </c:choose>
-                        <form method="post" action="myBooks">
-                            <input type="hidden" name="id" value=${subscription.books.id} />
-                            <input type="hidden" name="status" value=${subscription.books.status} />
-                            <td id="action">
-                                <input type="submit" class="btn btn-outline-danger" value="<fmt:message key="myBooks.button"/>">
-                            </td>
-                        </form>
-                    </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+        </c:forEach>
+        </tbody>
+    </table>
 </div>
 <script>
-    $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
             var value = $(this).val().toLowerCase();
-            $("#bookTable tr").filter(function() {
+            $("#bookTable tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });

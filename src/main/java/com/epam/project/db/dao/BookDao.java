@@ -6,7 +6,7 @@ import com.epam.project.entities.Status;
 import java.sql.Date;
 import java.util.List;
 
-public interface BookDao extends BaseDao<Long,Book> {
+public interface BookDao extends BaseDao<Long, Book> {
     @Override
     List<Book> findAllEntities();
 
@@ -26,9 +26,9 @@ public interface BookDao extends BaseDao<Long,Book> {
 
     List<Book> findBooksByStatus(Status status);
 
-    void updateBookStatus(Status status,Long id);
+    void updateBookStatus(Status status, Long id);
 
     Long count();
 
-    List<Book> selectSomeBooks(Integer number,Integer page);
+    List<Book> selectBooksForPages(Integer number, Integer page);
 }

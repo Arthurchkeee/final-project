@@ -23,12 +23,12 @@ public class DeleteUserButtonTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
-        ResourceBundle resourceBundle=ResourceBundle.getBundle("language", Locale.forLanguageTag(locale));
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("language", Locale.forLanguageTag(locale));
 
-        if(SubscriptionServiceImpl.getInstance().findAllSubscriptionsByUser(id).size()==0){
+        if (SubscriptionServiceImpl.getInstance().findAllSubscriptionsByUser(id).size() == 0) {
             getJspContext().getOut().print("<form method=\"get\" action=\"deleteUser\">\n" +
-                    "                                <input type=\"hidden\" name=\"id\" value="+id+" />\n" +
-                    "                               <input type=\"submit\" class=\"btn btn-outline-danger m-lg-3\" value="+resourceBundle.getString("users.delete")+">  " +
+                    "                                <input type=\"hidden\" name=\"id\" value=" + id + " />\n" +
+                    "                               <input type=\"submit\" class=\"btn btn-outline-danger m-lg-3\" value=" + resourceBundle.getString("users.delete") + ">  " +
                     "                            </form>");
         }
 

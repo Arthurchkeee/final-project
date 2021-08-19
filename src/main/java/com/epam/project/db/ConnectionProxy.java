@@ -8,9 +8,10 @@ import java.util.concurrent.Executor;
 public class ConnectionProxy implements Connection {
     private Connection connection;
 
-    ConnectionProxy( Connection connection){
-        this.connection=connection;
+    ConnectionProxy(Connection connection) {
+        this.connection = connection;
     }
+
     @Override
     public Statement createStatement() throws SQLException {
         return connection.createStatement();

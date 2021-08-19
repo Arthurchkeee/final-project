@@ -18,7 +18,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+              crossorigin="anonymous">
     </head>
 </head>
 <body>
@@ -30,7 +32,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarContent">
-            <ul     class="navbar-nav mr-auto mb-2">
+            <ul class="navbar-nav mr-auto mb-2">
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/catalog" class="nav-link">
                         <fmt:message key="nav.catalog"/>
@@ -38,18 +40,19 @@
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/myBooks" class="nav-link">
-                        <fmt:message key="nav.MyBooks"/>
+                        <fmt:message key="nav.myBooks"/>
                     </a>
                 </li>
                 <c:if test="${role eq 'LIBRARIAN'}">
                     <li class="nav-item">
                         <a href="${pageContext.request.contextPath}/librarian" class="nav-link">
-                            <fmt:message key="nav.Orders"/>
+                            <fmt:message key="nav.orders"/>
                         </a>
                     </li>
                 </c:if>
                 <c:if test="${role eq 'ADMIN'}">
-                    <a href="${pageContext.request.contextPath}/jsp/entities.jsp" class="nav-link"><fmt:message key="nav.Entities"/></a>
+                    <a href="${pageContext.request.contextPath}/jsp/entities.jsp" class="nav-link"><fmt:message
+                            key="nav.entities"/></a>
                 </c:if>
 
 
@@ -70,19 +73,20 @@
             </form>
             <form class="offset-md-1">
                 <input type="hidden" class="form-control ">
-                <a class="btn btn-outline-danger " href="${pageContext.request.contextPath}/LogoutUser"><fmt:message key="nav.SignOut"/></a>
+                <a class="btn btn-outline-danger " href="${pageContext.request.contextPath}/LogoutUser"><fmt:message
+                        key="nav.signOut"/></a>
             </form>
         </div>
     </div>
 </nav>
 
 
-
-
 <div>
 
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
 
 </div>
 </body>

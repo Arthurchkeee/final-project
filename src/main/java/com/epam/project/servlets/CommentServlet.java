@@ -13,19 +13,19 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
 
-@WebServlet(name = "comment",urlPatterns = "/comment")
+@WebServlet(name = "comment", urlPatterns = "/comment")
 public class CommentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        if(СommentValidator.getInstance().isValid(req.getParameter("comment"))) {
-            HttpSession session=req.getSession();
+        if (СommentValidator.getInstance().isValid(req.getParameter("comment"))) {
+            HttpSession session = req.getSession();
             Comment comment = new Comment(null, session.getAttribute("username").toString(), Long.parseLong(req.getParameter("id")), new Date(System.currentTimeMillis()), req.getParameter("comment"));
-            if (!CommentServiceImpl.getInstance().commentAlreadyCreated(comment)) {
+            if (!CommentServiceImpl.getInstance().isCommentExist(comment)) {
                 CommentServiceImpl.getInstance().create(comment);
             }
         }
-        req.setAttribute("id",Long.parseLong(req.getParameter("id")));
-        req.getRequestDispatcher("/order").forward(req,resp);
+        req.setAttribute("id", Long.parseLong(req.getParameter("id")));
+        req.getRequestDispatcher("/order").forward(req, resp);
     }
 }

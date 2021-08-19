@@ -16,26 +16,35 @@
 <div class="container">
     <div class="input-group mb-3">
         <form class="mx-auto" method="get" action="editBook">
-            <input type="hidden" name="id" value=${id} />
-        <span class="input-group-text" id="basic-addon1"><fmt:message key="addBook.name"/></span>
-        <input type="text" name="book_name" class="form-control" placeholder="<fmt:message key="addBook.name"/>"  aria-label="<fmt:message key="addBook.name"/>" aria-describedby="basic-addon1" required minlength="1" maxlength="100" pattern="^[A-Za-zА-Яа-яЁё0-9\s-–()]{1,100}">
+            <input type="hidden" name="id" value=${id}/>
+            <span class="input-group-text" id="basic-addon1"><fmt:message key="addBook.name"/></span>
+            <input type="text" name="book_name" class="form-control" placeholder="<fmt:message key="addBook.name"/>"
+                   aria-label="<fmt:message key="addBook.name"/>" aria-describedby="basic-addon1" required minlength="1"
+                   maxlength="100" pattern="^[A-Za-zА-Яа-яЁё0-9\s-–()]{1,100}">
             <br>
-        <span class="input-group-text" id="basic-addon2"><fmt:message key="addBook.Author"/></span>
-        <input type="text" name="author_name" class="form-control" placeholder="<fmt:message key="addBook.Author"/>" aria-label="<fmt:message key="addBook.Author"/>" aria-describedby="basic-addon2" required minlength="1" maxlength="100" pattern="^[A-Za-zА-Яа-яЁё0-9\s-–]{1,100}">
+            <span class="input-group-text" id="basic-addon2"><fmt:message key="addBook.author"/></span>
+            <input type="text" name="author_name" class="form-control" placeholder="<fmt:message key="addBook.author"/>"
+                   aria-label="<fmt:message key="addBook.author"/>" aria-describedby="basic-addon2" required
+                   minlength="1" maxlength="100" pattern="^[A-Za-zА-Яа-яЁё0-9\s-–]{1,100}">
             <br>
-            <span class="input-group-text" id="basic-addon3"><fmt:message key="addBook.Description"/></span>
-            <input type="text" name="description" class="form-control" placeholder="<fmt:message key="addBook.Description"/>" aria-label="<fmt:message key="addBook.Description"/>" aria-describedby="basic-addon3" pattern="^^[A-Za-zА-Яа-яЁё0-9\s.,–-?!/«»]+$">
+            <span class="input-group-text" id="basic-addon3"><fmt:message key="addBook.description"/></span>
+            <input type="text" name="description" class="form-control"
+                   placeholder="<fmt:message key="addBook.description"/>"
+                   aria-label="<fmt:message key="addBook.description"/>" aria-describedby="basic-addon3"
+                   pattern="^^[A-Za-zА-Яа-яЁё0-9\s.,–-?!/«»]+$">
             <span class="input-group-text" id="basic-addon4"><fmt:message key="addBook.imageAddress"/></span>
-            <input type="text" name="image" class="form-control" placeholder="<fmt:message key="addBook.imageAddress"/>" aria-label="<fmt:message key="addBook.imageAddress"/>" aria-describedby="basic-addon4" minlength="5" maxlength="100" pattern="^[A-Za-zА-Яа-яЁё0-9\s/.-–-()]{5,100}">
+            <input type="text" name="image" class="form-control" placeholder="<fmt:message key="addBook.imageAddress"/>"
+                   aria-label="<fmt:message key="addBook.imageAddress"/>" aria-describedby="basic-addon4" minlength="5"
+                   maxlength="100" pattern="^[A-Za-zА-Яа-яЁё0-9\s/.-–-()]{5,100}">
             <br>
 
             <span class="input-group-text" id="basic-select"><fmt:message key="addBook.genre"/></span>
             <select class="form-select" name="genre" aria-describedby="basic-select">
-            <option value="DETECTIVE">DETECTIVE</option>
-            <option value="HORROR">HORROR</option>
-            <option value="COMEDY">COMEDY</option>
-            <option value="DRAMA" selected>DRAMA</option>
-            <option value="ADULT">ADULT</option>
+                <option value="DETECTIVE">DETECTIVE</option>
+                <option value="HORROR">HORROR</option>
+                <option value="COMEDY">COMEDY</option>
+                <option value="DRAMA" selected>DRAMA</option>
+                <option value="ADULT">ADULT</option>
                 <option value="ADULT">ADVENTURE</option>
                 <option value="ADULT">CLASSIC</option>
                 <option value="ADULT">COMICS</option>

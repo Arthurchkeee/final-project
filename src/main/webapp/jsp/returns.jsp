@@ -14,7 +14,8 @@
 <body>
 <c:import url="main.jsp"/>
 <div class="container">
-    <a class="btn btn-outline-dark " href="${pageContext.request.contextPath}/canceledOrder"><fmt:message key="myBooks.order"/></a>
+    <a class="btn btn-outline-dark " href="${pageContext.request.contextPath}/canceledOrder"><fmt:message
+            key="myBooks.order"/></a>
 
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
@@ -29,19 +30,19 @@
         </thead>
         <tbody id="bookTable">
         <c:forEach var="subscription" items="${subscriptions}">
-                <tr>
-                    <td>${subscription.books.id}</td>
-                    <td>${subscription.books.name}</td>
-                    <td>${subscription.books.author}</td>
-                    <form method="post" action="canceledReturning">
-                        <input type="hidden" name="book_id" value=${subscription.books.id} />
-                        <input type="hidden" name="status" value=${subscription.books.status} />
-                        <td id="action">
-                            <input type="submit" class="btn btn-outline-danger" value="<fmt:message key="myBooks.cancel"/>">
-                        </td>
-                    </form>
-                </tr>
-            </c:forEach>
+            <tr>
+                <td>${subscription.books.id}</td>
+                <td>${subscription.books.name}</td>
+                <td>${subscription.books.author}</td>
+                <form method="post" action="canceledReturning">
+                    <input type="hidden" name="book_id" value=${subscription.books.id}/>
+                    <input type="hidden" name="status" value=${subscription.books.status}/>
+                    <td id="action">
+                        <input type="submit" class="btn btn-outline-danger" value="<fmt:message key="myBooks.cancel"/>">
+                    </td>
+                </form>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
 

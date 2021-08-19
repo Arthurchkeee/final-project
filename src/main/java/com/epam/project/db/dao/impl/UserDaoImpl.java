@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
+    private static UserDaoImpl instance;
     private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
     private static final String SELECT_ALL_USER = "SELECT * FROM user";
     private static final String SELECT_USER_BY_ID = "SELECT * FROM user WHERE id=?";
@@ -20,8 +21,18 @@ public class UserDaoImpl implements UserDao {
     private static final String DELETE_BOOK_BY_ID = "DELETE FROM user WHERE id=?";
     private static final String UPDATE_USER_BY_ID = "UPDATE user SET name=?,password=?,role=? WHERE id=?;";
     private static final String SELECT_USER_BY_NAME = "SELECT * FROM user WHERE name=?";
-    private static final String COUNT="SELECT COUNT(*) AS row_count FROM user";
-    private static final String SELECT_SOME_USERS ="SELECT* FROM user ORDER BY id LIMIT ?,?";
+    private static final String COUNT = "SELECT COUNT(*) AS row_count FROM user";
+    private static final String SELECT_USERS_FOR_PAGE = "SELECT* FROM user ORDER BY id LIMIT ?,?";
+
+    private UserDaoImpl() {
+    }
+
+    public static UserDaoImpl getInstance() {
+        if (instance == null)
+            instance = new UserDaoImpl();
+        return instance;
+    }
+
     @Override
     public List<User> findAllEntities() {
         List<User> userList = new ArrayList<>();
@@ -37,7 +48,7 @@ public class UserDaoImpl implements UserDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            LOGGER.error("Failed to find all users, "+ throwables);
+            LOGGER.error("Failed to find all users, " + throwables);
         }
         return userList;
     }
@@ -57,7 +68,7 @@ public class UserDaoImpl implements UserDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            LOGGER.error("Failed to find user by id, "+throwables);
+            LOGGER.error("Failed to find user by id, " + throwables);
         }
         return user;
     }
@@ -73,7 +84,7 @@ public class UserDaoImpl implements UserDao {
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
-            LOGGER.error("Failed to create user, "+throwables);
+            LOGGER.error("Failed to create user, " + throwables);
         }
         return false;
     }
@@ -87,7 +98,7 @@ public class UserDaoImpl implements UserDao {
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
             return true;
         } catch (SQLException throwables) {
-            LOGGER.error("Failed to delete user, "+throwables);
+            LOGGER.error("Failed to delete user, " + throwables);
         }
         return false;
     }
@@ -103,7 +114,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.executeUpdate();
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            LOGGER.error("Failed to update user, "+throwables);
+            LOGGER.error("Failed to update user, " + throwables);
         }
         return entity;
     }
@@ -120,19 +131,19 @@ public class UserDaoImpl implements UserDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            LOGGER.error("Failed to get password, "+throwables);
+            LOGGER.error("Failed to get password, " + throwables);
         }
         return password;
     }
 
-    public User findUserByLogin(String login){
-        User user=null;
+    public User findUserByLogin(String login) {
+        User user = null;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_NAME)) {
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Long id= resultSet.getLong("id");
+                Long id = resultSet.getLong("id");
                 String name = resultSet.getString("name");
                 String password = resultSet.getString("password");
                 String role = resultSet.getString("role");
@@ -140,31 +151,31 @@ public class UserDaoImpl implements UserDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            LOGGER.error("Failed to find user by login, "+throwables);
+            LOGGER.error("Failed to find user by login, " + throwables);
         }
         return user;
     }
 
-    public Integer count(){
-        Integer count=null;
-        try(Connection connection=ConnectionPool.getInstance().getConnection();
-            Statement statement=connection.createStatement()){
-            ResultSet resultSet=statement.executeQuery(COUNT);
+    public Integer count() {
+        Integer count = null;
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(COUNT);
             resultSet.next();
-            count= resultSet.getInt("row_count");
+            count = resultSet.getInt("row_count");
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            LOGGER.error("Failed to find the count of rows"+ throwables);
+            LOGGER.error("Failed to find the count of rows" + throwables);
         }
         return count;
     }
 
-    public List<User> selectSomeUsers(Integer number,Integer page){
-        List<User> users=new ArrayList<>();
-        try(Connection connection=ConnectionPool.getInstance().getConnection();
-        PreparedStatement preparedStatement=connection.prepareStatement(SELECT_SOME_USERS)) {
-            preparedStatement.setInt(2,number);
-            preparedStatement.setInt(1,number*(page-1));
+    public List<User> selectUsersForPages(Integer booksAmount, Integer pageNumber) {
+        List<User> users = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USERS_FOR_PAGE)) {
+            preparedStatement.setInt(2, booksAmount);
+            preparedStatement.setInt(1, booksAmount * (pageNumber - 1));
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Long id = resultSet.getLong("id");
@@ -175,7 +186,7 @@ public class UserDaoImpl implements UserDao {
             }
             ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
         } catch (SQLException throwables) {
-            LOGGER.error("Failed to select "+number+" users "+throwables);
+            LOGGER.error("Failed to select " + booksAmount + " users " + throwables);
         }
         return users;
     }

@@ -2,7 +2,7 @@ package com.epam.project.entities;
 
 import java.sql.Date;
 
-public class Comment extends AbstractBaseEntity{
+public class Comment extends AbstractBaseEntity {
     private Long bookId;
     private Date date;
     private String text;
@@ -22,8 +22,8 @@ public class Comment extends AbstractBaseEntity{
 
     public Comment(Long id, String name, Long bookId, Date date, String text) {
         super(id, name);
-        this.bookId=bookId;
-        this.date=date;
-        this.text=text;
+        this.bookId = bookId;
+        this.date = date;
+        this.text = text;
     }
 }
