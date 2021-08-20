@@ -30,7 +30,11 @@ public interface SubscriptionDao extends BaseDao<Long, Subscription> {
 
     boolean updateDateTo(Long id, Date to);
 
-    List<Subscription> findSubscriptionsByBookStatuses(List<Status> statuses);
+    List<Subscription> findSubscriptionsByBookStatuses(List<Status> statuses,Integer booksAmount, Integer pageNumber);
 
-    List<Subscription> findSubscriptionsByBookStatusesAndUser(List<Status> statuses, Long userId);
+    List<Subscription> findSubscriptionsByBookStatusesAndUser(List<Status> statuses, Long userId, Integer booksAmount, Integer pageNumber);
+
+    Long count(List<Status> statuses);
+
+    Long countForUser(List<Status> statuses,Long userId);
 }

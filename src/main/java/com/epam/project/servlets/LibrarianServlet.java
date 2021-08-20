@@ -17,6 +17,9 @@ import java.util.Arrays;
 
 @WebServlet(name = "librarian", urlPatterns = "/librarian")
 public class LibrarianServlet extends HttpServlet {
+    private static final int SUBS_PER_PAGE =20;
+
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if ("renew".equals(req.getParameter("action"))) {
@@ -37,7 +40,9 @@ public class LibrarianServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        req.setAttribute("subscriptions", SubscriptionServiceImpl.getInstance().findSubscriptionsByBookStatuses(Arrays.asList(Status.ORDERED_ROOM, Status.ORDERED_SUBSCRIPTION, Status.RENEW)));
+        req.setAttribute("counts",SubscriptionServiceImpl.getInstance().count(Arrays.asList(Status.ORDERED_ROOM, Status.ORDERED_SUBSCRIPTION, Status.RENEW))/ SUBS_PER_PAGE +1);
+        String page= req.getParameter("page") ==null ? "1" :req.getParameter("page") ;
+        req.setAttribute("subscriptions",SubscriptionServiceImpl.getInstance().findSubscriptionsByBookStatuses(Arrays.asList(Status.ORDERED_ROOM, Status.ORDERED_SUBSCRIPTION, Status.RENEW),SUBS_PER_PAGE,Integer.parseInt(page)));
         RequestDispatcher view = req.getRequestDispatcher("jsp/librarian.jsp");
         view.forward(req, resp);
     }

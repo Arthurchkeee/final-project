@@ -35,8 +35,8 @@
                 <td>${subscription.books.name}</td>
                 <td>${subscription.books.author}</td>
                 <form method="post" action="canceledReturning">
-                    <input type="hidden" name="book_id" value=${subscription.books.id}/>
-                    <input type="hidden" name="status" value=${subscription.books.status}/>
+                    <input type="hidden" name="book_id" value="${subscription.books.id}"/>
+                    <input type="hidden" name="status" value="${subscription.books.status}"/>
                     <td id="action">
                         <input type="submit" class="btn btn-outline-danger" value="<fmt:message key="myBooks.cancel"/>">
                     </td>
@@ -45,7 +45,16 @@
         </c:forEach>
         </tbody>
     </table>
+    <nav aria-label="Page navigation example">
+        <div class="btn-group mx-auto" role="group" aria-label="Basic example">
+            <form class="mx-auto" method="get" action="canceledReturning">
+                <c:forEach var="count" begin="1" end="${counts}">
+                    <button type="submit" class="btn btn-outline-primary" name="page" value="${count}">${count}</button>
+                </c:forEach>
+            </form>
 
+        </div>
+    </nav>
 </div>
 </body>
 </html>

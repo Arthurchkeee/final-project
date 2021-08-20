@@ -57,18 +57,13 @@
     </table>
 
     <nav aria-label="Page navigation example">
-        <ul class="pagination">
+        <div class="btn-group mx-auto" role="group" aria-label="Basic example">
             <form method="get" action="users">
                 <c:forEach var="count" begin="1" end="${counts}">
-
-
-                <form method="get" action="catalog">
-                    <li class="page-item"><input type="submit" class="page-link" name="page" value="${count}"/></li>
-
-
+                    <button type="submit" class="btn btn-outline-primary" name="page" value="${count}">${count}</button>
                     </c:forEach>
-                </form>
-        </ul>
+            </form>
+        </div>
     </nav>
 </div>
 <script>

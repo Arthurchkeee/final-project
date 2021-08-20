@@ -81,13 +81,23 @@ public final class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public List<Subscription> findSubscriptionsByBookStatuses(List<Status> statuses) {
-        return subscriptionDao.findSubscriptionsByBookStatuses(statuses);
+    public List<Subscription> findSubscriptionsByBookStatuses(List<Status> statuses,Integer booksAmount, Integer pageNumber) {
+        return subscriptionDao.findSubscriptionsByBookStatuses(statuses, booksAmount, pageNumber);
     }
 
 
     @Override
-    public List<Subscription> findSubscriptionsByBookStatusesAndUser(List<Status> statuses, Long userId) {
-        return subscriptionDao.findSubscriptionsByBookStatusesAndUser(statuses, userId);
+    public List<Subscription> findSubscriptionsByBookStatusesAndUser(List<Status> statuses, Long userId,Integer booksAmount, Integer pageNumber) {
+        return subscriptionDao.findSubscriptionsByBookStatusesAndUser(statuses, userId, booksAmount,pageNumber);
+    }
+
+    @Override
+    public Long count(List<Status> statuses) {
+        return subscriptionDao.count(statuses);
+    }
+
+    @Override
+    public Long countForUser(List<Status> statuses, Long userId) {
+        return subscriptionDao.countForUser(statuses,userId);
     }
 }

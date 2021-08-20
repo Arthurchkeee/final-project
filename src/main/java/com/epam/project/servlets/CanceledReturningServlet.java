@@ -18,11 +18,14 @@ import java.util.List;
 
 @WebServlet(name = "canceledReturning", urlPatterns = "/canceledReturning")
 public class CanceledReturningServlet extends HttpServlet {
+    private final int SUBS_PER_PAGE=20;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        List<Subscription> subscriptionList = SubscriptionServiceImpl.getInstance().findSubscriptionsByBookStatusesAndUser(Arrays.asList(Status.RETURNING_SUBSCRIPTION, Status.RETURNING_ROOM), (Long) session.getAttribute("user_id"));
-        req.setAttribute("subscriptions", subscriptionList);
+        req.setAttribute("counts",SubscriptionServiceImpl.getInstance().countForUser(Arrays.asList(Status.RETURNING_ROOM, Status.RETURNING_SUBSCRIPTION),(Long) session.getAttribute("user_id"))/ SUBS_PER_PAGE +1);
+        String page= req.getParameter("page") ==null ? "1" :req.getParameter("page") ;
+        req.setAttribute("subscriptions", SubscriptionServiceImpl.getInstance().findSubscriptionsByBookStatusesAndUser(Arrays.asList(Status.RETURNING_SUBSCRIPTION, Status.RETURNING_ROOM), (Long) session.getAttribute("user_id"),SUBS_PER_PAGE,Integer.parseInt(page)));
         RequestDispatcher view = req.getRequestDispatcher("jsp/returns.jsp");
         view.forward(req, resp);
     }

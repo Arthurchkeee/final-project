@@ -47,6 +47,17 @@
         </tbody>
     </table>
 
+    <nav aria-label="Page navigation example">
+        <div class="btn-group mx-auto" role="group" aria-label="Basic example">
+            <form class="mx-auto" method="get" action="canceledOrder">
+                <c:forEach var="count" begin="1" end="${counts}">
+                    <button type="submit" class="btn btn-outline-primary" name="page" value="${count}">${count}</button>
+                </c:forEach>
+            </form>
+
+        </div>
+    </nav>
+
 </div>
 </body>
 </html>

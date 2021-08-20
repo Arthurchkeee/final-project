@@ -40,7 +40,7 @@
                 <td>${book.author}</td>
                 <td>${book.genre}</td>
                 <form method="post" action="order">
-                    <input type="hidden" name="id" value=${book.id}/>
+                    <input type="hidden" name="id" value="${book.id}"/>
                     <td>
                         <input type="submit" class="btn btn-outline-primary" value="<fmt:message key="catalog.more"/>">
                     </td>
@@ -51,18 +51,14 @@
     </table>
 
     <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <form method="get" action="catalog">
+        <div class="btn-group mx-auto" role="group" aria-label="Basic example">
+            <form class="mx-auto" method="get" action="catalog">
                 <c:forEach var="count" begin="1" end="${counts}">
+                    <button type="submit" class="btn btn-outline-primary" name="page" value="${count}">${count}</button>
+                </c:forEach>
+            </form>
 
-
-                <form method="get" action="catalog">
-                    <li class="page-item"><input type="submit" class="page-link" name="page" value="${count}"/></li>
-                    //элемент списка в строчку
-
-                    </c:forEach>
-                </form>
-        </ul>
+        </div>
     </nav>
 
 </div>

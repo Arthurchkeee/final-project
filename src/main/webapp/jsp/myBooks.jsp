@@ -47,7 +47,7 @@
                         <td style="color: red;">${subscription.books.author}</td>
                         <c:if test="${subscription.books.status eq 'SUBSCRIPTION'}">
                             <form method="post" action="myBooks">
-                                <input type="hidden" name="id" value=${subscription.books.id}/>
+                                <input type="hidden" name="id" value="${subscription.books.id}"/>
                                 <input type="hidden" name="action" value="renew"/>
                                 <td>
                                     <input type="submit" class="btn btn-outline-primary"
@@ -63,8 +63,8 @@
                     </c:otherwise>
                 </c:choose>
                 <form method="post" action="myBooks">
-                    <input type="hidden" name="id" value=${subscription.books.id}/>
-                    <input type="hidden" name="status" value=${subscription.books.status}/>
+                    <input type="hidden" name="id" value="${subscription.books.id}"/>
+                    <input type="hidden" name="status" value="${subscription.books.status}"/>
                     <td id="action">
                         <input type="submit" class="btn btn-outline-danger" value="<fmt:message key="myBooks.button"/>">
                     </td>
@@ -73,6 +73,16 @@
         </c:forEach>
         </tbody>
     </table>
+    <nav aria-label="Page navigation example">
+        <div class="btn-group mx-auto" role="group" aria-label="Basic example">
+            <form class="mx-auto" method="get" action="myBooks">
+                <c:forEach var="count" begin="1" end="${counts}">
+                    <button type="submit" class="btn btn-outline-primary" name="page" value="${count}">${count}</button>
+                </c:forEach>
+            </form>
+
+        </div>
+    </nav>
 </div>
 <script>
     $(document).ready(function () {

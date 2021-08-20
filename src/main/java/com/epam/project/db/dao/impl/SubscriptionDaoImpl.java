@@ -6,12 +6,8 @@ import com.epam.project.entities.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,8 +25,10 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
     private static final String SELECT_SUBSCRIPTION_BY_STATUS = "SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE b.status=?";
     private static final String SELECT_SUBSCRIPTION_BY_USER = "SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE u.id=? ORDER by subscription.day_to";
     private static final String RENEW_BOOK = "UPDATE subscription SET  day_to=? WHERE id=?";
-    private static final String SELECT_SUBSCRIPTIONS_BY_LIST_OF_STATUSES = "SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE b.status IN (%s)";
-    private static final String SELECT_SUBSCRIPTIONS_BY_LIST_OF_STATUSES_AND_USER = "SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE u.id=? AND b.status IN (%s)";
+    private static final String SELECT_SUBSCRIPTIONS_BY_LIST_OF_STATUSES = "SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id  WHERE b.status IN (%s) ORDER BY subscription.id LIMIT ?,?";
+    private static final String SELECT_SUBSCRIPTIONS_BY_LIST_OF_STATUSES_AND_USER = "SELECT * FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE u.id=? AND b.status IN (%s) ORDER BY subscription.id LIMIT ?,?";
+    private static final String COUNT = "SELECT COUNT(*) AS row_count FROM subscription INNER JOIN book b on subscription.book_id = b.id WHERE b.status IN (%s)";
+    private static final String COUNT_FOR_USER = "SELECT COUNT(*) AS row_count FROM subscription INNER JOIN user u on subscription.user_id = u.id INNER JOIN book b on subscription.book_id = b.id WHERE u.id=? AND b.status IN (%s)";
 
 
     private SubscriptionDaoImpl() {
@@ -246,7 +244,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
         return false;
     }
 
-    public List<Subscription> findSubscriptionsByBookStatuses(List<Status> statuses) {
+    public List<Subscription> findSubscriptionsByBookStatuses(List<Status> statuses, Integer booksAmount, Integer pageNumber) {
         List<Subscription> subscriptionList = new ArrayList<Subscription>();
         String inSql = String.join(",", Collections.nCopies(statuses.size(), "?"));
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -255,6 +253,8 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             for (int i = 0; i < statuses.size(); i++) {
                 preparedStatement.setString(i + 1, statuses.get(i).getName());
             }
+            preparedStatement.setInt(statuses.size() + 2, booksAmount);
+            preparedStatement.setInt(statuses.size()+1, booksAmount * (pageNumber - 1));
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Long id = resultSet.getLong("subscription.id");
@@ -281,7 +281,7 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
     }
 
 
-    public List<Subscription> findSubscriptionsByBookStatusesAndUser(List<Status> statuses, Long userId) {
+    public List<Subscription> findSubscriptionsByBookStatusesAndUser(List<Status> statuses, Long userId, Integer booksAmount, Integer pageNumber) {
         List<Subscription> subscriptionList = new ArrayList<Subscription>();
         String inSql = String.join(",", Collections.nCopies(statuses.size(), "?"));
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -290,6 +290,8 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             for (int i = 0; i < statuses.size(); i++) {
                 preparedStatement.setString(i + 2, statuses.get(i).getName());
             }
+            preparedStatement.setInt(statuses.size() + 3, booksAmount);
+            preparedStatement.setInt(statuses.size()+2, booksAmount * (pageNumber - 1));
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Long id = resultSet.getLong("subscription.id");
@@ -312,5 +314,42 @@ public class SubscriptionDaoImpl implements com.epam.project.db.dao.Subscription
             LOGGER.error("Failed to find all subscriptions, " + throwables);
         }
         return subscriptionList;
+    }
+
+    public Long count(List<Status> statuses) {
+        Long count = null;
+        String inSql = String.join(",", Collections.nCopies(statuses.size(), "?"));
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(String.format(COUNT, inSql))) {
+            for (int i = 0; i < statuses.size(); i++) {
+                preparedStatement.setString(i + 1, statuses.get(i).getName());
+            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            count = resultSet.getLong("row_count");
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return count;
+    }
+
+    public Long countForUser(List<Status> statuses,Long userId){
+        Long count=null;
+        String inSql = String.join(",", Collections.nCopies(statuses.size(), "?"));
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(String.format(COUNT_FOR_USER, inSql))) {
+            preparedStatement.setLong(1, userId);
+            for (int i = 0; i < statuses.size(); i++) {
+                preparedStatement.setString(i + 2, statuses.get(i).getName());
+            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            count = resultSet.getLong("row_count");
+            ConnectionPool.getInstance().returnConnection((ConnectionProxy) connection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return count;
     }
 }

@@ -36,7 +36,7 @@
                 <c:choose>
                     <c:when test="${status == 'FREE'}">
                         <form method="get" action="order">
-                            <input type="hidden" name="id" value=${id}/>
+                            <input type="hidden" name="id" value="${id}"/>
                             <input type="radio" class="form-check-input" id="room" name="status" value="ROOM" checked>
                             <label for="room"><fmt:message key="more.room"/></label><br>
                             <input type="radio" class="form-check-input" id="subscribe" name="status" value="SUBSCRIBE">
@@ -65,10 +65,10 @@
                         <div class="form-group col-xs-12 col-sm-9 col-lg-10">
                             <input type="text" class="fa-text-width" id="message" name="comment"
                                    placeholder="Your message" required minlength="1" maxlength="500"
-                                   pattern="^[A-Za-zА-Яа-яЁё0-9\s().,–-?!/«»]+$"></input>
+                                   pattern="^[A-Za-zА-Яа-яЁё0-9\s().,–-?!/«»]+$"/>
                         </div>
                     </div>
-                    <input type="hidden" name="id" value=${id}>
+                    <input type="hidden" name="id" value="${id}">
                     <button type="submit" class="btn btn-normal pull-right"><fmt:message key="myBooks.send"/></button>
                 </form>
 

@@ -15,11 +15,13 @@ import java.util.Arrays;
 
 @WebServlet(name = "returning", urlPatterns = "/returning")
 public class ReturningServlet extends HttpServlet {
+    private static final int SUBS_PER_PAGE =20;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        req.setAttribute("subscriptions", SubscriptionServiceImpl.getInstance().findSubscriptionsByBookStatuses(Arrays.asList(Status.RETURNING_ROOM, Status.RETURNING_SUBSCRIPTION)));
+        req.setAttribute("count",SubscriptionServiceImpl.getInstance().count(Arrays.asList(Status.RETURNING_ROOM, Status.RETURNING_SUBSCRIPTION))/SUBS_PER_PAGE+1);
+        String page= req.getParameter("page") ==null ? "1" :req.getParameter("page") ;
+        req.setAttribute("subscriptions", SubscriptionServiceImpl.getInstance().findSubscriptionsByBookStatuses(Arrays.asList(Status.RETURNING_ROOM, Status.RETURNING_SUBSCRIPTION),SUBS_PER_PAGE, Integer.parseInt(page)));
         RequestDispatcher view = req.getRequestDispatcher("jsp/returningBook.jsp");
         view.forward(req, resp);
     }

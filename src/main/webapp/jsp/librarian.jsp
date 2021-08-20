@@ -52,8 +52,8 @@
                         </c:when>
                         <c:otherwise>
                             <form method="post" action="librarian">
-                                <input type="hidden" name="book_id" value=${subscription.books.id}/>
-                                <input type="hidden" name="status" value=${subscription.books.status}/>
+                                <input type="hidden" name="book_id" value="${subscription.books.id}"/>
+                                <input type="hidden" name="status" value="${subscription.books.status}"/>
                                 <input type="hidden" name="action" value="accept"/>
                                 <td id="action">
                                     <input type="submit" class="btn btn-outline-success"
@@ -63,8 +63,8 @@
                         </c:otherwise>
                     </c:choose>
                     <form method="post" action="librarian">
-                        <input type="hidden" name="book_id" value=${subscription.books.id}/>
-                        <input type="hidden" name="id" value=${subscription.id}/>
+                        <input type="hidden" name="book_id" value="${subscription.books.id}"/>
+                        <input type="hidden" name="id" value="${subscription.id}"/>
                         <input type="hidden" name="action" value="delete"/>
                         <td>
                             <input type="submit" class="btn btn-outline-danger"
@@ -78,6 +78,16 @@
             </tbody>
         </table>
     </div>
+    <nav aria-label="Page navigation example">
+        <div class="btn-group mx-auto" role="group" aria-label="Basic example">
+            <form class="mx-auto" method="get" action="librarian">
+                <c:forEach var="count" begin="1" end="${counts}">
+                    <button type="submit" class="btn btn-outline-primary" name="page" value="${count}">${count}</button>
+                </c:forEach>
+            </form>
+
+        </div>
+    </nav>
 </div>
 <script>
     $(document).ready(function () {
