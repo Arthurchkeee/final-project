@@ -48,8 +48,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> findCommentsByBook(Long id) {
-        return commentDao.findCommentsByBook(id);
+    public Long count(Long bookId) {
+        return commentDao.count(bookId);
+    }
+
+    @Override
+    public List<Comment> selectCommentsForPagesByBook(Long bookId, Integer commentsAmount, Integer pageNumber) {
+        return commentDao.selectCommentsForPagesByBook(bookId,commentsAmount,pageNumber);
     }
 
     public boolean isCommentExist(Comment comment) {

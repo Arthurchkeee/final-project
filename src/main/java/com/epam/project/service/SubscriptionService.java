@@ -16,7 +16,7 @@ public interface SubscriptionService {
 
     /**
      * @param id is a primary key of a table 'subscribe'
-     * @return the {@Book} with {@link com.epam.project.entities.Subscription}
+     * @return the {@link com.epam.project.entities.Subscription}
      */
     Subscription findSubscriptionById(Long id);
 
@@ -76,13 +76,40 @@ public interface SubscriptionService {
      */
     void deleteSubscription(Long id, Long bookId);
 
+    /**
+     * @param id is a primary key of table 'subscribe'
+     * @param to is a Date parameter
+     * @return * @return {@code true} if update was success. otherwise {@code false}
+     */
     boolean updateDateTo(Long id, Date to);
 
+    /**
+     * @param statuses is a {@code List<Status>} for select data from table 'subscribe'
+     * @param booksAmount counts of subscription on page
+     * @param pageNumber number of page to display
+     * @return {@code List<Subscription>} wrapped in a{@link List}
+     */
     List<Subscription> findSubscriptionsByBookStatuses(List<Status> statuses,Integer booksAmount, Integer pageNumber);
 
+    /**
+     * @param statuses is a {@code List<Status>} for select data from table 'subscribe'
+     * @param userId is a foreign key of table 'user'
+     * @param booksAmount counts of subscription on page
+     * @param pageNumber number of page to display
+     * @return {@code List<Subscription>} wrapped in a{@link List}
+     */
     List<Subscription> findSubscriptionsByBookStatusesAndUser(List<Status> statuses, Long userId,Integer booksAmount, Integer pageNumber);
 
+    /**
+     * @param statuses is a {@code List<Status>} for select data from table 'subscribe'
+     * @return count of Subscriptions from table 'subscribe'
+     */
     Long count(List<Status> statuses);
 
+    /**
+     * @param statuses is a {@code List<Status>} for select data from table 'subscribe'
+     * @param userId is a foreign key of table 'user'
+     * @return count of Subscriptions from table 'subscribe'
+     */
     Long countForUser(List<Status> statuses,Long userId);
 }

@@ -31,7 +31,7 @@
             <ul class="navbar-nav mr-auto mb-2">
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/registration" class="nav-link">
-                        registration
+                        <fmt:message key="registration"/>
                     </a>
                 </li>
 

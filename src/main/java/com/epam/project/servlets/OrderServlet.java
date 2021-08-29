@@ -24,6 +24,7 @@ import java.util.Calendar;
 
 @WebServlet(name = "order", urlPatterns = "/order")
 public class OrderServlet extends HttpServlet {
+    private static final int COMMENTS_NUMBER =20;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,7 +37,9 @@ public class OrderServlet extends HttpServlet {
         req.setAttribute("genre", book.getGenre());
         req.setAttribute("description", book.getDescription());
         req.setAttribute("image", book.getImage());
-        req.setAttribute("comments", CommentServiceImpl.getInstance().findCommentsByBook(book.getId()));
+        req.setAttribute("counts",CommentServiceImpl.getInstance().count(Long.parseLong(id))/ COMMENTS_NUMBER +1);
+        String page= req.getParameter("page") ==null ? "1" :req.getParameter("page") ;
+        req.setAttribute("comments", CommentServiceImpl.getInstance().selectCommentsForPagesByBook(Long.parseLong(id),COMMENTS_NUMBER,Integer.parseInt(page)));
         RequestDispatcher view = req.getRequestDispatcher("/jsp/bookProfile.jsp");
         view.forward(req, resp);
     }

@@ -21,7 +21,9 @@ public interface CommentDao extends BaseDao<Long, Comment> {
     @Override
     Comment update(Comment entity);
 
-    List<Comment> findCommentsByBook(Long id);
+    Long count(Long bookId);
+
+    List<Comment> selectCommentsForPagesByBook(Long bookId, Integer commentsAmount, Integer pageNumber);
 
     boolean isCommentExist(Comment comment);
 }

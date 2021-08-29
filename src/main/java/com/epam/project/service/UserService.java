@@ -9,13 +9,13 @@ public interface UserService {
     /**
      * Finds all available users
      *
-     * @return {@link List<User>}
+     * @return {@code List<User>} wrapped in a{@link List}
      */
     List<User> findAllUsers();
 
     /**
      * @param id the primary key of table 'user'
-     * @return
+     * @return {@link com.epam.project.entities.User}
      */
     User findUserById(Long id);
 
@@ -51,7 +51,15 @@ public interface UserService {
      */
     User findUserByLogin(String login);
 
+    /**
+     * @return count of Users from table 'user'
+     */
     Integer count();
 
-    List<User> selectUsersForPages(Integer number, Integer page);
+    /**
+     * @param booksAmount counts of users on page
+     * @param pageNumber number of page to display
+     * @return {@code List<User>} wrapped in a{@link List}
+     */
+    List<User> selectUsersForPages(Integer booksAmount, Integer pageNumber);
 }

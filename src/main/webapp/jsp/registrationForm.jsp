@@ -30,7 +30,7 @@
             <ul class="navbar-nav mr-auto mb-2">
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/LoginUser" class="nav-link">
-                        Login
+                        <fmt:message key="login"/>
                     </a>
                 </li>
             </ul>
@@ -52,7 +52,7 @@
 </nav>
 <div class="container">
     <div class="input-group mb-3">
-        <form method="post" action="registration">
+        <form class="mx-auto" method="post" action="registration">
             <span class="input-group-text" id="basic-addon1"><fmt:message key="addUser.name"/></span>
             <input type="text" name="name" class="form-control" placeholder="<fmt:message key="addUser.name"/>"
                    aria-label="<fmt:message key="addUser.name"/>" aria-describedby="basic-addon1" value="${name}"

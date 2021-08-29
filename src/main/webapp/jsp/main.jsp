@@ -51,7 +51,7 @@
                     </li>
                 </c:if>
                 <c:if test="${role eq 'ADMIN'}">
-                    <a href="${pageContext.request.contextPath}/jsp/entities.jsp" class="nav-link"><fmt:message
+                    <a href="${pageContext.request.contextPath}/users" class="nav-link"><fmt:message
                             key="nav.entities"/></a>
                 </c:if>
 
@@ -59,17 +59,20 @@
             </ul>
             <form class="offset-md-5" method="get" action="changeLocale">
                 <input type="hidden" name="lang" value="ru"/>
-                <input type="submit" class="btn btn-outline-primary " value="ru"/>
+                <input type="submit" class="btn btn-outline-primary " value="<fmt:message
+                            key="button.ru"/>"/>
             </form>
 
             <form class="offset-md-1" method="get" action="changeLocale">
                 <input type="hidden" name="lang" value="en"/>
-                <input type="submit" class="btn btn-outline-primary " value="en"/>
+                <input type="submit" class="btn btn-outline-primary " value="<fmt:message
+                            key="button.en"/>"/>
             </form>
 
             <form class="offset-md-1" method="get" action="changeLocale">
                 <input type="hidden" name="lang" value="by"/>
-                <input type="submit" class="btn btn-outline-primary" value="by"/>
+                <input type="submit" class="btn btn-outline-primary" value="<fmt:message
+                            key="button.by"/>"/>
             </form>
             <form class="offset-md-1">
                 <input type="hidden" class="form-control ">

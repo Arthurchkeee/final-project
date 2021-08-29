@@ -16,7 +16,7 @@ public interface BookService {
 
     /**
      * @param id is a primary key of a table 'book'
-     * @return the {@Book} with {@link com.epam.project.entities.Genre}
+     * @return the {@link com.epam.project.entities.Book} with {@link com.epam.project.entities.Genre}
      */
     Book findBookById(Long id);
 
@@ -40,18 +40,22 @@ public interface BookService {
      */
     Book update(Book entity);
 
-    List<Book> findBooksByAuthor(String author);
-
-    List<Book> findAllFreeBooks();
-
-
     /**
      * @param status is a {@link com.epam.project.entities.Status}
      * @param id is a primary key from table 'book'
      */
     void updateBookStatus(Status status, Long id);
 
+
+    /**
+     * @return count of Books from table 'book'
+     */
     Long count();
 
-    List<Book> selectBooksForPages(Integer number, Integer page);
+    /**
+     * @param booksAmount counts of books on page
+     * @param pageNumber number of page to display
+     * @return {@code List<Book>} wrapped in a{@link List}
+     */
+    List<Book> selectBooksForPages(Integer booksAmount, Integer pageNumber);
 }

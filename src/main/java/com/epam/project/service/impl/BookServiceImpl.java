@@ -48,18 +48,6 @@ public final class BookServiceImpl implements BookService {
         return bookDao.update(entity);
     }
 
-
-    @Override
-    public List<Book> findBooksByAuthor(String author) {
-        return bookDao.findBooksByAuthor(author);
-    }
-
-    @Override
-    public List<Book> findAllFreeBooks() {
-        return bookDao.findBooksByStatus(Status.FREE);
-    }
-
-
     @Override
     public void updateBookStatus(Status status, Long id) {
         bookDao.updateBookStatus(status, id);
